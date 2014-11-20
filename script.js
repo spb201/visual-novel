@@ -13,8 +13,8 @@ $(function(){
       if (xval) $this.css({transform: 'translateX(' + xval + 'px) scale(' + sval + ')'});
       if (yval) $this.css({transform: 'translateY(' + yval + 'px) scale(' + sval + ')'});
       if (scrollTop == 0) {
-		  $this.css('transform', 'translateX(' + 0 + 'px)');
-          $this.css('transform', 'translateY(' + 0 + 'px)');
+      	$this.css('transform', 'translateX(' + 0 + 'px)');
+        $this.css('transform', 'translateY(' + 0 + 'px)');
       }
     });
   });
