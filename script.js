@@ -9,7 +9,7 @@ $(function(){
           yval = - scrollTop / yscrollspeed,
           xscrollspeed = parseInt($this.data('xscroll-speed')),
           xval = - scrollTop / xscrollspeed;
-          sval = (1 - scrollTop/1500)>0?(1 - scrollTop/1500):0;
+          sval = (1 - scrollTop/1500)>0?(1 - scrollTop/1250):0;
       if (xval) $this.css({transform: 'translateX(' + xval + 'px) scale(' + sval + ')'});
       if (yval) $this.css({transform: 'translateY(' + yval + 'px) scale(' + sval + ')'});
       if (scrollTop == 0) {
