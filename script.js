@@ -6,7 +6,7 @@ $(function(){
     boxes.each(function(){
       var $this = $(this),
           yscrollspeed = parseInt($this.data('yscroll-speed')),
-          yval = - scrollTop / yscrollspeed
+          yval = - scrollTop / yscrollspeed,
           xscrollspeed = parseInt($this.data('xscroll-speed')),
           xval = - scrollTop / xscrollspeed;
           sval = (1 - scrollTop/1500)>0?(1 - scrollTop/1500):0;
