@@ -1,4 +1,4 @@
-var json = {
+var quest = {
 	"text": "there's long way on the left side and a short one on the right",
 	"left": "left",
 	"right": "right",
@@ -33,7 +33,7 @@ var json = {
 			]
 		},
 		{
-			"text": "you lose",
+			"text": " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt pharetra laoreet. Etiam elementum rutrum ultricies. Aliquam non interdum justo, YOU LOSE vitae hendrerit quam. Sed fermentum lacus vel volutpat lacinia. Curabitur ornare, justo ut placerat mattis, enim nibh varius est, nec mollis ante urna quis lectus. Nunc sit amet ullamcorper nunc. Proin molestie YOU LOSE pulvinar eros sit amet egestas. Donec aliquet, magna non rhoncus pharetra, enim risus egestas massa, sit amet tincidunt dolor massa ut ex. Quisque pretium turpis non risus condimentum, YOU LOSE sed ornare quam vestibulum. Nulla faucibus aliquet augue eu facilisis. Morbi posuere aliquet nunc, at blandit sapien tincidunt ac. Cras ac sem ut lorem consequat facilisis. Mauris eget ultricies mauris. YOU LOSE Praesent semper elit turpis, vitae rutrum orci iaculis at. Lorem ipsum dolor sit amet, consectetur adipiscing elit. YOU LOSE Phasellus tincidunt pharetra laoreet. YOU LOSE",
 			"final": true
 		}
 	]
@@ -41,7 +41,7 @@ var json = {
 
 
 function contentController($scope) {
-    $scope.json = json,
+    $scope.json = quest,
     $scope.leftButton = function() {
 		$scope.json = $scope.json.ways[0];
 		if ($scope.json.final) {
@@ -58,7 +58,7 @@ function contentController($scope) {
 	},
 	$scope.restart = function() {
 		$scope.showRestartButton = false;
-		$scope.json = json;
+		$scope.json = quest;
 		$scope.hideControlButtons = false;
 	}
 }

@@ -1,3 +1,27 @@
-#content {
-	background-color: #aaaaaa;
+.container {
+	background-color: #ddd;
+	text-align: center;
+	height: 400px;
+	width: 400px;
+	position: absolute;
+	left: 50%;
+	margin-left: -200px;
+	top: 50%;
+	margin-top: -200px;
+}
+
+#text {
+	padding-top: 3px;
+	height: 330px;
+	overflow: auto;
+}
+
+.button {
+	width: 100px;
+}
+
+#buttonsBlock {
+	text-align: center;
+	position: relative;
+	top: 10 px;	
 }
