@@ -5,9 +5,10 @@
 	width: 400px;
 	position: absolute;
 	left: 50%;
-	margin-left: -200px;
 	top: 50%;
-	margin-top: -200px;
+	margin: -200px 0 0 -200px;
+
+	border: 4px double #aaa;
 }
 
 #text {
