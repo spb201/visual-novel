@@ -1,0 +1,16 @@
+{
+	"text": "this quest is really short",
+	"first": "left",
+	"second": "right",
+	"final": false,
+	"ways": [
+	{
+		"text": "you win",
+		"final": true
+	},
+	{
+		"text": "you lose",
+		"final": true
+	}
+	]
+}

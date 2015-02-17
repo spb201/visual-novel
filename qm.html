@@ -3,14 +3,18 @@
 
 <head>
 	<link rel="stylesheet" type="text/css" href="qmStyle.css">
+	
 	<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
 	<script src="qmController.js"></script>
-	<title>v0.0.0.0.0.0.2</title>
+	<title>v0.0.0.0.0.0.3</title>
 </head>
 
 <div ng-app="ngApp" ng-controller="contentController">
 	<div class="container">
-		<p id="title" ng-hide="hideStart">{{ json.title }}</p>
+		<p id="title" ng-hide="hideStart">
+			SUPER QUEST VIEWER<br/>
+			<span ng-show="startError"><strong>SOMETHING WENT WRONG</strong><br/></span>
+		</p>
 		<p id="text" ng-show="showText">{{ json.text }}</p>
 		<div id = "buttonsBlock">
 				<div class="controlButtons" ng-show="showControlButtons">
@@ -20,7 +24,15 @@
 					<button type="button" ng-click="buttonClick(3)" class="button" ng-hide="hideFourthButton">{{ json.fourth }}</button>
 				</div>
 				<button type="button" ng-click="restart()" ng-show="showRestartButton" class="button">restart</button>
-				<button type="button" ng-click="start()" ng-hide="hideStart" class="button">start game</button>
+				<div ng-hide="hideStart">
+					<p>
+						Type your quest in JSON: <input ng-model="str_quest" type="text" name="Quest"><br/>
+						<button type="button" ng-click="custom(str)" class="button">GO!</button>
+					</p>
+					Or try default quests:
+					<button type="button" ng-click="start(0)" class="button">short quest</button>
+					<button type="button" ng-click="start(1)" class="button">long quest</button>
+				</div>
 		</div>
 	</div>
 </div>

@@ -1,107 +1,61 @@
-var quest = {
-	"title": "SUPER QUEST",
-	"text": "there's long way on the left side and a short one on the right",
-	"first": "left",
-	"second": "right",
-	"final": false,
-	"ways": [
-		{
-			"text": "there's worst way on the left and best one on the right",
-			"first": "worst",
-			"second": "best",
-			"final": false,
-			"ways": [
-				{
-					"text": "you lose, I have no idea why you should chose something",
-					"final": false,
-					"first": "time",
-					"second": "year",
-					"third": "people",
-					"fourth": "way",
-					"ways": [
-						{
-							"text": "you lose",
-							"final": "true"
-						},
-						{
-							"text": "you lose",
-							"final": "true"
-						},
-						{
-							"text": "you lose",
-							"final": "true"						
-						},
-						{
-							"text": "you lose",
-							"final": "true"		
-						}
-					]
-				},
-				{
-					"text": "you're on the right way",
-					"first": "right",
-					"second": "wait",
-					"third": "left",
-					"final": false,
-					"ways": [
-						{
-							"text": "you win",
-							"final": true
-						},
-						{
-							"text": "you have to think faster, loser",
-							"final": true
-						},
-						{
-							"text": "you lose",
-							"final": true
-						}
-					]
-				}
-			]
-		},
-		{
-			"text": "you lose",
-			"final": true
-		}
-	]
-}
-
+var quest = {}
 
 function hideSomeButtons($scope) {
 	$scope.hideSecondButton = false;
-	$scope.hideThirdButton = false;	
+	$scope.hideThirdButton = true;
 	$scope.hideFourthButton = true;
 	if ($scope.json.ways.length == 1) {
 		$scope.hideSecondButton = true;
-		$scope.hideThirdButton = true;
 	}
-	if ($scope.json.ways.length == 2) {
-		$scope.hideThirdButton = true;			
+	if ($scope.json.ways.length == 3) {
+		$scope.hideThirdButton = false;			
 	}
 	if ($scope.json.ways.length == 4) {
+		$scope.hideThirdButton = false;			
 		$scope.hideFourthButton = false;			
 	}
 }
 
+function downloadQuest($scope, $http, currentQuest, url) {
+	$http.get(url).
+				success(function(data, status, headers, config) {
+					$scope.json = data;
+					currentQuest = $scope.json;
+				}).
+				error(function(data, status, headers, config) {
+					$scope.startError = true;
+				});
+}
+
+var currentQuest;
+
 angular.module("ngApp", [])
-.controller("contentController", function($scope) {
-    $scope.json = quest,
+.controller("contentController", function($scope, $http) {
+	$scope.str_quest = '{"text":"this quest is really short","first": "left","second": "right","final": false,"ways":[{"text":"you win","final":true},{"text": "you lose","final": true}]}';
 	$scope.buttonClick = function(i) {
 		$scope.json = $scope.json.ways[i];
 		if ($scope.json.final) {
 			$scope.showControlButtons = false;
 			$scope.showRestartButton = true;
 		}
-		hideSomeButtons($scope);
-	},
+	};
 	$scope.restart = function() {
 		$scope.showRestartButton = false;
-		$scope.json = quest;
-		$scope.showControlButtons = true;
+		$scope.json = currentQuest;
+		$scope.hideStart = false;
+		$scope.showText = false;
 		hideSomeButtons($scope);
-	},
-	$scope.start = function() {
+	};
+	$scope.start = function(i) {
+		downloadQuest($scope, $http, currentQuest, "http://grdesu.github.io/quest" + i.toString() + ".json");
+		$scope.hideStart = true;
+		$scope.showControlButtons = true;
+		$scope.showText = true;
+		hideSomeButtons($scope);
+	};
+	$scope.custom = function() {
+		//downloadQuest($scope, $http, currentQuest, $scope.q_url);
+		$scope.json = angular.fromJson($scope.str_quest);
 		$scope.hideStart = true;
 		$scope.showControlButtons = true;
 		$scope.showText = true;

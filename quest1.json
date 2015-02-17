@@ -1,0 +1,67 @@
+{
+	"text": "there's long way on the left side and a short one on the right",
+	"first": "left",
+	"second": "right",
+	"final": false,
+	"ways": [
+		{
+			"text": "there's worst way on the left and best one on the right",
+			"first": "worst",
+			"second": "best",
+			"final": false,
+			"ways": [
+				{
+					"text": "you lose, I have no idea why you should chose something",
+					"final": false,
+					"first": "time",
+					"second": "year",
+					"third": "people",
+					"fourth": "way",
+					"ways": [
+						{
+							"text": "you lose",
+							"final": true
+						},
+						{
+							"text": "you lose",
+							"final": true
+						},
+						{
+							"text": "you lose",
+							"final": true			
+						},
+						{
+							"text": "you lose",
+							"final": true"	
+						}
+					]
+				},
+				{
+					"text": "you're on the right way",
+					"first": "right",
+					"second": "wait",
+					"third": "left",
+					"final": false,
+					"ways": [
+						{
+							"text": "you win",
+							"final": true
+						},
+						{
+							"text": "you have to think faster, loser",
+							"final": true
+						},
+						{
+							"text": "you lose",
+							"final": true
+						}
+					]
+				}
+			]
+		},
+		{
+			"text": "you lose",
+			"final": true
+		}
+	]
+}
