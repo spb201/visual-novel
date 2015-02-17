@@ -31,7 +31,7 @@ var currentQuest;
 
 angular.module("ngApp", [])
 .controller("contentController", function($scope, $http) {
-	$scope.str_quest = '{"text":"this quest is really short","first": "left","second": "right","final": false,"ways":[{"text":"you win","final":true},{"text": "you lose","final": true}]}';
+	$scope.str_quest = '{"text":"this is example quest","first":"first","second":"second","final":false,"ways":[{"text":"you win","final":true},{"text":"you lose","final":true}]}';
 	$scope.buttonClick = function(i) {
 		$scope.json = $scope.json.ways[i];
 		if ($scope.json.final) {
