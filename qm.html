@@ -6,7 +6,7 @@
 	
 	<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
 	<script src="qmController.js"></script>
-	<title>v0.0.0.0.0.0.3</title>
+	<title>v0.0.0.0.0.0.3-1</title>
 </head>
 
 <div ng-app="ngApp" ng-controller="contentController">
@@ -26,8 +26,8 @@
 				<button type="button" ng-click="restart()" ng-show="showRestartButton" class="button">restart</button>
 				<div ng-hide="hideStart">
 					<p>
-						Type your quest in JSON: <input ng-model="str_quest" type="text" name="Quest"><br/>
-						<button type="button" ng-click="custom(str)" class="button">GO!</button>
+						Type your quest in JSON: <input ng-model="str_quest" type="text" name="Quest">
+						<button type="button" ng-click="custom(str)" style="width: 34px; padding-left: 0;">run</button>
 					</p>
 					Or try default quests:
 					<button type="button" ng-click="start(0)" class="button">short quest</button>
