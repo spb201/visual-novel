@@ -7,6 +7,10 @@ function downloadQuest($scope, $http, currentQuest, url) {
 					$scope.json = data;
 					currentQuest = $scope.json;
 					$scope.chooseButtons();
+					$scope.hideStart = true;
+					$scope.showControlButtons = true;
+					$scope.showText = true;
+					//showControlButtons($scope);
 				}).
 				error(function(data, status, headers, config) {
 					$scope.startError = true;
@@ -55,10 +59,6 @@ angular.module("ngApp", [])
 	};
 	$scope.start = function(i) {
 		downloadQuest($scope, $http, currentQuest, "/quest" + i.toString() + ".json");
-		$scope.hideStart = true;
-		$scope.showControlButtons = true;
-		$scope.showText = true;
-		showControlButtons($scope);
 	};
 	$scope.custom = function() {
 		$scope.json = angular.fromJson($scope.str_quest);
