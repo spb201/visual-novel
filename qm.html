@@ -9,11 +9,21 @@
 	<title>v0.0.0.0.0.0.3-1</title>
 </head>
 
-<div ng-app="ngApp" ng-controller="contentController">
+<div ng-app="ngApp" ng-controller="creatorController">
 	<div class="container">
 		<p id="title" ng-hide="hideStart">
 			SUPER QUEST MAKER<br/>
-			<strong>not implemented yet</strong>
+			<strong>not implemented yet</strong><br/>
+			<br/>
+			TEXT:
+			<input ng-model="user_text" type="text"><br/>
+			LOSE BUTTON:
+			<input ng-model="user_first" type="text"><br/>
+			WIN BUTTON:
+			<input ng-model="user_second" type="text"><br/><br/>
+			RESULT:
+			<input onClick="this.select();" ng-model="result" readonly>
+			<button type="button" ng-click="generate()">generate</button> <br/><br/>
 		</p>
 		</div>
 	</div>
