@@ -1,16 +1,26 @@
 var quest = {}
 
+function isLocalStorageAvailable() {
+  try {
+    return 'localStorage' in window && window['localStorage'] !== null;
+  } catch (e) {
+    return false;
+  }
+}
+
+function startGame($scope) {
+	$scope.chooseButtons();
+	$scope.hideStart = true;
+	$scope.showControlButtons = true;
+	$scope.showText = true;
+}
 
 function downloadQuest($scope, $http, currentQuest, url) {
 	$http.get(url).
 				success(function(data, status, headers, config) {
 					$scope.json = data;
 					currentQuest = $scope.json;
-					$scope.chooseButtons();
-					$scope.hideStart = true;
-					$scope.showControlButtons = true;
-					$scope.showText = true;
-					//showControlButtons($scope);
+					startGame($scope);
 				}).
 				error(function(data, status, headers, config) {
 					$scope.startError = true;
@@ -40,7 +50,16 @@ angular.module("ngApp", [])
 			}
 		}
 	};
-	//$scope.chooseButtons();
+	$scope.loadLastGenerated = function() {
+			if (isLocalStorageAvailable()) {
+				if (sessionStorage.getItem('quest') != undefined) {
+					$scope.json = angular.fromJson(sessionStorage.getItem('quest'));
+					startGame($scope);
+				}
+				else
+					$scope.lastGenError = true;
+			}
+	}
 	$scope.str_quest = '{"text":"this is example quest","first":"first","second":"second","third":"third","final":false,"ways":[{"text":"you win","final":true},{"text":"you lose","final":true},{"text":"you lose","final":true}]}';
 	$scope.buttonClick = function(i) {
 		if (i != null) {

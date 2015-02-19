@@ -27,10 +27,15 @@
 				<div ng-hide="hideStart">
 					<p>
 						<a href="/qm.html">Make your own quest</a><br/>
-						Type your quest in JSON: <input ng-model="str_quest" type="text" name="Quest" onClick="this.select();">
+						Type your quest in JSON <input ng-model="str_quest" type="text" name="Quest" onClick="this.select();">
 						<button type="button" ng-click="custom(str)" style="width: 34px; padding-left: 0;">run</button>
 					</p>
-					Or try default quests:
+						<span ng-hide="lastGenError">Run last generated quest</span><span ng-show="lastGenError">Something went wrong</span>
+						<button type="button" ng-click="loadLastGenerated()">run</button>
+						
+					<p>
+					</p>
+					Try default quests
 					<button type="button" ng-click="start(0)" class="button">short quest</button>
 					<button type="button" ng-click="start(1)" class="button">long quest</button>
 				</div>

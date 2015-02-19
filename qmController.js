@@ -1,3 +1,11 @@
+function isLocalStorageAvailable() {
+  try {
+    return 'localStorage' in window && window['localStorage'] !== null;
+  } catch (e) {
+    return false;
+  }
+}
+
 angular.module("ngApp", [])
 .controller("creatorController", function($scope, $http) {
 	$scope.generate = function() {
@@ -9,5 +17,8 @@ angular.module("ngApp", [])
 			+	'"final":false'
 			+	"}"
 		;
+		if (isLocalStorageAvailable()) {
+			sessionStorage.setItem('quest', $scope.result);	
+		}
 	}
 });
