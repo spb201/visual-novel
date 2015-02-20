@@ -40,7 +40,7 @@
 				<h4>Make your own quest <a href="/qm.html">there</a></h4>
 			</div>
 			<h2><div id="text" ng-show="showText" class="pagination-centered">{{ json.text }}</div></h2><!--Quest body-->
-			<div class="controlButtons btn-group" ng-show="showControlButtons">
+			<div ng-show="showControlButtons">
 				<a href="#" class="btn btn-default" ng-click="buttonClick(0)">{{ json.first }}</a>
 				<a href="#" class="btn btn-default" ng-click="buttonClick(1)" ng-hide="hideSecondButton">{{ json.second }}</a>
 				<a href="#" class="btn btn-default" ng-click="buttonClick(2)" ng-hide="hideThirdButton">{{ json.third }}</a>
