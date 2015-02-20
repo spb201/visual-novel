@@ -60,7 +60,7 @@ angular.module("ngApp", [])
 					$scope.lastGenError = true;
 			}
 	}
-	$scope.str_quest = '{"text":"this is example quest","first":"first","second":"second","third":"third","final":false,"ways":[{"text":"you win","final":true},{"text":"you lose","final":true},{"text":"you lose","final":true}]}';
+	//$scope.str_quest = '{"text":"this is example quest","first":"first","second":"second","third":"third","final":false,"ways":[{"text":"you win","final":true},{"text":"you lose","final":true},{"text":"you lose","final":true}]}';
 	$scope.buttonClick = function(i) {
 		if (i != null) {
 			$scope.json = $scope.json.ways[i];

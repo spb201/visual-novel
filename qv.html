@@ -1,48 +1,52 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-	<link rel="stylesheet" type="text/css" href="qmStyle.css">
-	
-	<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
-	<script src="qvController.js"></script>
-	<title>v0.0.0.0.0.0.3-1</title>
-</head>
-
-<div ng-app="ngApp" ng-controller="contentController">
-	<div class="container">
-		<p id="title" ng-hide="hideStart">
-			SUPER QUEST VIEWER<br/>
-			<span ng-show="startError"><strong>SOMETHING WENT WRONG</strong><br/></span>
-		</p>
-		<p id="text" ng-show="showText">{{ json.text }}</p>
-		<div id = "buttonsBlock">
-				<div class="controlButtons" ng-show="showControlButtons">
-					<button type="button" ng-click="buttonClick(0)" class="button">{{ json.first }}</button>
-					<button type="button" ng-click="buttonClick(1)" class="button" ng-hide="hideSecondButton">{{ json.second }}</button>
-					<button type="button" ng-click="buttonClick(2)" class="button" ng-hide="hideThirdButton">{{ json.third }}</button>
-					<button type="button" ng-click="buttonClick(3)" class="button" ng-hide="hideFourthButton">{{ json.fourth }}</button>
-				</div>
-				<button type="button" ng-click="restart()" ng-show="showRestartButton" class="button">restart</button>
-				<div ng-hide="hideStart">
-					<p>
-						<a href="/qm.html">Make your own quest</a><br/>
-						Type your quest in JSON <input ng-model="str_quest" type="text" name="Quest" onClick="this.select();">
-						<button type="button" ng-click="custom(str)" style="width: 34px; padding-left: 0;">run</button>
-					</p>
-						<span ng-hide="lastGenError">Run last generated quest</span><span ng-show="lastGenError">Something went wrong</span>
-						<button type="button" ng-click="loadLastGenerated()">run</button>
+	<head>
+		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+		<script src="qvController.js"></script>
+		<title>v0.0.0.0.0.0.4</title>
+	</head>
+	<body>
+		<div ng-app="ngApp" ng-controller="contentController" class="container text-center">
+			<div ng-hide="hideStart">
+				<h1>SUPER QUEST VIEWER</h1>
+				<h4><span ng-show="startError">SOMETHING WENT WRONG</span>
+				<input ng-model="str_quest" type="text" name="Quest" onClick="this.select();" placeholder="Type your quest in JSON"></h4>
+				<div>
+					<div class="btn-group">
+						<div class="btn-group" role="group">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+								Custom quests <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#" ng-click="custom(str)">run typed quest</a></li>
+								<li><a href="#" ng-click="loadLastGenerated()">run last generated quest</a></li>
+							</ul>
+						</div>
 						
-					<p>
-					</p>
-					Try default quests
-					<button type="button" ng-click="start(0)" class="button">short quest</button>
-					<button type="button" ng-click="start(1)" class="button">long quest</button>
+						<div class="btn-group" role="group">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+								Default quests <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#" ng-click="start(0)">short quest</a></li>
+								<li><a href="#" ng-click="start(1)">long quest</a></li>
+							</ul>
+						</div>
+					</div>
 				</div>
+				<h4>Make your own quest <a href="/qm.html">there</a></h4>
+			</div>
+			<h2><div id="text" ng-show="showText" class="pagination-centered">{{ json.text }}</div></h2><!--Quest body-->
+			<div class="controlButtons btn-group" ng-show="showControlButtons">
+				<a href="#" class="btn btn-default" ng-click="buttonClick(0)">{{ json.first }}</a>
+				<a href="#" class="btn btn-default" ng-click="buttonClick(1)" ng-hide="hideSecondButton">{{ json.second }}</a>
+				<a href="#" class="btn btn-default" ng-click="buttonClick(2)" ng-hide="hideThirdButton">{{ json.third }}</a>
+				<a href="#" class="btn btn-default" ng-click="buttonClick(3)" ng-hide="hideFourthButton">{{ json.fourth }}</a>
+			</div>
+			<a href="#" class="btn btn-default" ng-click="restart()" ng-show="showRestartButton">restart</a>
 		</div>
-	</div>
-</div>
-
-
-</body>
+	</body>
 </html>
