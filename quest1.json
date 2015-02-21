@@ -1,10 +1,12 @@
 {
+	"quest_id": "1",
 	"title": "test quest",
 	"nodes": [
 		{
 			"id": 0,
 			"text": "there's long way on the left side and a short one on the right",
 			"ways": ["long", "short"],
+			"image": true,
 			"ways_ids": [3, 1]
 		},
 		{
@@ -21,6 +23,7 @@
 			"id": 3,
 			"text": "there's worst way on the left and best one on the right",
 			"ways": ["worst", "best"],
+			"image": true,
 			"ways_ids": [4, 5]
 		},
 		{
@@ -33,6 +36,7 @@
 			"id": 5,
 			"text": "you're on the right way",
 			"ways": ["right", "wait", "left"],
+			"image": true,
 			"ways_ids": [2, 1, 1]
 		}
 	]

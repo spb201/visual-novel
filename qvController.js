@@ -1,22 +1,3 @@
-var quest = {
-	"title": "short quest",
-	"nodes": [
-		{
-			"text": "this quest is really short",
-			"ways_ids": [1, 2],
-			"ways": ["left", "right"]
-		},
-		{
-			"text": "you win",
-			"final": true
-		},
-		{
-			"text": "you lose",
-			"final": true
-		}
-	]
-}
-
 function isLocalStorageAvailable() {
   try {
     return 'localStorage' in window && window['localStorage'] !== null;
@@ -30,6 +11,13 @@ function startGame($scope) {
 	$scope.hideStart = true;
 	$scope.showControlButtons = true;
 	$scope.showText = true;
+	checkImage($scope);
+}
+
+function checkImage($scope) {
+	if ($scope.node.image) {
+		$scope.imagesrc = "/quest" + quest.quest_id + "/" + $scope.node.id + ".png";
+	}
 }
 
 function downloadQuest($scope, $http, currentQuest, url) {
@@ -37,7 +25,6 @@ function downloadQuest($scope, $http, currentQuest, url) {
 				success(function(data, status, headers, config) {
 					quest = data;
 					$scope.node = quest.nodes[0];
-					//currentQuest = $scope.json;
 					startGame($scope);
 				}).
 				error(function(data, status, headers, config) {
@@ -45,26 +32,25 @@ function downloadQuest($scope, $http, currentQuest, url) {
 				});
 }
 
-var currentQuest;
-
 angular.module("ngApp", [])
 .controller("contentController", function($scope, $http) {
+	$scope.hideButtons = [false, false, false, false];
 	$scope.chooseButtons = function() {
 		if (!$scope.node.final) {
-			$scope.hideSecondButton = false;
-			$scope.hideThirdButton = true;
-			$scope.hideFourthButton = true;
+			$scope.hideButtons[0] = false;
+			$scope.hideButtons[2] = true;
+			$scope.hideButtons[3] = true;
 			if ($scope.node.ways.length == 1) {
-				$scope.hideSecondButton = true;
-				$scope.hideThirdButton = true;
-				$scope.hideFourthButton = true;
+				$scope.hideButtons[1] = true;
+				$scope.hideButtons[2] = true;
+				$scope.hideButtons[3] = true;
 			}
 			if ($scope.node.ways.length == 3) {
-				$scope.hideThirdButton = false;
+				$scope.hideButtons[2] = false;
 			}
 			if ($scope.node.ways.length == 4) {
-				$scope.hideThirdButton = false;
-				$scope.hideFourthButton = false;
+				$scope.hideButtons[2] = false;
+				$scope.hideButtons[3] = false;
 			}
 		}
 	};
@@ -79,7 +65,6 @@ angular.module("ngApp", [])
 					$scope.lastGenError = true;
 			}
 	}
-	//$scope.str_quest = '{"text":"this is example quest","first":"first","second":"second","third":"third","final":false,"ways":[{"text":"you win","final":true},{"text":"you lose","final":true},{"text":"you lose","final":true}]}';
 	$scope.buttonClick = function(i) {
 		if (i != null) {
 			$scope.node = quest.nodes[$scope.node.ways_ids[i]];
@@ -88,6 +73,7 @@ angular.module("ngApp", [])
 				$scope.showControlButtons = false;
 				$scope.showRestartButton = true;
 			}
+			checkImage($scope);
 		}
 	};
 	$scope.restart = function() {
@@ -105,5 +91,6 @@ angular.module("ngApp", [])
 		$scope.showControlButtons = true;
 		$scope.showText = true;
 		$scope.chooseButtons();
+		checkImage($scope);
 	}
 });
