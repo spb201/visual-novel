@@ -20,7 +20,7 @@ function checkImage($scope) {
 	}
 }
 
-function downloadQuest($scope, $http, currentQuest, url) {
+function downloadQuest($scope, $http, url) {
 	$http.get(url).
 				success(function(data, status, headers, config) {
 					quest = data;
@@ -82,7 +82,7 @@ angular.module("ngApp", [])
 		$scope.showText = false;
 	};
 	$scope.start = function(i) {
-		downloadQuest($scope, $http, currentQuest, "/quest" + i.toString() + ".json");
+		downloadQuest($scope, $http, "/quest" + i.toString() + ".json");
 	};
 	$scope.custom = function() {
 		quest = angular.fromJson($scope.str_quest);
