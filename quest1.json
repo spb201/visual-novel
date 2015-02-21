@@ -1,67 +1,39 @@
 {
-	"text": "there's long way on the left side and a short one on the right",
-	"first": "left",
-	"second": "right",
-	"final": false,
-	"ways": [
+	"title": "test quest",
+	"nodes": [
 		{
-			"text": "there's worst way on the left and best one on the right",
-			"first": "worst",
-			"second": "best",
-			"final": false,
-			"ways": [
-				{
-					"text": "you lose, I have no idea why you should chose something",
-					"final": false,
-					"first": "time",
-					"second": "year",
-					"third": "people",
-					"fourth": "way",
-					"ways": [
-						{
-							"text": "you lose",
-							"final": true
-						},
-						{
-							"text": "you lose",
-							"final": true
-						},
-						{
-							"text": "you lose",
-							"final": true			
-						},
-						{
-							"text": "you lose",
-							"final": true	
-						}
-					]
-				},
-				{
-					"text": "you're on the right way",
-					"first": "right",
-					"second": "wait",
-					"third": "left",
-					"final": false,
-					"ways": [
-						{
-							"text": "you win",
-							"final": true
-						},
-						{
-							"text": "you have to think faster, loser",
-							"final": true
-						},
-						{
-							"text": "you lose",
-							"final": true
-						}
-					]
-				}
-			]
+			"id": 0,
+			"text": "there's long way on the left side and a short one on the right",
+			"ways": ["long", "short"],
+			"ways_ids": [3, 1]
 		},
 		{
+			"id": 1,
 			"text": "you lose",
 			"final": true
+		},
+		{
+			"id": 2,
+			"text": "you win",
+			"final": true
+		},
+		{
+			"id": 3,
+			"text": "there's worst way on the left and best one on the right",
+			"ways": ["worst", "best"],
+			"ways_ids": [4, 5]
+		},
+		{
+			"id": 4,
+			"text": "you lose, I have no idea why you should chose something",
+			"ways": ["time", "year", "people", "way"],
+			"ways_ids": [1, 1, 1, 1]
+		},
+		{
+			"id": 5,
+			"text": "you're on the right way",
+			"ways": ["right", "wait", "left"],
+			"ways_ids": [2, 1, 1]
 		}
 	]
 }

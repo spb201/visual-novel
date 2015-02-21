@@ -39,12 +39,12 @@
 				</div>
 				<h4>Make your own quest <a href="/qm.html">there</a></h4>
 			</div>
-			<h2><div id="text" ng-show="showText" class="pagination-centered">{{ json.text }}</div></h2><!--Quest body-->
+			<h2 ng-show="showText" class="pagination-centered" ng-bind="node.text"></h2>
 			<div ng-show="showControlButtons">
-				<a href="#" class="btn btn-default" ng-click="buttonClick(0)">{{ json.first }}</a>
-				<a href="#" class="btn btn-default" ng-click="buttonClick(1)" ng-hide="hideSecondButton">{{ json.second }}</a>
-				<a href="#" class="btn btn-default" ng-click="buttonClick(2)" ng-hide="hideThirdButton">{{ json.third }}</a>
-				<a href="#" class="btn btn-default" ng-click="buttonClick(3)" ng-hide="hideFourthButton">{{ json.fourth }}</a>
+				<a href="#" class="btn btn-default" ng-click="buttonClick(0)"  ng-bind="node.ways[0]"></a>
+				<a href="#" class="btn btn-default" ng-click="buttonClick(1)" ng-hide="hideSecondButton" ng-bind="node.ways[1]"></a>
+				<a href="#" class="btn btn-default" ng-click="buttonClick(2)" ng-hide="hideThirdButton" ng-bind="node.ways[2]"></a>
+				<a href="#" class="btn btn-default" ng-click="buttonClick(3)" ng-hide="hideFourthButton" ng-bind="node.ways[3]"></a>
 			</div>
 			<a href="#" class="btn btn-default" ng-click="restart()" ng-show="showRestartButton">restart</a>
 		</div>

@@ -1,4 +1,21 @@
-var quest = {}
+var quest = {
+	"title": "short quest",
+	"nodes": [
+		{
+			"text": "this quest is really short",
+			"ways_ids": [1, 2],
+			"ways": ["left", "right"]
+		},
+		{
+			"text": "you win",
+			"final": true
+		},
+		{
+			"text": "you lose",
+			"final": true
+		}
+	]
+}
 
 function isLocalStorageAvailable() {
   try {
@@ -32,19 +49,19 @@ var currentQuest;
 angular.module("ngApp", [])
 .controller("contentController", function($scope, $http) {
 	$scope.chooseButtons = function() {
-		if (!$scope.json.final) {
+		if (!$scope.node.final) {
 			$scope.hideSecondButton = false;
 			$scope.hideThirdButton = true;
 			$scope.hideFourthButton = true;
-			if ($scope.json.ways.length == 1) {
+			if ($scope.node.ways.length == 1) {
 				$scope.hideSecondButton = true;
 				$scope.hideThirdButton = true;
 				$scope.hideFourthButton = true;
 			}
-			if ($scope.json.ways.length == 3) {
+			if ($scope.node.ways.length == 3) {
 				$scope.hideThirdButton = false;
 			}
-			if ($scope.json.ways.length == 4) {
+			if ($scope.node.ways.length == 4) {
 				$scope.hideThirdButton = false;
 				$scope.hideFourthButton = false;
 			}
@@ -53,7 +70,8 @@ angular.module("ngApp", [])
 	$scope.loadLastGenerated = function() {
 			if (isLocalStorageAvailable()) {
 				if (sessionStorage.getItem('quest') != undefined) {
-					$scope.json = angular.fromJson(sessionStorage.getItem('quest'));
+					quest = angular.fromJson(sessionStorage.getItem('quest'));
+					$scope.node = quest.nodes[0];
 					startGame($scope);
 				}
 				else
@@ -63,9 +81,9 @@ angular.module("ngApp", [])
 	//$scope.str_quest = '{"text":"this is example quest","first":"first","second":"second","third":"third","final":false,"ways":[{"text":"you win","final":true},{"text":"you lose","final":true},{"text":"you lose","final":true}]}';
 	$scope.buttonClick = function(i) {
 		if (i != null) {
-			$scope.json = $scope.json.ways[i];
+			$scope.node = quest.nodes[$scope.node.ways_ids[i]];
 			$scope.chooseButtons();
-			if ($scope.json.final) {
+			if ($scope.node.final) {
 				$scope.showControlButtons = false;
 				$scope.showRestartButton = true;
 			}
@@ -80,7 +98,8 @@ angular.module("ngApp", [])
 		downloadQuest($scope, $http, currentQuest, "/quest" + i.toString() + ".json");
 	};
 	$scope.custom = function() {
-		$scope.json = angular.fromJson($scope.str_quest);
+		quest = angular.fromJson($scope.str_quest);
+		$scope.node = quest.nodes[0];
 		$scope.hideStart = true;
 		$scope.showControlButtons = true;
 		$scope.showText = true;
