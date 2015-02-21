@@ -35,8 +35,9 @@ function startGame($scope) {
 function downloadQuest($scope, $http, currentQuest, url) {
 	$http.get(url).
 				success(function(data, status, headers, config) {
-					$scope.json = data;
-					currentQuest = $scope.json;
+					quest = data;
+					$scope.node = quest.nodes[0];
+					//currentQuest = $scope.json;
 					startGame($scope);
 				}).
 				error(function(data, status, headers, config) {
