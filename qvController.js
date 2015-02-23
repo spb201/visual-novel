@@ -36,23 +36,9 @@ angular.module("ngApp", [])
 .controller("contentController", function($scope, $http) {
 	$scope.hideButtons = [false, false, false, false];
 	$scope.chooseButtons = function() {
-		if (!$scope.node.final) {
-			$scope.hideButtons[0] = false;
-			$scope.hideButtons[2] = true;
-			$scope.hideButtons[3] = true;
-			if ($scope.node.ways.length == 1) {
-				$scope.hideButtons[1] = true;
-				$scope.hideButtons[2] = true;
-				$scope.hideButtons[3] = true;
-			}
-			if ($scope.node.ways.length == 3) {
-				$scope.hideButtons[2] = false;
-			}
-			if ($scope.node.ways.length == 4) {
-				$scope.hideButtons[2] = false;
-				$scope.hideButtons[3] = false;
-			}
-		}
+		if (!$scope.node.final)
+			for (i = 0; i < 4; ++i)
+				$scope.hideButtons[i] = ($scope.node.ways_ids[i] === undefined || $scope.node.ways_ids[i] === null);
 	};
 	$scope.loadLastGenerated = function() {
 			if (isLocalStorageAvailable()) {
