@@ -12,12 +12,6 @@
 		<div ng-app="ngApp" ng-controller="creatorController" class="container text-center">
 			<h1>SUPER QUEST MAKER</h1>
 				<h3>Current node id: {{ selectedNodeId }}</h3>
-				
-				<!--<div>
-					<input ng-model="selectedNodeId" type="number" min="0" max="quest.nodes.length" placeholder="Input id of node u want to see">
-					<a href="#" class="btn btn-default" ng-click="selectNode()">Go to node with this id</a>
-				</div>-->
-				
 				<h4><textarea ng-model="user_text" placeholder="Text"></textarea>
 				<h4>
 					<input ng-model="buttons[0]" type="text" placeholder="First button">
@@ -36,11 +30,15 @@
 					<input ng-model="buttons_dest[3]" type="number" min="0" placeholder="Fourth button destination">
 				</h4>
 				<h4><input ng-model="isNodeFinal" type="checkbox">Final node</h4>
-			
-			<!--<div><a href="#" class="btn btn-default" ng-click="save()">Save this node</a></div>-->
-			<div><a href="#" class="btn btn-default" ng-click="add()">Add this node</a></div>
-			<a href="#" class="btn btn-default btn-large" ng-click="generate()">Generate quest</a> 
-			<h4><input onClick="this.select();" ng-model="result" readonly placeholder="Result"></h4>
+			<div>
+				<a href="#" class="btn btn-default" ng-click="add()">Add this node</a>
+			</div>
+			<a href="#" class="btn btn-default btn-large" ng-click="generate()">Generate quest</a>
+			<div>
+				<input ng-model="fileName" type="text" placeholder="Download as">
+				<a href="#" class="btn btn-default btn-large" ng-click="save()">Download quest</a>
+			</div>
+			<input onClick="this.select();" ng-model="result" readonly placeholder="Result">
 			<h4>Try your quest <a href="/qv.html">there</a></hr>
 		</div>
 	</body>

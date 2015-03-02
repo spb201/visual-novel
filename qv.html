@@ -25,7 +25,6 @@
 								<li><a href="#" ng-click="loadLastGenerated()">run last generated quest</a></li>
 							</ul>
 						</div>
-						
 						<div class="btn-group" role="group">
 							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 								Default quests <span class="caret"></span>
@@ -38,6 +37,7 @@
 					</div>
 				</div>
 				<h4>Make your own quest <a href="/qm.html">there</a></h4>
+				<h4><input type="file" on-read-file="showContent($fileContent)" style="margin-left: 40%;"></h4>
 			</div>
 			<h2 ng-show="showText" class="pagination-centered" ng-bind="node.text"></h2>
 			<div ng-show="showControlButtons">

@@ -33,50 +33,71 @@ function downloadQuest($scope, $http, url) {
 }
 
 angular.module("ngApp", [])
-.controller("contentController", function($scope, $http) {
-	$scope.hideButtons = [false, false, false, false];
-	$scope.chooseButtons = function() {
-		if (!$scope.node.final)
-			for (i = 0; i < 4; ++i)
-				$scope.hideButtons[i] = ($scope.node.ways_ids[i] === undefined || $scope.node.ways_ids[i] === null);
-	};
-	$scope.loadLastGenerated = function() {
-			if (isLocalStorageAvailable()) {
-				if (sessionStorage.getItem('quest') != undefined) {
-					quest = angular.fromJson(sessionStorage.getItem('quest'));
-					$scope.node = quest.nodes[0];
-					startGame($scope);
+	.controller("contentController", function($scope, $http) {
+		$scope.hideButtons = [false, false, false, false];
+		$scope.chooseButtons = function() {
+			if (!$scope.node.final)
+				for (i = 0; i < 4; ++i)
+					$scope.hideButtons[i] = ($scope.node.ways_ids[i] === undefined || $scope.node.ways_ids[i] === null);
+		};
+		$scope.loadLastGenerated = function() {
+				if (isLocalStorageAvailable()) {
+					if (sessionStorage.getItem('quest') != undefined) {
+						quest = angular.fromJson(sessionStorage.getItem('quest'));
+						$scope.node = quest.nodes[0];
+						startGame($scope);
+					}
+					else
+						$scope.lastGenError = true;
 				}
-				else
-					$scope.lastGenError = true;
-			}
-	}
-	$scope.buttonClick = function(i) {
-		if (i != null) {
-			$scope.node = quest.nodes[$scope.node.ways_ids[i]];
-			$scope.chooseButtons();
-			if ($scope.node.final) {
-				$scope.showControlButtons = false;
-				$scope.showRestartButton = true;
-			}
-			checkImage($scope);
 		}
-	};
-	$scope.restart = function() {
-		$scope.showRestartButton = false;
-		$scope.hideStart = false;
-		$scope.showText = false;
-	};
-	$scope.start = function(i) {
-		downloadQuest($scope, $http, "/quest" + i.toString() + ".json");
-	};
-	$scope.custom = function() {
-		quest = angular.fromJson($scope.str_quest);
-		$scope.node = quest.nodes[0];
-		$scope.hideStart = true;
-		$scope.showControlButtons = true;
-		$scope.showText = true;
-		$scope.chooseButtons();
-		checkImage($scope);
-	}
-});
+		$scope.buttonClick = function(i) {
+			if (i != null) {
+				$scope.node = quest.nodes[$scope.node.ways_ids[i]];
+				$scope.chooseButtons();
+				if ($scope.node.final) {
+					$scope.showControlButtons = false;
+					$scope.showRestartButton = true;
+				}
+				checkImage($scope);
+			}
+		};
+		$scope.restart = function() {
+			$scope.showRestartButton = false;
+			$scope.hideStart = false;
+			$scope.showText = false;
+		};
+		$scope.start = function(i) {
+			downloadQuest($scope, $http, "/quest" + i.toString() + ".json");
+		};
+		$scope.custom = function() {
+			quest = angular.fromJson($scope.str_quest);
+			$scope.node = quest.nodes[0];
+			$scope.hideStart = true;
+			$scope.showControlButtons = true;
+			$scope.showText = true;
+			$scope.chooseButtons();
+			checkImage($scope);
+		};
+		$scope.showContent = function($fileContent){
+			$scope.str_quest = $fileContent;
+		};
+	})
+	.directive('onReadFile', function ($parse) {
+	   return {
+		  restrict: 'A',
+		  scope: false,
+		  link: function(scope, element, attrs) {
+			 var fn = $parse(attrs.onReadFile);
+			 element.on('change', function(onChangeEvent) {
+				var reader = new FileReader();
+				reader.onload = function(onLoadEvent) {
+				   scope.$apply(function() {
+					  fn(scope, {$fileContent:onLoadEvent.target.result});
+				   });
+				};
+				reader.readAsText((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
+			 });
+		  }
+	   };
+	});

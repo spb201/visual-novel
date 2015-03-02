@@ -1,3 +1,18 @@
+function download(filename, text) {
+    var pom = document.createElement('a');
+    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    pom.setAttribute('download', filename);
+
+    if (document.createEvent) {
+        var event = document.createEvent('MouseEvents');
+        event.initEvent('click', true, true);
+        pom.dispatchEvent(event);
+    }
+    else {
+        pom.click();
+    }
+}
+
 function isLocalStorageAvailable() {
   try {
     return 'localStorage' in window && window['localStorage'] !== null;
@@ -8,7 +23,7 @@ function isLocalStorageAvailable() {
 
 
 angular.module("ngApp", [])
-.controller("creatorController", function($scope, $http) {
+.controller("creatorController", function($scope, $http, $window) {
 	$scope.quest = {"title":"generated quest","nodes":[]};
 	$scope.newNodeId = 0;
 	$scope.selectedNodeId = 0;
@@ -38,6 +53,14 @@ angular.module("ngApp", [])
 		if (isLocalStorageAvailable()) {
 			sessionStorage.setItem('quest', $scope.result);	
 		}
+	}
+	$scope.save = function() {
+		if ($scope.result !== undefined) {
+			if ($scope.fileName !== undefined)
+				download($scope.fileName + '.json', $scope.result);
+			else
+				download('quest.json', $scope.result);
+		} else $window.alert('You should generate your quest before downloading');
 	}
 });
 
