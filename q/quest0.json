@@ -1,0 +1,22 @@
+{
+	"quest_id": "0",
+	"title": "short quest",
+	"nodes":[
+		{
+			"id": 0,
+			"text": "this quest is really short",
+			"ways_ids": [1, 2],
+			"ways": ["left", "right"]
+		},
+		{
+			"id": 1,
+			"text": "you win",
+			"final": true
+		},
+		{
+			"id": 2,
+			"text": "you lose",
+			"final": true
+		}
+	]
+}
