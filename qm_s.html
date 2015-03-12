@@ -4,73 +4,11 @@
 		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 		<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/qm_s.css">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 		<script src="js/controller.js"></script>
 		<title>v0.0.0.0.0.0.4</title>
-		<style>
-			a, .nodes {
-				box-shadow: 0 0 10px rgba(0,0,0,0.5);
-			}
-			.nodes {
-				background-color: #eee;
-				display: inline-block;
-				width: 400px;
-				height: 270px;
-				margin: 10px;
-				border-radius: 5px;
-				text-align: center;
-				cursor: move;
-			}
-			
-			#qinput {
-				position: absolute;
-			}
-			
-			a {
-				position: absolute;
-				background-color: #ddd;
-				top: 8px;			
-			}
-			
-			a:nth-of-type(1) {
-				left: 165px;
-			}
-			
-			a:nth-of-type(2) {
-				left: 190px;
-			}
-			
-			a:nth-of-type(3) {
-				left: 230px;
-			}
-			
-			a:nth-of-type(4) {
-				left: 330px;
-			}
-			
-			a:hover, a:active, a:visited, a:focus {
-				text-decoration: none;
-			}
-			
-			#warning {
-				position: absolute;
-				left: 200px;
-				top: 200px;
-				color: red;
-			}
-			
-			input {
-				margin: 5px;
-			}
-			.title {
-				display: inline-block;
-				width: 170px;
-			}
-			#text {
-				width: 300px;
-			}
-		</style>
 	</head>
 	<body ng-app="ngApp">
 		<div ng-controller="structureController">
@@ -81,14 +19,14 @@
 			<a href="#" ng-click="pop()">remove max id node</a>
 			<p ng-hide="_q.nodes" id="warning">can't take quest neither from session storage nor from input string</p>
 			<div class="nodes" draggable ng-repeat="node in _q.nodes">
-				<h4>{{ node.id }}<a href="#" ng-click="remove(0)" disabled ><abbr title="NOT IMPLEMENTED YET">X</abbr></a></h4>
+				<h4>{{ node.id }}<!--<a href="#" ng-click="remove(0)" disabled ><abbr title="NOT IMPLEMENTED YET">X</abbr></a>--></h4>
 				<label>text</label><input ng-model="node.text" id="text">
 				<span class="title">ways ids</span><span class="title">ways text</span>
 				<input ng-model="node.ways_ids[0]"><input ng-model="node.ways[0]">
 				<input ng-model="node.ways_ids[1]"><input ng-model="node.ways[1]">
 				<input ng-model="node.ways_ids[2]"><input ng-model="node.ways[2]">
 				<input ng-model="node.ways_ids[3]"><input ng-model="node.ways[3]">
-				<span class="title" ng-show="node.final">final</span>
+				<label>Final</label><input ng-model="node.final" type="checkbox">
 			</div>
 		</div>
 	</body>
