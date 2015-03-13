@@ -1,46 +1,37 @@
-a, .nodes {
-	box-shadow: 0 0 10px rgba(0,0,0,0.5);
-}
 .nodes {
 	background-color: #eee;
 	display: inline-block;
 	width: 400px;
-	height: 270px;
+	height: 280px;
 	margin: 10px;
 	border-radius: 5px;
 	text-align: center;
 	cursor: move;
+	top: 70px;
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 
-#qinput {
-	position: absolute;
+.waysid {
+	display: block;
+	width: 100%;
 }
 
-a {
-	position: absolute;
-	background-color: #ddd;
-	top: 40px;			
-}
-	
-a:nth-of-type(1) {
-	left: 190px;
-	top: 8px;
+#ids {
+	width: 17%;
+	margin: 0;
 }
 
-a:nth-of-type(2) {
-	left: 5px;
+.waystext {
+	display: block;
+	width: 100%;
 }
 
-a:nth-of-type(3) {
-	left: 50px;
+#texts {
+	width: 81.5%;
 }
 
-a:nth-of-type(4) {
-	left: 150px;
-}
-
-a:hover, a:active, a:visited, a:focus {
-	text-decoration: none;
+.inputcontainer {
+	display: inline-block;
 }
 
 #warning {
@@ -50,13 +41,7 @@ a:hover, a:active, a:visited, a:focus {
 	color: red;
 }
 
-input {
-	margin: 5px;
-}
-.title {
-	display: inline-block;
-	width: 170px;
-}
 #text {
 	width: 300px;
 }
+

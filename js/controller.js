@@ -1,12 +1,3 @@
-function deleteFromArray(array, number) {
-	for(var i = array.length - 1; i >= 0; i--) {
-		if(array[i] === number) {
-		   array.splice(i, 1);
-		}
-	}
-}
-
-
 function isLocalStorageAvailable() {
   try {
     return 'localStorage' in window && window['localStorage'] !== null;
@@ -63,7 +54,6 @@ function downloadQuest($scope, $http, url) {
 angular.module("ngApp", [])
 //quest visual redactor
 	.controller("structureController", function($scope) {
-		 ///*remove this shit!*/ $scope._q = _q;
 		 $scope._q = angular.fromJson(sessionStorage.getItem('quest'));
 		 $scope.input = function() {
 			$scope._q = angular.fromJson($scope.questInput);
@@ -78,14 +68,12 @@ angular.module("ngApp", [])
 			}
 			catch (ex) {
 				$scope._q = {"quest_id":Math.round(Math.random()*1000), "nodes":[]};
+				$scope._q.nodes.push({"id":$scope._q.nodes.length});
 			}
 		 }
 		 $scope.pop = function() {
 			$scope._q.nodes.pop();
 		 }
-		 /*$scope.remove = function(i) {
-			deleteFromArray($scope._q.nodes, i);
-		 }*/
 	})
 // This makes any element draggable
 // Usage: <div draggable>Foobar</div>
@@ -95,7 +83,7 @@ angular.module("ngApp", [])
 			restrict:'A',
 			//The link function is responsible for registering DOM listeners as well as updating the DOM.
 			link: function(scope, element, attrs) {
-				element.draggable({stack: "div"});
+				element.draggable({stack: "#drag-node"});
 			}
 		};
 	})
