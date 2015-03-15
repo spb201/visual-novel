@@ -51,9 +51,11 @@ function downloadQuest($scope, $http, url) {
 				});
 }
 
-angular.module("ngApp", [])
-//quest visual redactor
-	.controller("structureController", function($scope) {
+angular.module("ngApp", ["firebase"])
+//quest visual editor
+	.controller("structureController", ["$scope", "$firebaseArray", function($scope, $firebaseArray) {
+			var ref = new Firebase("https://spb201.firebaseio.com/");
+			$scope.quests = $firebaseArray(ref);
 		 $scope._q = angular.fromJson(sessionStorage.getItem('quest'));
 		 $scope.input = function() {
 			$scope._q = angular.fromJson($scope.questInput);
@@ -61,6 +63,9 @@ angular.module("ngApp", [])
 		 $scope.save = function() {
 			console.log($scope._q.nodes[0].ways[0]);
 			$scope.questInput = angular.toJson($scope._q);
+		 }
+		 $scope.saveToServer = function() {
+		 	$scope.quests.$add(angular.toJson($scope._q));
 		 }
 		 $scope.add = function() {
 			try {
@@ -74,7 +79,7 @@ angular.module("ngApp", [])
 		 $scope.pop = function() {
 			$scope._q.nodes.pop();
 		 }
-	})
+	}])
 // This makes any element draggable
 // Usage: <div draggable>Foobar</div>
 	.directive('draggable', function() {
@@ -88,7 +93,9 @@ angular.module("ngApp", [])
 		};
 	})
 //quest creator
-	.controller("creatorController", function($scope, $http, $window) {
+	.controller("creatorController", ["$scope", "$http", "$window", "$firebaseArray", function($scope, $http, $window, $firebaseArray) {
+		var ref = new Firebase("https://spb201.firebaseio.com/");
+		$scope.quests = $firebaseArray(ref);
 		$scope.quest = {"title":"generated quest","nodes":[]};
 		$scope.newNodeId = 0;
 		$scope.selectedNodeId = 0;
@@ -114,6 +121,7 @@ angular.module("ngApp", [])
 			$scope.selectedNodeId = $scope.newNodeId;
 		}
 		$scope.generate = function() {
+			$scope.quest.title = $scope.title || "generated quest";
 			$scope.result = angular.toJson($scope.quest);		
 			if (isLocalStorageAvailable()) {
 				sessionStorage.setItem('quest', $scope.result);	
@@ -127,9 +135,14 @@ angular.module("ngApp", [])
 					download('quest.json', $scope.result);
 			} else $window.alert('You should generate your quest before downloading');
 		}
-	})
+		$scope.saveToServer = function() {
+			$scope.quests.$add($scope.result);
+		}
+	}])
 //quest maker controller
-	.controller("contentController", function($scope, $http) {
+	.controller("contentController", ["$scope", "$http", "$firebaseArray", function($scope, $http, $firebaseArray) {
+		var ref = new Firebase("https://spb201.firebaseio.com/");
+		$scope.quests = $firebaseArray(ref);
 		$scope.hideButtons = [false, false, false, false];
 		$scope.chooseButtons = function() {
 			if (!$scope.node.final)
@@ -175,10 +188,23 @@ angular.module("ngApp", [])
 			$scope.chooseButtons();
 			checkImage($scope);
 		};
+		$scope.saved = function(savedQuest) {
+			quest = JSON.parse(savedQuest);
+			$scope.node = quest.nodes[0];
+			$scope.hideStart = true;
+			$scope.showControlButtons = true;
+			$scope.showText = true;
+			$scope.chooseButtons();
+			checkImage($scope);
+		};
 		$scope.showContent = function($fileContent){
 			$scope.str_quest = $fileContent;
 		};
-	})
+		$scope.getTitle = function(value){
+			var object = JSON.parse(value);
+			return object.title;
+		};
+	}])
 //Magic directive that helps to download quests (have no idea how it works)
 	.directive('onReadFile', function ($parse) {
 	   return {

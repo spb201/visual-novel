@@ -3,6 +3,8 @@
 	<head>
 		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 		<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+		<script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
+		<script src="https://cdn.firebase.com/libs/angularfire/1.0.0/angularfire.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 		<script src="js/controller.js"></script>		
@@ -23,6 +25,7 @@
 								</span>
 							</div>
 							<a href="#" ng-click="save()" class="btn btn-default navbar-btn">save</a>
+							<a href="#" ng-click="saveToServer()" class="btn btn-default navbar-btn">save to server</a>
 							<a href="#" ng-click="add()" class="btn btn-default navbar-btn">add new node</a>
 							<a href="#" ng-click="pop()" class="btn btn-default navbar-btn">remove max id node</a>
 						</div>
