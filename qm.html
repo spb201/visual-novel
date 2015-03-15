@@ -3,6 +3,8 @@
 	<head>
 		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 		<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+		<script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
+		<script src="https://cdn.firebase.com/libs/angularfire/1.0.0/angularfire.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<script src="js/controller.js"></script>
@@ -33,7 +35,13 @@
 			<div>
 				<a href="#" class="btn btn-default" ng-click="add()">Add this node</a>
 			</div>
-			<a href="#" class="btn btn-default btn-large" ng-click="generate()">Generate quest</a>
+			<div>
+				<input ng-model="title" type="text" placeholder="Title">
+				<a href="#" class="btn btn-default btn-large" ng-click="generate()">Generate quest</a>
+			</div>
+			<div>
+				<a href="#" class="btn btn-default btn-large" ng-click="saveToServer()">Save quest</a>
+			</div>
 			<div>
 				<input ng-model="fileName" type="text" placeholder="Download as">
 				<a href="#" class="btn btn-default btn-large" ng-click="save()">Download quest</a>

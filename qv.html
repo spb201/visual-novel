@@ -5,6 +5,8 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+		<script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
+		<script src="https://cdn.firebase.com/libs/angularfire/1.0.0/angularfire.min.js"></script>
 		<script src="js/controller.js"></script>
 		<title>v0.0.0.0.0.0.4</title>
 	</head>
@@ -32,6 +34,16 @@
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="#" ng-click="start(0)">short quest</a></li>
 								<li><a href="#" ng-click="start(1)">long quest</a></li>
+							</ul>
+						</div>
+						<div class="btn-group" role="group">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+								Saved quests <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li ng-repeat="quest in quests">
+									<a href="#" ng-click="saved(quest.$value)">{{getTitle(quest.$value)}}</a>
+								</li>
 							</ul>
 						</div>
 					</div>
