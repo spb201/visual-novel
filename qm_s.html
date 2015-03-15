@@ -32,7 +32,8 @@
 			</nav>
 			<p ng-hide="_q.nodes" id="warning">can't take quest neither from session storage nor from input string</p>
 			<div class="nodes well well-sm" draggable ng-repeat="node in _q.nodes" id="drag-node">
-				<h4>Node {{ node.id }}<a href="#" ng-click="remove(0)" disabled ></a></h4>
+				<span class="glyphicon glyphicon-remove xmark" ng-click="remove(node.id)"></span>
+				<h4>Node {{ node.id }}</h4>
 				<div class="input-group">
 					<span class="input-group-addon">text</span>
 					<input ng-model="node.text" class="form-control">

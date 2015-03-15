@@ -45,3 +45,11 @@
 	width: 300px;
 }
 
+.xmark {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	color: black;
+	cursor: pointer;
+}
+

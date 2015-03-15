@@ -63,16 +63,22 @@ angular.module("ngApp", [])
 			$scope.questInput = angular.toJson($scope._q);
 		 }
 		 $scope.add = function() {
-			try {
-				$scope._q.nodes.push({"id":$scope._q.nodes.length});
+			if ($scope._q) {
+				$scope._q.nodes.push({"id":$scope._q.nodes.length, "ways":[], "ways_ids":[]});
 			}
-			catch (ex) {
+			else {
 				$scope._q = {"quest_id":Math.round(Math.random()*1000), "nodes":[]};
-				$scope._q.nodes.push({"id":$scope._q.nodes.length});
+				$scope._q.nodes.push({"id":$scope._q.nodes.length, "ways":[], "ways_ids":[]});
 			}
 		 }
 		 $scope.pop = function() {
 			$scope._q.nodes.pop();
+		 }
+		 $scope.remove = function(i) {
+			$scope._q.nodes.splice(i, 1);
+			for (j = i; j < $scope._q.nodes.length; ++j) {
+				$scope._q.nodes[j].id--;	
+			};
 		 }
 	})
 // This makes any element draggable
