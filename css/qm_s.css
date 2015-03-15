@@ -7,7 +7,6 @@
 	border-radius: 5px;
 	text-align: center;
 	cursor: move;
-	top: 70px;
 	box-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 
@@ -45,3 +44,16 @@
 	width: 300px;
 }
 
+.xmark {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	color: black;
+	cursor: pointer;
+}
+
+#nodecontainer {
+	margin: 70px 0 0 0;
+	width: 100%;
+	min-height: 100%;
+}
