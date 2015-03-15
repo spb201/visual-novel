@@ -31,31 +31,33 @@
 				</div>
 			</nav>
 			<p ng-hide="_q.nodes" id="warning">can't take quest neither from session storage nor from input string</p>
-			<div class="nodes well well-sm" draggable ng-repeat="node in _q.nodes" id="drag-node">
-				<span class="glyphicon glyphicon-remove xmark" ng-click="remove(node.id)"></span>
-				<h4>Node {{ node.id }}</h4>
-				<div class="input-group">
-					<span class="input-group-addon">text</span>
-					<input ng-model="node.text" class="form-control">
-				</div>
-				<div class="inputcontainer" id="ids">
-					<span class="waysid">way id</span>
-					<input type="number" min="0" ng-model="node.ways_ids[0]" class="waysid form-control">
-					<input type="number" min="0" ng-model="node.ways_ids[1]" class="waysid form-control">
-					<input type="number" min="0" ng-model="node.ways_ids[2]" class="waysid form-control">
-					<input type="number" min="0" ng-model="node.ways_ids[3]" class="waysid form-control">
-				</div>
-				<div class="inputcontainer" id="texts">
-					<span class="waystext">way text</span>
-					<input ng-model="node.ways[0]" class="waystext form-control">
-					<input ng-model="node.ways[1]" class="waystext form-control">
-					<input ng-model="node.ways[2]" class="waystext form-control">
-					<input ng-model="node.ways[3]" class="waystext form-control">
-				</div>
-				<div class="checkbox">
-					<label>
-						<input ng-model="node.final" type="checkbox"> Final
-					</label>
+			<div id="nodecontainer">
+				<div class="nodes well well-sm" draggable ng-repeat="node in _q.nodes" id="drag-node">
+					<span class="glyphicon glyphicon-remove xmark" ng-click="remove(node.id)"></span>
+					<h4>Node {{ node.id }}</h4>
+					<div class="input-group">
+						<span class="input-group-addon">text</span>
+						<input ng-model="node.text" class="form-control">
+					</div>
+					<div class="inputcontainer" id="ids">
+						<span class="waysid">way id</span>
+						<input type="number" min="0" ng-model="node.ways_ids[0]" class="waysid form-control">
+						<input type="number" min="0" ng-model="node.ways_ids[1]" class="waysid form-control">
+						<input type="number" min="0" ng-model="node.ways_ids[2]" class="waysid form-control">
+						<input type="number" min="0" ng-model="node.ways_ids[3]" class="waysid form-control">
+					</div>
+					<div class="inputcontainer" id="texts">
+						<span class="waystext">way text</span>
+						<input ng-model="node.ways[0]" class="waystext form-control">
+						<input ng-model="node.ways[1]" class="waystext form-control">
+						<input ng-model="node.ways[2]" class="waystext form-control">
+						<input ng-model="node.ways[3]" class="waystext form-control">
+					</div>
+					<div class="checkbox">
+						<label>
+							<input ng-model="node.final" type="checkbox"> Final
+						</label>
+					</div>
 				</div>
 			</div>
 		</div>
