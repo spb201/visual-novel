@@ -52,22 +52,24 @@ function downloadQuest($scope, $http, url) {
 }
 
 angular.module("ngApp", ["firebase"])
-//quest visual editor
+//quest maker controller
 	.controller("structureController", ["$scope", "$firebaseArray", function($scope, $firebaseArray) {
-			var ref = new Firebase("https://spb201.firebaseio.com/");
-			$scope.quests = $firebaseArray(ref);
-		 $scope._q = angular.fromJson(sessionStorage.getItem('quest'));
-		 $scope.input = function() {
+		var ref = new Firebase("https://spb201.firebaseio.com/");
+		$scope.quests = $firebaseArray(ref);
+		console.log($scope.quests);
+		console.log($scope.quests['0']);
+		$scope._q = angular.fromJson(sessionStorage.getItem('quest'));
+		$scope.input = function() {
 			$scope._q = angular.fromJson($scope.questInput);
-		 }
-		 $scope.save = function() {
+		}
+		$scope.save = function() {
 			console.log($scope._q.nodes[0].ways[0]);
 			$scope.questInput = angular.toJson($scope._q);
-		 }
-		 $scope.saveToServer = function() {
+		}
+		$scope.saveToServer = function() {
 		 	$scope.quests.$add(angular.toJson($scope._q));
-		 }
-		 $scope.add = function() {
+		}
+		$scope.add = function() {
 			if ($scope._q) {
 				$scope._q.nodes.push({"id":$scope._q.nodes.length, "ways":[], "ways_ids":[]});
 			}
@@ -75,16 +77,23 @@ angular.module("ngApp", ["firebase"])
 				$scope._q = {"quest_id":Math.round(Math.random()*1000), "nodes":[]};
 				$scope._q.nodes.push({"id":$scope._q.nodes.length, "ways":[], "ways_ids":[]});
 			}
-		 }
-		 $scope.pop = function() {
+		}
+		$scope.pop = function() {
 			$scope._q.nodes.pop();
-		 }
-		 $scope.remove = function(i) {
+		}
+		$scope.remove = function(i) {
 			$scope._q.nodes.splice(i, 1);
 			for (j = i; j < $scope._q.nodes.length; ++j) {
 				$scope._q.nodes[j].id--;	
 			};
-		 }
+		}
+		$scope.saved = function(savedQuest) {
+			$scope._q = JSON.parse(savedQuest);
+		};
+		$scope.getTitle = function(value){
+			var object = JSON.parse(value);
+			return object.title;
+		};
 	}])
 // This makes any element draggable
 // Usage: <div draggable>Foobar</div>
@@ -102,7 +111,7 @@ angular.module("ngApp", ["firebase"])
 			}
 		};
 	})
-//quest creator
+//old quest maker
 	.controller("creatorController", ["$scope", "$http", "$window", "$firebaseArray", function($scope, $http, $window, $firebaseArray) {
 		var ref = new Firebase("https://spb201.firebaseio.com/");
 		$scope.quests = $firebaseArray(ref);
@@ -149,8 +158,8 @@ angular.module("ngApp", ["firebase"])
 			$scope.quests.$add($scope.result);
 		}
 	}])
-//quest maker controller
-	.controller("contentController", ["$scope", "$http", "$firebaseArray", function($scope, $http, $firebaseArray) {
+//quest viewer controller
+	.controller("viewerController", ["$scope", "$http", "$firebaseArray", function($scope, $http, $firebaseArray) {
 		var ref = new Firebase("https://spb201.firebaseio.com/");
 		$scope.quests = $firebaseArray(ref);
 		$scope.hideButtons = [false, false, false, false];
@@ -215,22 +224,22 @@ angular.module("ngApp", ["firebase"])
 			return object.title;
 		};
 	}])
-//Magic directive that helps to download quests (have no idea how it works)
+//Magic directive that helps to download quests
 	.directive('onReadFile', function ($parse) {
-	   return {
-		  restrict: 'A',
-		  scope: false,
-		  link: function(scope, element, attrs) {
-			 var fn = $parse(attrs.onReadFile);
-			 element.on('change', function(onChangeEvent) {
-				var reader = new FileReader();
-				reader.onload = function(onLoadEvent) {
-				   scope.$apply(function() {
-					  fn(scope, {$fileContent:onLoadEvent.target.result});
-				   });
-				};
-				reader.readAsText((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
-			 });
-		  }
-	   };
+		return {
+			restrict: 'A',
+			scope: false,
+			link: function(scope, element, attrs) {
+				var fn = $parse(attrs.onReadFile);
+				element.on('change', function(onChangeEvent) {
+					var reader = new FileReader();
+					reader.onload = function(onLoadEvent) {
+						scope.$apply(function() {
+							fn(scope, {$fileContent:onLoadEvent.target.result});
+						});
+					};
+					reader.readAsText((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
+				});
+			}
+		};
 	});
