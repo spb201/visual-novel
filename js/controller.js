@@ -28,15 +28,15 @@ function startGame($scope) {
 	$scope.hideStart = true;
 	$scope.showControlButtons = true;
 	$scope.showText = true;
-	checkImage($scope);
+//	checkImage($scope);
 }
 
 //quest viewer support function
-function checkImage($scope) {
-	if ($scope.node.image) {
-		$scope.imagesrc = "i/quest" + quest.quest_id + "/" + $scope.node.id + ".png";
-	}
-}
+//function checkImage($scope) {
+//	if ($scope.node.image) {
+//		$scope.imagesrc = "i/quest" + quest.quest_id + "/" + $scope.node.id + ".png";
+//	}
+//}
 
 //quest viewer support function
 function downloadQuest($scope, $http, url) {
@@ -187,13 +187,14 @@ angular.module("ngApp", ["firebase"])
 					$scope.showControlButtons = false;
 					$scope.showRestartButton = true;
 				}
-				checkImage($scope);
+				//checkImage($scope);
 			}
 		};
 		$scope.restart = function() {
 			$scope.showRestartButton = false;
 			$scope.hideStart = false;
 			$scope.showText = false;
+			$scope.node.image = false;
 		};
 		$scope.start = function(i) {
 			downloadQuest($scope, $http, "q/quest" + i.toString() + ".json");
@@ -205,7 +206,7 @@ angular.module("ngApp", ["firebase"])
 			$scope.showControlButtons = true;
 			$scope.showText = true;
 			$scope.chooseButtons();
-			checkImage($scope);
+			//checkImage($scope);
 		};
 		$scope.saved = function(savedQuest) {
 			quest = JSON.parse(savedQuest);
@@ -214,7 +215,7 @@ angular.module("ngApp", ["firebase"])
 			$scope.showControlButtons = true;
 			$scope.showText = true;
 			$scope.chooseButtons();
-			checkImage($scope);
+			//checkImage($scope);
 		};
 		$scope.showContent = function($fileContent){
 			$scope.str_quest = $fileContent;
