@@ -53,7 +53,7 @@ function downloadQuest($scope, $http, url) {
 
 angular.module("ngApp", ["firebase"])
 //quest maker controller
-	.controller("structureController", ["$scope", "$firebaseArray", function($scope, $firebaseArray) {
+	.controller("makerController", ["$scope", "$firebaseArray", function($scope, $firebaseArray) {
 		var ref = new Firebase("https://spb201.firebaseio.com/");
 		$scope.quests = $firebaseArray(ref);
 		console.log($scope.quests);
@@ -112,7 +112,7 @@ angular.module("ngApp", ["firebase"])
 		};
 	})
 //old quest maker
-	.controller("creatorController", ["$scope", "$http", "$window", "$firebaseArray", function($scope, $http, $window, $firebaseArray) {
+	.controller("oldMakerController", ["$scope", "$http", "$window", "$firebaseArray", function($scope, $http, $window, $firebaseArray) {
 		var ref = new Firebase("https://spb201.firebaseio.com/");
 		$scope.quests = $firebaseArray(ref);
 		$scope.quest = {"title":"generated quest","nodes":[]};
