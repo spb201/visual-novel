@@ -7,7 +7,8 @@
 			"text": "there's long way on the left side and a short one on the right",
 			"ways": ["long", "short"],
 			"image": true,
-			"ways_ids": [3, 1]
+			"ways_ids": [3, 1],
+			"imagesrc": "https://raw.githubusercontent.com/spb201/spb201.github.io/master/i/quest1/0.png"
 		},
 		{
 			"id": 1,
@@ -24,7 +25,8 @@
 			"text": "there's worst way on the left and best one on the right",
 			"ways": ["worst", "best"],
 			"image": true,
-			"ways_ids": [4, 5]
+			"ways_ids": [4, 5],
+			"imagesrc": "https://raw.githubusercontent.com/spb201/spb201.github.io/master/i/quest1/3.png"
 		},
 		{
 			"id": 4,
@@ -37,7 +39,8 @@
 			"text": "you're on the right way",
 			"ways": ["right", "wait", "left"],
 			"image": true,
-			"ways_ids": [2, 1, 1]
+			"ways_ids": [2, 1, 1],
+			"imagesrc": "https://raw.githubusercontent.com/spb201/spb201.github.io/master/i/quest1/5.png"
 		}
 	]
 }

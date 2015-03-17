@@ -55,17 +55,16 @@
 					</div>
 					<div class="inputcontainer" id="ids">
 						<span class="waysid">way id</span>
-						<input type="number" min="0" ng-model="node.ways_ids[0]" class="waysid form-control">
-						<input type="number" min="0" ng-model="node.ways_ids[1]" class="waysid form-control">
-						<input type="number" min="0" ng-model="node.ways_ids[2]" class="waysid form-control">
-						<input type="number" min="0" ng-model="node.ways_ids[3]" class="waysid form-control">
+						<input ng-repeat="i in [0, 1, 2, 3]" type="number" min="0" ng-model="node.ways_ids[i]" class="waysid form-control">
 					</div>
 					<div class="inputcontainer" id="texts">
 						<span class="waystext">way text</span>
-						<input ng-model="node.ways[0]" class="waystext form-control">
-						<input ng-model="node.ways[1]" class="waystext form-control">
-						<input ng-model="node.ways[2]" class="waystext form-control">
-						<input ng-model="node.ways[3]" class="waystext form-control">
+						<input ng-repeat="i in [0, 1, 2, 3]" ng-model="node.ways[i]" class="waystext form-control">
+					</div>
+					<div class="form-inline">
+						<label><input type="checkbox" ng-model="node.image"> Image</label>
+						<input ng-model="node.imagesrc" class="form-control" type="text" ng-show="node.image">
+						<img ng-src="{{ node.imagesrc }}" ng-show="node.image" style="max-width: 100px; max-height: 100px;"></img>
 					</div>
 					<div class="checkbox">
 						<label>

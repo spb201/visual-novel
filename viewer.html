@@ -19,23 +19,15 @@
 				<div>
 					<div class="btn-group">
 						<div class="btn-group" role="group">
-							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+							<!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 								Custom quests <span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="#" ng-click="custom(str)">run typed quest</a></li>
+								<li>-->
+							<a href="#" ng-click="custom(str)" class="btn btn-default">Run typed quest</a><!--</li>
 								<li><a href="#" ng-click="loadLastGenerated()">run last generated quest</a></li>
 							</ul>
-						</div>
-						<div class="btn-group" role="group">
-							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-								Default quests <span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="#" ng-click="start(0)">short quest</a></li>
-								<li><a href="#" ng-click="start(1)">long quest</a></li>
-							</ul>
-						</div>
+						</div>-->
 						<div class="btn-group" role="group">
 							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 								Saved quests <span class="caret"></span>
@@ -48,7 +40,7 @@
 						</div>
 					</div>
 				</div>
-				<h4>Make your own quest <a href="qm.html">there</a></h4>
+				<h4>Make your own quest <a href="maker.html">there</a></h4>
 				<h4><input type="file" on-read-file="showContent($fileContent)" style="margin-left: 40%;"></h4>
 			</div>
 			<h2 ng-show="showText" class="pagination-centered" ng-bind="node.text"></h2>
@@ -58,7 +50,7 @@
 				<a href="#" class="btn btn-default" ng-click="buttonClick(2)" ng-hide="hideButtons[2]" onClick="this.blur();" ng-bind="node.ways[2]"></a>
 				<a href="#" class="btn btn-default" ng-click="buttonClick(3)" ng-hide="hideButtons[3]" onClick="this.blur();" ng-bind="node.ways[3]"></a>
 			</div>
-			<img ng-src="{{ imagesrc }}" ng-show="node.image"></img>
+			<img ng-src="{{ node.imagesrc }}" ng-show="node.image"></img>
 			<a href="#" class="btn btn-default" ng-click="restart()" ng-show="showRestartButton">exit</a>
 		</div>
 	</body>
