@@ -3,6 +3,7 @@
 	<head>
 		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/viewer.css">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
 		<script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
@@ -42,7 +43,9 @@
 				<a href="#" class="btn btn-default" ng-click="buttonClick(3)" ng-hide="hideButtons[3]" onClick="this.blur();" ng-bind="node.ways[3]"></a>
 			</div>
 			<img ng-src="{{ node.imagesrc }}" ng-show="node.image"></img>
-			<a href="#" class="btn btn-default" ng-click="restart()" ng-show="showRestartButton">exit</a>
+			<div>
+				<a href="#" class="btn btn-default" ng-click="restart()" ng-show="showRestartButton">exit</a>
+			</div>
 		</div>
 	</body>
 </html>
