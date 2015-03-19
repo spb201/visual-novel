@@ -1,3 +1,7 @@
 menu {
     list-style-type: none;
 }
+
+.btn-jumbo {
+	width: 10em;
+}
