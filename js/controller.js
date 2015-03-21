@@ -190,12 +190,17 @@ angular.module("ngApp", ["firebase"])
 				//checkImage($scope);
 			}
 		};
-		$scope.restart = function() {
+		$scope.exit = function() {
 			$scope.showRestartButton = false;
 			$scope.hideStart = false;
 			$scope.showText = false;
 			$scope.node.image = false;
 		};
+		$scope.restart = function() {
+			$scope.node = quest.nodes[0];
+			$scope.showControlButtons = true;
+			$scope.showRestartButton = false;
+		}
 		$scope.start = function(i) {
 			downloadQuest($scope, $http, "q/quest" + i.toString() + ".json");
 		};
