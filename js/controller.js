@@ -36,12 +36,15 @@ function downloadQuest($scope, $http, url) {
 }
 
 angular.module("ngApp", ["firebase"])
+//add underscorejs support
+	.constant('_', window._)
+	.run(function ($rootScope) {
+		$rootScope._ = window._;
+	})
 //quest maker controller
 	.controller("makerController", ["$scope", "$firebaseArray", function($scope, $firebaseArray) {
 		var ref = new Firebase("https://spb201.firebaseio.com/");
 		$scope.quests = $firebaseArray(ref);
-		console.log($scope.quests);
-		console.log($scope.quests['0']);
 		$scope._q = angular.fromJson(sessionStorage.getItem('quest'));
 		$scope.input = function() {
 			$scope._q = angular.fromJson($scope.questInput);
@@ -55,11 +58,11 @@ angular.module("ngApp", ["firebase"])
 		}
 		$scope.add = function() {
 			if ($scope._q) {
-				$scope._q.nodes.push({"id":$scope._q.nodes.length, "ways":[], "ways_ids":[]});
+				$scope._q.nodes.push({"id":$scope._q.nodes.length});
 			}
 			else {
 				$scope._q = {"quest_id":Math.round(Math.random()*1000), "nodes":[]};
-				$scope._q.nodes.push({"id":$scope._q.nodes.length, "ways":[], "ways_ids":[]});
+				$scope._q.nodes.push({"id":$scope._q.nodes.length});
 			}
 		}
 		$scope.pop = function() {
@@ -78,10 +81,17 @@ angular.module("ngApp", ["firebase"])
 			var object = JSON.parse(value);
 			return object.title;
 		};
+		$scope.addWay = function(i) {
+			if (!$scope._q.nodes[i].ways) $scope._q.nodes[i].ways = [];
+			if (!$scope._q.nodes[i].ways_ids) $scope._q.nodes[i].ways_ids = [];
+			$scope._q.nodes[i].ways.push('');
+			$scope._q.nodes[i].ways_ids.push('');
+		}
 	}])
 //quest viewer controller
 	.controller("viewerController", ["$scope", "$http", "$firebaseArray", function($scope, $http, $firebaseArray) {
 		var ref = new Firebase("https://spb201.firebaseio.com/");
+		//$scope._ = _;
 		$scope.quests = $firebaseArray(ref);
 		$scope.hideButtons = [false, false, false, false];
 		$scope.chooseButtons = function() {

@@ -6,6 +6,7 @@
 		<link rel="stylesheet" href="css/viewer.css">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></script>
 		<script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
 		<script src="https://cdn.firebase.com/libs/angularfire/1.0.0/angularfire.min.js"></script>
 		<script src="js/controller.js"></script>
@@ -37,10 +38,7 @@
 			</div>
 			<h2 ng-show="showText" class="pagination-centered" ng-bind="node.text"></h2>
 			<div ng-show="showControlButtons">
-				<a href="#" class="btn btn-default btn-move" ng-click="buttonClick(0)" ng-hide="hideButtons[0]" onClick="this.blur();" ng-bind="node.ways[0]"></a>
-				<a href="#" class="btn btn-default btn-move" ng-click="buttonClick(1)" ng-hide="hideButtons[1]" onClick="this.blur();" ng-bind="node.ways[1]"></a>
-				<a href="#" class="btn btn-default btn-move" ng-click="buttonClick(2)" ng-hide="hideButtons[2]" onClick="this.blur();" ng-bind="node.ways[2]"></a>
-				<a href="#" class="btn btn-default btn-move" ng-click="buttonClick(3)" ng-hide="hideButtons[3]" onClick="this.blur();" ng-bind="node.ways[3]"></a>
+				<a href="#" ng-repeat="i in _.range(node.ways_ids.length)" ng-show="node.ways_ids[i]" class="btn btn-default btn-move" ng-click="buttonClick(i)" onClick="this.blur();" ng-bind="node.ways[i]"></a>
 			</div>
 			<img ng-src="{{ node.imagesrc }}" ng-show="node.image"></img>
 			<div>

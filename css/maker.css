@@ -10,25 +10,6 @@
 	box-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 
-.waysid {
-	display: block;
-	width: 100%;
-}
-
-#ids {
-	width: 17%;
-	margin: 0;
-}
-
-.waystext {
-	display: block;
-	width: 100%;
-}
-
-#texts {
-	width: 81.5%;
-}
-
 .inputcontainer {
 	display: inline-block;
 }
