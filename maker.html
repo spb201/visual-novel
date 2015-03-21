@@ -45,11 +45,13 @@
 					</div>
 				</div>
 			</nav>
-			<p ng-hide="_q.nodes" id="warning">can't take quest neither from session storage nor from input string</p>
 			<div id="nodecontainer">
 				<div class="nodes well well-sm drag-node" draggable ng-repeat="node in _q.nodes">
 					<span class="glyphicon glyphicon-remove xmark" ng-click="remove(node.id)"></span>
-					<h4>Node {{ node.id }}</h4>
+					<div class="input-group" style="margin-top: 10px">
+						<span class="input-group-addon">node id</span>
+						<input ng-model="node.id" class="form-control">
+					</div>
 					<div class="input-group">
 						<span class="input-group-addon">text</span>
 						<input ng-model="node.text" class="form-control">
@@ -60,7 +62,9 @@
 					</div>
 					<div class="row" ng-repeat="i in  _.range(node.ways_ids.length)">
 						<div class="col-md-3">
-							<input type="number" min="0" ng-model="node.ways_ids[i]" class="col-md-6 form-control">
+							<select class="form-control" ng-model="node.ways_ids[i]">
+								<option ng-repeat="node in _q.nodes">{{ node.id }}</option>
+							</select>
 						</div>
 						<div class="col-md-9">
 							<input ng-model="node.ways[i]" class="form-control">
