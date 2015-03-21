@@ -1,11 +1,3 @@
-function isLocalStorageAvailable() {
-  try {
-    return 'localStorage' in window && window['localStorage'] !== null;
-  } catch (e) {
-    return false;
-  }
-}
-
 //magic function that helps to download quest as file
 function download(filename, text) {
     var pom = document.createElement('a');
@@ -28,27 +20,19 @@ function startGame($scope) {
 	$scope.hideStart = true;
 	$scope.showControlButtons = true;
 	$scope.showText = true;
-//	checkImage($scope);
 }
-
-//quest viewer support function
-//function checkImage($scope) {
-//	if ($scope.node.image) {
-//		$scope.imagesrc = "i/quest" + quest.quest_id + "/" + $scope.node.id + ".png";
-//	}
-//}
 
 //quest viewer support function
 function downloadQuest($scope, $http, url) {
 	$http.get(url).
-				success(function(data, status, headers, config) {
-					quest = data;
-					$scope.node = quest.nodes[0];
-					startGame($scope);
-				}).
-				error(function(data, status, headers, config) {
-					$scope.startError = true;
-				});
+		success(function(data, status, headers, config) {
+			quest = data;
+			$scope.node = quest.nodes[0];
+			startGame($scope);
+		}).
+		error(function(data, status, headers, config) {
+			$scope.startError = true;
+		});
 }
 
 angular.module("ngApp", ["firebase"])
@@ -95,69 +79,6 @@ angular.module("ngApp", ["firebase"])
 			return object.title;
 		};
 	}])
-// This makes any element draggable
-// Usage: <div draggable>Foobar</div>
-	.directive('draggable', function() {
-		return {
-			// A = attribute, E = Element, C = Class and M = HTML Comment
-			restrict:'A',
-			//The link function is responsible for registering DOM listeners as well as updating the DOM.
-			link: function(scope, element, attrs) {
-				element.draggable({
-					stack: ".drag-node",
-					distance: 0,
-					containment: "parent"
-				});
-			}
-		};
-	})
-//old quest maker
-	.controller("oldMakerController", ["$scope", "$http", "$window", "$firebaseArray", function($scope, $http, $window, $firebaseArray) {
-		var ref = new Firebase("https://spb201.firebaseio.com/");
-		$scope.quests = $firebaseArray(ref);
-		$scope.quest = {"title":"generated quest","nodes":[]};
-		$scope.newNodeId = 0;
-		$scope.selectedNodeId = 0;
-		$scope.add = function() {
-			node = {"id":$scope.newNodeId, "text": $scope.user_text};
-			var ways_ids = [];
-			var ways = [];
-
-			for (i = 0; i < 4; ++i) {
-				if ($scope.buttons[i] !== null && $scope.buttons_dest[i] !== null) {
-					ways_ids.push(parseInt($scope.buttons_dest[i]));
-					ways.push($scope.buttons[i]);
-				}
-			}
-
-			if ($scope.isNodeFinal)
-				node.final = true;
-			node.ways_ids = ways_ids;
-			node.ways = ways;
-			
-			$scope.quest.nodes.push(node);
-			++$scope.newNodeId;
-			$scope.selectedNodeId = $scope.newNodeId;
-		}
-		$scope.generate = function() {
-			$scope.quest.title = $scope.title || "generated quest";
-			$scope.result = angular.toJson($scope.quest);		
-			if (isLocalStorageAvailable()) {
-				sessionStorage.setItem('quest', $scope.result);	
-			}
-		}
-		$scope.save = function() {
-			if ($scope.result !== undefined) {
-				if ($scope.fileName !== undefined)
-					download($scope.fileName + '.json', $scope.result);
-				else
-					download('quest.json', $scope.result);
-			} else $window.alert('You should generate your quest before downloading');
-		}
-		$scope.saveToServer = function() {
-			$scope.quests.$add($scope.result);
-		}
-	}])
 //quest viewer controller
 	.controller("viewerController", ["$scope", "$http", "$firebaseArray", function($scope, $http, $firebaseArray) {
 		var ref = new Firebase("https://spb201.firebaseio.com/");
@@ -187,7 +108,6 @@ angular.module("ngApp", ["firebase"])
 					$scope.showControlButtons = false;
 					$scope.showRestartButton = true;
 				}
-				//checkImage($scope);
 			}
 		};
 		$scope.restart = function() {
@@ -206,7 +126,6 @@ angular.module("ngApp", ["firebase"])
 			$scope.showControlButtons = true;
 			$scope.showText = true;
 			$scope.chooseButtons();
-			//checkImage($scope);
 		};
 		$scope.saved = function(savedQuest) {
 			quest = JSON.parse(savedQuest);
@@ -215,7 +134,6 @@ angular.module("ngApp", ["firebase"])
 			$scope.showControlButtons = true;
 			$scope.showText = true;
 			$scope.chooseButtons();
-			//checkImage($scope);
 		};
 		$scope.showContent = function($fileContent){
 			$scope.str_quest = $fileContent;
@@ -240,6 +158,22 @@ angular.module("ngApp", ["firebase"])
 						});
 					};
 					reader.readAsText((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
+				});
+			}
+		};
+	})
+	// This makes any element draggable
+// Usage: <div draggable>Foobar</div>
+	.directive('draggable', function() {
+		return {
+			// A = attribute, E = Element, C = Class and M = HTML Comment
+			restrict:'A',
+			//The link function is responsible for registering DOM listeners as well as updating the DOM.
+			link: function(scope, element, attrs) {
+				element.draggable({
+					stack: ".drag-node",
+					distance: 0,
+					containment: "parent"
 				});
 			}
 		};
