@@ -60,7 +60,9 @@
 					</div>
 					<div class="row" ng-repeat="i in  _.range(node.ways_ids.length)">
 						<div class="col-md-3">
-							<input type="number" min="0" ng-model="node.ways_ids[i]" class="col-md-6 form-control">
+							<select class="form-control" ng-model="node.ways_ids[i]">
+								<option ng-repeat="node in _q.nodes">{{ node.id }}</option>
+							</select>
 						</div>
 						<div class="col-md-9">
 							<input ng-model="node.ways[i]" class="form-control">
