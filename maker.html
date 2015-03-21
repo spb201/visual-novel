@@ -7,6 +7,7 @@
 		<script src="https://cdn.firebase.com/libs/angularfire/1.0.0/angularfire.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></script>	
 		<script src="js/controller.js"></script>		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/maker.css">
@@ -53,14 +54,21 @@
 						<span class="input-group-addon">text</span>
 						<input ng-model="node.text" class="form-control">
 					</div>
-					<div class="inputcontainer" id="ids">
-						<span class="waysid">way id</span>
-						<input ng-repeat="i in [0, 1, 2, 3]" type="number" min="0" ng-model="node.ways_ids[i]" class="waysid form-control">
+					<div class="row" ng-show="node.ways_ids">
+						<span class="col-md-3">way id</span>
+						<span class="col-md-9">way text</span>
 					</div>
-					<div class="inputcontainer" id="texts">
-						<span class="waystext">way text</span>
-						<input ng-repeat="i in [0, 1, 2, 3]" ng-model="node.ways[i]" class="waystext form-control">
+					<div class="row" ng-repeat="i in  _.range(node.ways_ids.length)">
+						<div class="col-md-3">
+							<select class="form-control" ng-model="node.ways_ids[i]">
+								<option ng-repeat="node in _q.nodes">{{ node.id }}</option>
+							</select>
+						</div>
+						<div class="col-md-9">
+							<input ng-model="node.ways[i]" class="form-control">
+						</div>
 					</div>
+					<a href="#" class="btn btn-default" ng-click="addWay(node.id)">add new way</a>
 					<div class="form-inline">
 						<label><input type="checkbox" ng-model="node.image"> Image</label>
 						<input ng-model="node.imagesrc" class="form-control" type="text" ng-show="node.image">
