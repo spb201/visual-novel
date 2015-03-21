@@ -99,17 +99,6 @@ angular.module("ngApp", ["firebase"])
 				for (i = 0; i < 4; ++i)
 					$scope.hideButtons[i] = ($scope.node.ways_ids[i] === undefined || $scope.node.ways_ids[i] === null);
 		};
-		$scope.loadLastGenerated = function() {
-				if (isLocalStorageAvailable()) {
-					if (sessionStorage.getItem('quest') != undefined) {
-						quest = angular.fromJson(sessionStorage.getItem('quest'));
-						$scope.node = quest.nodes[0];
-						startGame($scope);
-					}
-					else
-						$scope.lastGenError = true;
-				}
-		}
 		$scope.buttonClick = function(i) {
 			if (i != null) {
 				$scope.node = quest.nodes[$scope.node.ways_ids[i]];
@@ -172,7 +161,7 @@ angular.module("ngApp", ["firebase"])
 			}
 		};
 	})
-	// This makes any element draggable
+// This makes any element draggable
 // Usage: <div draggable>Foobar</div>
 	.directive('draggable', function() {
 		return {
