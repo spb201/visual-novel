@@ -44,12 +44,13 @@ angular.module("ngApp", ["firebase"])
 //quest maker controller
 	.controller("makerController", ["$scope", "$firebaseArray", function($scope, $firebaseArray) {
 		var ref = new Firebase("https://spb201.firebaseio.com/");
-		$scope.parseInt = parseInt;
 		$scope.quests = $firebaseArray(ref);
+		$scope._q = angular.fromJson(sessionStorage.getItem('quest'));
 		$scope.input = function() {
 			$scope._q = angular.fromJson($scope.questInput);
 		}
 		$scope.save = function() {
+			console.log($scope._q.nodes[0].ways[0]);
 			$scope.questInput = angular.toJson($scope._q);
 		}
 		$scope.saveToServer = function() {
@@ -57,19 +58,21 @@ angular.module("ngApp", ["firebase"])
 		}
 		$scope.add = function() {
 			if ($scope._q) {
-				$scope._q.nodes.push({"id": '' + $scope._q.nodes.length});
+				$scope._q.nodes.push({"id":$scope._q.nodes.length});
 			}
 			else {
 				$scope._q = {"quest_id":Math.round(Math.random()*1000), "nodes":[]};
-				$scope._q.nodes.push({"id": '' + $scope._q.nodes.length});
+				$scope._q.nodes.push({"id":$scope._q.nodes.length});
 			}
 		}
 		$scope.pop = function() {
 			$scope._q.nodes.pop();
 		}
 		$scope.remove = function(i) {
-			console.log('trying to remove node w/ id ' + i);
-			$scope._q.nodes.splice(''+i, 1);
+			$scope._q.nodes.splice(i, 1);
+			for (j = i; j < $scope._q.nodes.length; ++j) {
+				$scope._q.nodes[j].id--;	
+			};
 		}
 		$scope.saved = function(savedQuest) {
 			$scope._q = JSON.parse(savedQuest);
@@ -88,12 +91,33 @@ angular.module("ngApp", ["firebase"])
 //quest viewer controller
 	.controller("viewerController", ["$scope", "$http", "$firebaseArray", function($scope, $http, $firebaseArray) {
 		var ref = new Firebase("https://spb201.firebaseio.com/");
+		//$scope._ = _;
 		$scope.quests = $firebaseArray(ref);
+		$scope.hideButtons = [false, false, false, false];
+		$scope.chooseButtons = function() {
+			if (!$scope.node.final)
+				for (i = 0; i < 4; ++i)
+					$scope.hideButtons[i] = ($scope.node.ways_ids[i] === undefined || $scope.node.ways_ids[i] === null);
+		};
+		$scope.loadLastGenerated = function() {
+				if (isLocalStorageAvailable()) {
+					if (sessionStorage.getItem('quest') != undefined) {
+						quest = angular.fromJson(sessionStorage.getItem('quest'));
+						$scope.node = quest.nodes[0];
+						startGame($scope);
+					}
+					else
+						$scope.lastGenError = true;
+				}
+		}
 		$scope.buttonClick = function(i) {
-			$scope.node = quest.nodes[$scope.node.ways_ids[i]];
-			if ($scope.node.final) {
+			if (i != null) {
+				$scope.node = quest.nodes[$scope.node.ways_ids[i]];
+				$scope.chooseButtons();
+				if ($scope.node.final) {
 					$scope.showControlButtons = false;
 					$scope.showRestartButton = true;
+				}
 			}
 		};
 		$scope.restart = function() {
@@ -102,12 +126,16 @@ angular.module("ngApp", ["firebase"])
 			$scope.showText = false;
 			$scope.node.image = false;
 		};
+		$scope.start = function(i) {
+			downloadQuest($scope, $http, "q/quest" + i.toString() + ".json");
+		};
 		$scope.custom = function() {
 			quest = angular.fromJson($scope.str_quest);
 			$scope.node = quest.nodes[0];
 			$scope.hideStart = true;
 			$scope.showControlButtons = true;
 			$scope.showText = true;
+			$scope.chooseButtons();
 		};
 		$scope.saved = function(savedQuest) {
 			quest = JSON.parse(savedQuest);
@@ -115,6 +143,7 @@ angular.module("ngApp", ["firebase"])
 			$scope.hideStart = true;
 			$scope.showControlButtons = true;
 			$scope.showText = true;
+			$scope.chooseButtons();
 		};
 		$scope.showContent = function($fileContent){
 			$scope.str_quest = $fileContent;
