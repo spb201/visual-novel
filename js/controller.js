@@ -81,6 +81,10 @@ angular.module("ngApp", ["firebase"])
 			var object = JSON.parse(value);
 			return object.title;
 		};
+		$scope.getImg = function(value){
+			var object = JSON.parse(value);
+			return object.image;
+		};
 		$scope.addWay = function(i) {
 			if (!$scope._q.nodes[i].ways) $scope._q.nodes[i].ways = [];
 			if (!$scope._q.nodes[i].ways_ids) $scope._q.nodes[i].ways_ids = [];
@@ -138,14 +142,16 @@ angular.module("ngApp", ["firebase"])
 			$scope.showControlButtons = true;
 			$scope.showText = true;
 			$scope.chooseButtons();
+			//console.log(quest.image);
 		};
 		$scope.showContent = function($fileContent){
 			$scope.str_quest = $fileContent;
 		};
-		$scope.getTitle = function(value){
+		$scope.getValue = function(value, key){
 			var object = JSON.parse(value);
-			return object.title;
-		};
+			console.log(object['image']);
+			return object[key];
+		}
 	}])
 //Magic directive that helps to download quests
 	.directive('onReadFile', function ($parse) {

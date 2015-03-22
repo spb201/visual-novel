@@ -19,14 +19,6 @@
 				<div class="container-fluid">
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<div class="navbar-form form-inline">
-							<div class="input-group">
-								<input ng-model="questInput" type="text" placeholder="quest in json" class="form-control">
-								<span class="input-group-btn">
-									<a href="#" ng-click="input()" class="btn btn-default">go</a>
-								</span>
-							</div>
-								<input ng-model="_q.title" type="text" placeholder="title" class="form-control">
-							<a href="#" ng-click="save()" class="btn btn-default navbar-btn">get quest in json</a>
 							<div class="btn-group" role="group">
 								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 									saved quests <span class="caret"></span>
@@ -37,9 +29,20 @@
 									</li>
 								</ul>
 							</div>
-							<a href="#" ng-click="saveToServer()" class="btn btn-default navbar-btn">save to server</a>
+							<div class="input-group">
+								<span class="input-group-addon">title</span>
+								<input ng-model="_q.title" type="text" class="form-control">
+							</div>
+							<div class="input-group">
+								<span class="input-group-addon">image</span>
+								<input ng-model="_q.image" type="text" class="form-control">
+							</div>
+							<div class="input-group">
+								<span class="input-group-addon">description</span>
+								<input ng-model="_q.descr" type="text" class="form-control">
+							</div>
+							<a href="#" ng-click="saveToServer()" class="btn btn-default navbar-btn" ng-show="_q.title">save to server</a>
 							<a href="#" ng-click="add()" class="btn btn-default navbar-btn">add new node</a>
-							<a href="#" ng-click="pop()" class="btn btn-default navbar-btn">remove max id node</a>
 						</div>
 
 					</div>
