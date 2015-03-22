@@ -77,19 +77,19 @@ angular.module("ngApp", ["firebase"])
 		$scope.saved = function(savedQuest) {
 			$scope._q = JSON.parse(savedQuest);
 		};
-		$scope.getTitle = function(value){
+		$scope.getValue = function(value, key){
 			var object = JSON.parse(value);
-			return object.title;
-		};
-		$scope.getImg = function(value){
-			var object = JSON.parse(value);
-			return object.image;
-		};
+			console.log(object['image']);
+			return object[key];
+		}
 		$scope.addWay = function(i) {
 			if (!$scope._q.nodes[i].ways) $scope._q.nodes[i].ways = [];
 			if (!$scope._q.nodes[i].ways_ids) $scope._q.nodes[i].ways_ids = [];
 			$scope._q.nodes[i].ways.push('');
 			$scope._q.nodes[i].ways_ids.push('');
+		}
+		$scope.hideSidebar = function() {
+			$scope.hideSB = true;
 		}
 	}])
 //quest viewer controller
@@ -124,17 +124,6 @@ angular.module("ngApp", ["firebase"])
 			$scope.showControlButtons = true;
 			$scope.showRestartButton = false;
 		}
-		$scope.start = function(i) {
-			downloadQuest($scope, $http, "q/quest" + i.toString() + ".json");
-		};
-		$scope.custom = function() {
-			quest = angular.fromJson($scope.str_quest);
-			$scope.node = quest.nodes[0];
-			$scope.hideStart = true;
-			$scope.showControlButtons = true;
-			$scope.showText = true;
-			$scope.chooseButtons();
-		};
 		$scope.saved = function(savedQuest) {
 			quest = JSON.parse(savedQuest);
 			$scope.node = quest.nodes[0];
@@ -142,7 +131,6 @@ angular.module("ngApp", ["firebase"])
 			$scope.showControlButtons = true;
 			$scope.showText = true;
 			$scope.chooseButtons();
-			//console.log(quest.image);
 		};
 		$scope.showContent = function($fileContent){
 			$scope.str_quest = $fileContent;

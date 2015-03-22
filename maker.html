@@ -25,7 +25,7 @@
 								</button>
 								<ul class="dropdown-menu" role="menu">
 									<li ng-repeat="quest in quests">
-										<a href="#" ng-click="saved(quest.$value)">{{getTitle(quest.$value)}}</a>
+										<a href="#" ng-click="saved(quest.$value)">{{ getValue(quest.$value, 'title') || 'untitled' }}</a>
 									</li>
 								</ul>
 							</div>
@@ -34,15 +34,15 @@
 								<input ng-model="_q.title" type="text" class="form-control">
 							</div>
 							<div class="input-group">
-								<span class="input-group-addon">image</span>
-								<input ng-model="_q.image" type="text" class="form-control">
-							</div>
-							<div class="input-group">
 								<span class="input-group-addon">description</span>
 								<input ng-model="_q.descr" type="text" class="form-control">
 							</div>
-							<a href="#" ng-click="saveToServer()" class="btn btn-default navbar-btn" ng-show="_q.title">save to server</a>
-							<a href="#" ng-click="add()" class="btn btn-default navbar-btn">add new node</a>
+							<div class="input-group">
+								<span class="input-group-addon">image</span>
+								<input ng-model="_q.image" type="text" class="form-control" placeholder="URL">
+							</div>
+							<button ng-click="add()" class="btn btn-default">add new node</button>
+							<button ng-click="saveToServer()" class="btn btn-default">save to server</button>
 						</div>
 
 					</div>
