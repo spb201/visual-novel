@@ -22,6 +22,17 @@ function startGame($scope) {
 	$scope.showText = true;
 }
 
+//returns true when quest have no final nodes
+function check_final_nodes(quest) {
+	count = 0;
+	for (i = 0; i < quest.nodes.length; ++i) {
+		if (quest.nodes[i].final) {
+			count++;
+		}
+	}
+	return (count == 0);
+}
+
 //quest viewer support function
 function downloadQuest($scope, $http, url) {
 	$http.get(url).
@@ -45,16 +56,17 @@ angular.module("ngApp", ["firebase"])
 	.controller("makerController", ["$scope", "$firebaseArray", function($scope, $firebaseArray) {
 		var ref = new Firebase("https://spb201.firebaseio.com/");
 		$scope.quests = $firebaseArray(ref);
-		$scope._q = angular.fromJson(sessionStorage.getItem('quest'));
-		$scope.input = function() {
-			$scope._q = angular.fromJson($scope.questInput);
-		}
-		$scope.save = function() {
-			console.log($scope._q.nodes[0].ways[0]);
-			$scope.questInput = angular.toJson($scope._q);
-		}
 		$scope.saveToServer = function() {
-		 	$scope.quests.$add(angular.toJson($scope._q));
+		 	if ($scope._q === undefined || $scope._q === null) {
+				alertify.alert('You can\'t save empty adventure');
+			} else if ($scope._q.title == '' || $scope._q.title === null || $scope._q.title === undefined) {
+				alertify.alert('Title can\'t be empty');
+			} else if (check_final_nodes($scope._q)) {
+				alertify.alert('Aventure must contain at least on final node');
+			} else {
+				$scope.quests.$add(angular.toJson($scope._q));
+				alertify.alert('Successfully saved to server');
+			}
 		}
 		$scope.add = function() {
 			if ($scope._q) {
@@ -79,7 +91,6 @@ angular.module("ngApp", ["firebase"])
 		};
 		$scope.getValue = function(value, key){
 			var object = JSON.parse(value);
-			console.log(object['image']);
 			return object[key];
 		}
 		$scope.addWay = function(i) {
@@ -95,7 +106,6 @@ angular.module("ngApp", ["firebase"])
 //quest viewer controller
 	.controller("viewerController", ["$scope", "$http", "$firebaseArray", function($scope, $http, $firebaseArray) {
 		var ref = new Firebase("https://spb201.firebaseio.com/");
-		//$scope._ = _;
 		$scope.quests = $firebaseArray(ref);
 		$scope.hideButtons = [false, false, false, false];
 		$scope.chooseButtons = function() {
@@ -137,7 +147,6 @@ angular.module("ngApp", ["firebase"])
 		};
 		$scope.getValue = function(value, key){
 			var object = JSON.parse(value);
-			console.log(object['image']);
 			return object[key];
 		}
 	}])
