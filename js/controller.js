@@ -69,10 +69,13 @@ angular.module("ngApp", ["firebase"])
 			}
 		}
 		$scope.add = function() {
-			if ($scope._q) {
+			if ($scope._q && $scope._q.nodes) {
 				$scope._q.nodes.push({"id":$scope._q.nodes.length});
 			}
-			else {
+			else if ( $scope._q && ! $scope._q.nodes) {
+				$scope._q.nodes = [];
+				$scope._q.nodes.push({"id":$scope._q.nodes.length});	
+			} else if ( ! $scope._q ){
 				$scope._q = {"quest_id":Math.round(Math.random()*1000), "nodes":[]};
 				$scope._q.nodes.push({"id":$scope._q.nodes.length});
 			}
