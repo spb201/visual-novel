@@ -1,3 +1,5 @@
+var FIREBASE_URL = "https://spb201.firebaseio.com/";
+
 //magic function that helps to download quest as file
 function download(filename, text) {
     var pom = document.createElement('a');
@@ -52,9 +54,27 @@ angular.module("ngApp", ["firebase"])
 	.run(function ($rootScope) {
 		$rootScope._ = window._;
 	})
+	.controller("indexController", ["$scope", "$firebaseAuth", function($scope, $firebaseAuth) {
+		$scope.login = function() {
+			var ref = new Firebase(FIREBASE_URL);
+			var auth = $firebaseAuth(ref);
+			auth.$authWithOAuthPopup("facebook")
+				.then(function(authData) {
+			    console.log("Authenticated successfully with payload:", authData);
+			    document.location = "account.html";
+				}, function(err) {
+					console.log("Login Failed!", error);
+				});
+		};
+	}])
+	.controller("accountController", ["$scope", "$firebaseAuth", function($scope, $firebaseAuth) {
+		var ref = new Firebase(FIREBASE_URL);
+		var auth = $firebaseAuth(ref);
+		$scope.authData = auth.$getAuth();
+	}])
 //quest maker controller
 	.controller("makerController", ["$scope", "$firebaseArray", function($scope, $firebaseArray) {
-		var ref = new Firebase("https://spb201.firebaseio.com/");
+		var ref = new Firebase(FIREBASE_URL);
 		$scope.quests = $firebaseArray(ref);
 		$scope.saveToServer = function() {
 		 	if ($scope._q === undefined || $scope._q === null) {
@@ -108,7 +128,7 @@ angular.module("ngApp", ["firebase"])
 	}])
 //quest viewer controller
 	.controller("viewerController", ["$scope", "$http", "$firebaseArray", function($scope, $http, $firebaseArray) {
-		var ref = new Firebase("https://spb201.firebaseio.com/");
+		var ref = new Firebase(FIREBASE_URL);
 		$scope.quests = $firebaseArray(ref);
 		if ($scope.quests === undefined || $scope.quests === null) {
 			alertify.alert('Can\'t download any adventures');
