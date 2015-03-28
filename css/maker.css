@@ -31,3 +31,8 @@
 	width: 100%;
 	min-height: 100%;
 }
+
+.dropdown-size {
+	max-height: 90 vh;
+	overflow: auto;
+}

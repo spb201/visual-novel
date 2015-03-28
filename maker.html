@@ -25,7 +25,7 @@
 								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 									saved quests <span class="caret"></span>
 								</button>
-								<ul class="dropdown-menu" role="menu">
+								<ul class="dropdown-menu dropdown-size" role="menu">
 									<li ng-repeat="quest in quests">
 										<a href="#" ng-click="saved(quest.$value)">{{ getValue(quest.$value, 'title') || 'untitled' }}</a>
 									</li>
