@@ -62,7 +62,7 @@ angular.module("ngApp", ["firebase"])
 			} else if ($scope._q.title == '' || $scope._q.title === null || $scope._q.title === undefined) {
 				alertify.alert('Title can\'t be empty');
 			} else if (check_final_nodes($scope._q)) {
-				alertify.alert('Aventure must contain at least on final node');
+				alertify.alert('Adventure must contain at least on final node');
 			} else {
 				$scope.quests.$add(angular.toJson($scope._q));
 				alertify.alert('Successfully saved to server');
@@ -110,6 +110,9 @@ angular.module("ngApp", ["firebase"])
 	.controller("viewerController", ["$scope", "$http", "$firebaseArray", function($scope, $http, $firebaseArray) {
 		var ref = new Firebase("https://spb201.firebaseio.com/");
 		$scope.quests = $firebaseArray(ref);
+		if ($scope.quests === undefined || $scope.quests === null) {
+			alertify.alert('Can\'t download any adventures');
+		};
 		$scope.hideButtons = [false, false, false, false];
 		$scope.chooseButtons = function() {
 			if (!$scope.node.final)
