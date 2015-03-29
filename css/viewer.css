@@ -12,11 +12,13 @@ img {
 
 .quests {
 	max-width: 28vw;
-	max-height: 50vh;
+	max-height: 75vh;
+	min-height: 250px;
 	background-color: #eee;
 	display: inline-block;
 	margin: 2px;
-	overflow: auto;
+	overflow: hidden;
+	border-radius: 5px;
 }
 
 .quests a {
@@ -29,8 +31,30 @@ img {
 	height: 100%;
 }
 
-.a-container .title {
-	display: block;
+.main-img-container {
+	top: 0px;
+	margin: 0;
+	padding: 0;
+	max-height: 150px;
+	overflow: hidden;
+}
+
+.main-img {
+	margin: 0;
+	padding: 0;
+	max-width: 100%;
+}
+
+.title {
+	margin: 0px;
+	padding: 0px;
+	top: 0px;
+	background-color: rgba(238,238,238, .75);
+	border: 5px solid rgba(238,238,238, .1);
+	border-radius: 5px;
+	transform: translateY(-60%);
+	display: inline-block;
+	max-width: 100%;
 }
 
 .nav-tabs > li, .nav-pills > li {
