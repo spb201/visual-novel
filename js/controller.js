@@ -146,6 +146,10 @@ angular.module("ngApp", ["firebase"])
 		$scope.hideSidebar = function() {
 			$scope.hideSB = true;
 		}
+		$scope.graphBtn = function() {
+			console.log('asdf');
+			$scope.showGraph = ! $scope.showGraph;
+		}
 	}])
 //quest viewer controller
 	.controller("viewerController", ["$scope", "$http", "$firebaseArray",  "$firebaseAuth", function($scope, $http, $firebaseArray, $firebaseAuth) {
@@ -204,7 +208,7 @@ angular.module("ngApp", ["firebase"])
 		$scope.getValue = function(value, key){
 			var object = JSON.parse(value);
 			return object[key];
-		}
+		};
 	}])
 //Magic directive that helps to download quests
 	.directive('onReadFile', function ($parse) {

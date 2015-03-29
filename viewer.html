@@ -18,7 +18,7 @@
 		<div ng-app="ngApp" ng-controller="viewerController" class="container text-center">
 			<div ng-hide="hideStart" class="panels">
 				<h1>SUPER QUEST VIEWER</h1>
-				<h4><span ng-show="startError">SOMETHING WENT WRONG</span>
+				<span ng-show="startError">SOMETHING WENT WRONG</span>
 			  <ul class="nav nav-pills">
 			    <li ng-class="{ active: panels.isSelected(1) }"><a href ng-click="panels.selectTab(1)">Public quests</a></li>
 			    <li ng-class="{ active: panels.isSelected(2) }"><a href ng-click="panels.selectTab(2)" ng-show="isAuthorized">My quests</a></li>
