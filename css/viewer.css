@@ -13,6 +13,7 @@ img {
 .quests {
 	max-width: 28vw;
 	max-height: 75vh;
+	min-height: 250px;
 	background-color: #eee;
 	display: inline-block;
 	margin: 2px;
@@ -54,4 +55,13 @@ img {
 	transform: translateY(-60%);
 	display: inline-block;
 	max-width: 100%;
+}
+
+.nav-tabs > li, .nav-pills > li {
+    float:none;
+    display:inline-block;
+}
+
+.nav-tabs, .nav-pills {
+    text-align:center;
 }
