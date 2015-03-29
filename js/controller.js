@@ -73,11 +73,31 @@ angular.module("ngApp", ["firebase"])
 		$scope.authData = auth.$getAuth();
 	}])
 //quest maker controller
-	.controller("makerController", ["$scope", "$firebaseArray", function($scope, $firebaseArray) {
+	.controller("makerController", ["$scope", "$firebaseArray", "$firebaseAuth", function($scope, $firebaseArray, $firebaseAuth) {
 		var ref = new Firebase(FIREBASE_URL);
 		var publicRef = ref.child('public');
+		var auth = $firebaseAuth(ref);
+		$scope.authData = auth.$getAuth();
+		$scope.isAuthorized = false;
+		if ($scope.authData) {
+			$scope.isAuthorized = true;
+			var privateRef = ref.child($scope.authData.uid);
+			$scope.myQuests = $firebaseArray(privateRef);
+		}
 		$scope.quests = $firebaseArray(publicRef);
 		$scope.saveToServer = function() {
+		 	if ($scope._q === undefined || $scope._q === null) {
+				alertify.alert('You can\'t save empty adventure');
+			} else if ($scope._q.title == '' || $scope._q.title === null || $scope._q.title === undefined) {
+				alertify.alert('Title can\'t be empty');
+			} else if (check_final_nodes($scope._q)) {
+				alertify.alert('Adventure must contain at least on final node');
+			} else {
+				$scope.myQuests.$add(angular.toJson($scope._q));
+				alertify.alert('Successfully saved to server');
+			}
+		}
+		$scope.publish = function() {
 		 	if ($scope._q === undefined || $scope._q === null) {
 				alertify.alert('You can\'t save empty adventure');
 			} else if ($scope._q.title == '' || $scope._q.title === null || $scope._q.title === undefined) {
@@ -128,9 +148,17 @@ angular.module("ngApp", ["firebase"])
 		}
 	}])
 //quest viewer controller
-	.controller("viewerController", ["$scope", "$http", "$firebaseArray", function($scope, $http, $firebaseArray) {
+	.controller("viewerController", ["$scope", "$http", "$firebaseArray",  "$firebaseAuth", function($scope, $http, $firebaseArray, $firebaseAuth) {
 		var ref = new Firebase(FIREBASE_URL);
 		var publicRef = ref.child('public');
+		var auth = $firebaseAuth(ref);
+		$scope.authData = auth.$getAuth();
+		$scope.isAuthorized = false;
+		if ($scope.authData) {
+			$scope.isAuthorized = true;
+			var privateRef = ref.child($scope.authData.uid);
+			$scope.myQuests = $firebaseArray(privateRef);
+		}
 		$scope.quests = $firebaseArray(publicRef);
 		if ($scope.quests === undefined || $scope.quests === null) {
 			alertify.alert('Can\'t download any adventures');

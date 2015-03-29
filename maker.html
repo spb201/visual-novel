@@ -23,10 +23,20 @@
 						<div class="navbar-form form-inline">
 							<div class="btn-group" role="group">
 								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-									My quests <span class="caret"></span>
+									Public quests <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu dropdown-size" role="menu">
 									<li ng-repeat="quest in quests">
+										<a href="#" ng-click="saved(quest.$value)">{{ getValue(quest.$value, 'title') || 'untitled' }}</a>
+									</li>
+								</ul>
+							</div>
+							<div class="btn-group" role="group" ng-show="isAuthorized && myQuests.length > 0">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+									My quests <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu dropdown-size" role="menu">
+									<li ng-repeat="quest in myQuests">
 										<a href="#" ng-click="saved(quest.$value)">{{ getValue(quest.$value, 'title') || 'untitled' }}</a>
 									</li>
 								</ul>
@@ -44,7 +54,8 @@
 								<input ng-model="_q.image" type="text" class="form-control" placeholder="URL">
 							</div>
 							<button ng-click="add()" class="btn btn-default">Add new node</button>
-							<button ng-click="saveToServer()" class="btn btn-default">Save to server</button>
+							<button ng-click="saveToServer()" class="btn btn-default">Save</button>
+							<button ng-click="publish()" class="btn btn-default">Publish</button>
 						</div>
 					</div>
 				</div>

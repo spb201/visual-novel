@@ -21,7 +21,7 @@
 				<h4><span ng-show="startError">SOMETHING WENT WRONG</span>
 			  <ul class="nav nav-pills">
 			    <li ng-class="{ active: panels.isSelected(1) }"><a href ng-click="panels.selectTab(1)">Public quests</a></li>
-			    <li ng-class="{ active: panels.isSelected(2) }"><a href ng-click="panels.selectTab(2)">My quests</a></li>
+			    <li ng-class="{ active: panels.isSelected(2) }"><a href ng-click="panels.selectTab(2)" ng-show="isAuthorized">My quests</a></li>
 			  </ul>
 		    <div class="panel" ng-show="panels.isSelected(1)">
 					<div ng-repeat="quest in quests" class="quests">
@@ -36,7 +36,7 @@
 					</div>
 			  </div>
 			  <div class="panel" ng-show="panels.isSelected(2)">
-			  	<div ng-repeat="quest in publicQuests" class="quests">
+			  	<div ng-repeat="quest in myQuests" class="quests">
 						<a href="#" ng-click="saved(quest.$value)">
 							<div class="a-container">
 								<span class="title">{{ getValue(quest.$value, 'title') || 'untitled' }}</span>
