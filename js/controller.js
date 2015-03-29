@@ -75,7 +75,8 @@ angular.module("ngApp", ["firebase"])
 //quest maker controller
 	.controller("makerController", ["$scope", "$firebaseArray", function($scope, $firebaseArray) {
 		var ref = new Firebase(FIREBASE_URL);
-		$scope.quests = $firebaseArray(ref);
+		var publicRef = ref.child('public');
+		$scope.quests = $firebaseArray(publicRef);
 		$scope.saveToServer = function() {
 		 	if ($scope._q === undefined || $scope._q === null) {
 				alertify.alert('You can\'t save empty adventure');
@@ -129,7 +130,8 @@ angular.module("ngApp", ["firebase"])
 //quest viewer controller
 	.controller("viewerController", ["$scope", "$http", "$firebaseArray", function($scope, $http, $firebaseArray) {
 		var ref = new Firebase(FIREBASE_URL);
-		$scope.quests = $firebaseArray(ref);
+		var publicRef = ref.child('public');
+		$scope.quests = $firebaseArray(publicRef);
 		if ($scope.quests === undefined || $scope.quests === null) {
 			alertify.alert('Can\'t download any adventures');
 		};
@@ -210,4 +212,21 @@ angular.module("ngApp", ["firebase"])
 				});
 			}
 		};
-	});
+	})
+	.directive('panels', function(){
+    return {
+      restrict: 'C',
+      controller: function(){
+        this.tab = 1;
+
+        this.selectTab = function(setTab) {
+          this.tab = setTab;
+        };
+
+        this.isSelected = function(checkTab) {
+          return this.tab === checkTab;
+        };
+      },
+      controllerAs: 'panels'
+    };
+  });

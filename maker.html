@@ -23,7 +23,7 @@
 						<div class="navbar-form form-inline">
 							<div class="btn-group" role="group">
 								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-									saved quests <span class="caret"></span>
+									My quests <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu dropdown-size" role="menu">
 									<li ng-repeat="quest in quests">
@@ -32,36 +32,35 @@
 								</ul>
 							</div>
 							<div class="input-group">
-								<span class="input-group-addon">title</span>
+								<span class="input-group-addon">Title</span>
 								<input ng-model="_q.title" type="text" class="form-control">
 							</div>
 							<div class="input-group">
-								<span class="input-group-addon">description</span>
+								<span class="input-group-addon">Description</span>
 								<input ng-model="_q.descr" type="text" class="form-control">
 							</div>
 							<div class="input-group">
-								<span class="input-group-addon">image</span>
+								<span class="input-group-addon">Image</span>
 								<input ng-model="_q.image" type="text" class="form-control" placeholder="URL">
 							</div>
-							<button ng-click="add()" class="btn btn-default">add new node</button>
-							<button ng-click="saveToServer()" class="btn btn-default">save to server</button>
+							<button ng-click="add()" class="btn btn-default">Add new node</button>
+							<button ng-click="saveToServer()" class="btn btn-default">Save to server</button>
 						</div>
-
 					</div>
 				</div>
 			</nav>
-			<p ng-hide="_q.nodes" id="warning">can't take quest neither from session storage nor from input string</p>
+			<p ng-hide="_q.nodes" id="warning">Can't take quest neither from session storage nor from input string</p>
 			<div id="nodecontainer">
 				<div class="nodes well well-sm drag-node" draggable ng-repeat="node in _q.nodes">
 					<span class="glyphicon glyphicon-remove xmark" ng-click="remove(node.id)"></span>
 					<h4>Node {{ node.id }}</h4>
 					<div class="input-group">
-						<span class="input-group-addon">text</span>
+						<span class="input-group-addon">Text</span>
 						<input ng-model="node.text" class="form-control">
 					</div>
 					<div class="row" ng-show="node.ways_ids">
-						<span class="col-md-3">way id</span>
-						<span class="col-md-9">way text</span>
+						<span class="col-md-3">Way id</span>
+						<span class="col-md-9">Way text</span>
 					</div>
 					<div class="row" ng-repeat="i in  _.range(node.ways_ids.length)">
 						<div class="col-md-3">
@@ -73,7 +72,7 @@
 							<input ng-model="node.ways[i]" class="form-control">
 						</div>
 					</div>
-					<a href="#" class="btn btn-default" ng-click="addWay(node.id)">add new way</a>
+					<a href="#" class="btn btn-default" ng-click="addWay(node.id)">Add new way</a>
 					<div class="form-inline">
 						<label><input type="checkbox" ng-model="node.image"> Image</label>
 						<input ng-model="node.imagesrc" class="form-control" type="text" ng-show="node.image">
