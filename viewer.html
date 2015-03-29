@@ -22,8 +22,10 @@
 				<div ng-repeat="quest in quests" class="quests">
 					<a href="#" ng-click="saved(quest.$value)">
 						<div class="a-container">
-							<span class="title">{{ getValue(quest.$value, 'title') || 'untitled' }}</span>
-							<img ng-src="{{ getValue(quest.$value, 'image') || 'http://upload.wikimedia.org/wikipedia/commons/6/69/Wikipetan_Visual_Novel_Kor.png' }}">
+							<div class="main-img-container">
+								<img class="main-img" ng-src="{{ getValue(quest.$value, 'image') || 'http://upload.wikimedia.org/wikipedia/commons/6/69/Wikipetan_Visual_Novel_Kor.png' }}">
+							</div>
+							<h2 class="title">{{ getValue(quest.$value, 'title') || 'untitled' }}</h2>
 							<p>{{ getValue(quest.$value, 'descr') || 'This quest have no description' }}</p>
 							<p></p>
 						</div>
@@ -35,7 +37,7 @@
 			<div ng-show="showControlButtons">
 				<a href="#" ng-repeat="i in _.range(node.ways_ids.length)" ng-show="node.ways_ids[i]" class="btn btn-default btn-move" ng-click="buttonClick(i)" onClick="this.blur();" ng-bind="node.ways[i]"></a>
 			</div>
-			<img ng-src="{{ node.imagesrc }}" ng-show="node.image"></img>
+			<img ng-src="{{ node.imagesrc }}" ng-show="node.image">
 			<div>
 				<a href="#" class="btn btn-default" ng-click="exit()" ng-show="showRestartButton">exit</a>
 				<a href="#" class="btn btn-default" ng-click="restart()" ng-show="showRestartButton">restart</a>
