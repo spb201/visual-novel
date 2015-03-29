@@ -36,3 +36,11 @@
 	max-height: 90vh;
 	overflow: auto;
 }
+
+#cy {
+	height: 400px;
+	width: 400px;
+	position: absolute;
+	left: 0;
+	top: 100px;
+}
