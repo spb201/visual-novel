@@ -59,12 +59,12 @@ angular.module("ngApp", ["firebase"])
 		var auth = $firebaseAuth(ref);
 		$scope.authData = auth.$getAuth();
 		$scope.isAuthorized = false;
+		$scope.welcomeMessage = 'Ultimate text adventure games maker';
 		if ($scope.authData) {
 			$scope.isAuthorized = true;
+			$scope.welcomeMessage = 'Hello, ' + $scope.authData.facebook.displayName + '!';
 		}
 		$scope.login = function() {
-
-			
 			auth.$authWithOAuthPopup("facebook")
 				.then(function(authData) {
 					console.log("Authenticated successfully with payload:", authData);
@@ -73,11 +73,6 @@ angular.module("ngApp", ["firebase"])
 					console.log("Login Failed!", error);
 				});
 		};
-	}])
-	.controller("accountController", ["$scope", "$firebaseAuth", function($scope, $firebaseAuth) {
-		var ref = new Firebase(FIREBASE_URL);
-		var auth = $firebaseAuth(ref);
-		$scope.authData = auth.$getAuth();
 	}])
 //quest maker controller
 	.controller("makerController", ["$scope", "$firebaseArray", "$firebaseAuth", function($scope, $firebaseArray, $firebaseAuth) {
