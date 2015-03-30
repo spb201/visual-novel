@@ -55,13 +55,17 @@ angular.module("ngApp", ["firebase"])
 		$rootScope._ = window._;
 	})
 	.controller("indexController", ["$scope", "$firebaseAuth", function($scope, $firebaseAuth) {
-		$scope.login = function() {
-			var ref = new Firebase(FIREBASE_URL);
+					var ref = new Firebase(FIREBASE_URL);
 			var auth = $firebaseAuth(ref);
+				$scope.authData = auth.$getAuth();
+		$scope.isAuthorized = false;
+		$scope.login = function() {
+
+			
 			auth.$authWithOAuthPopup("facebook")
 				.then(function(authData) {
 			    console.log("Authenticated successfully with payload:", authData);
-			    document.location = "account.html";
+			    document.location = "index.html";
 				}, function(err) {
 					console.log("Login Failed!", error);
 				});
