@@ -46,6 +46,7 @@
 	background-color: rgba(238,238,238, .75);
 	border: 5px solid rgba(238,238,238, .1);
 	border-radius: 5px;
+	-webkit-transform: translateY(-60%);
 	transform: translateY(-60%);
 	display: inline-block;
 	max-width: 100%;
