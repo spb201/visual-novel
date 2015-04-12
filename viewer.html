@@ -11,12 +11,14 @@
 		<script src="https://cdn.firebase.com/libs/angularfire/1.0.0/angularfire.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.0/alertify.min.js"></script>
 		<link rel="stylesheet" href="css/alertify.css">
+		<link rel="stylesheet" href="css/common.css">
 		<script src="js/controller.js"></script>
 		<title>v0.0.0.0.0.0.4</title>
 	</head>
 	<body>
 		<div ng-app="ngApp" ng-controller="viewerController" class="container text-center">
 			<div ng-hide="hideStart" class="panels">
+				<a href="index.html" id="to-index" class="btn btn-default">Return to index</a>
 				<h1>SUPER QUEST VIEWER</h1>
 				<span ng-show="startError">SOMETHING WENT WRONG</span>
 			  <ul class="nav nav-pills">
