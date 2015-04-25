@@ -104,3 +104,22 @@
 	-webkit-user-select: none;
 	-moz-user-select: none;
 }
+
+.to-index#show-graph {
+	bottom: 55px;
+}
+
+.to-index#update-graph {
+	bottom: 100px;
+}
+
+.graph {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 500px;
+	height: 500px;
+	transform: translate(-50%, -50%);
+	background-color: #F8F8F8;
+	border: 1px solid #E7E7E7;
+}
