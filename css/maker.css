@@ -109,6 +109,10 @@
 	bottom: 55px;
 }
 
+.to-index#update-graph {
+	bottom: 100px;
+}
+
 .graph {
 	position: absolute;
 	left: 50%;

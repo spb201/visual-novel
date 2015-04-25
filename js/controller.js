@@ -176,6 +176,56 @@ angular.module("ngApp", ["firebase"])
 			console.log('asdf');
 			$scope.showGraph = ! $scope.showGraph;
 		}
+
+		$scope.renewGraph = function() {
+			var qnodes = [];
+			var qedges = [];
+			if ($scope._q) {
+				for (i = 0; i < $scope._q.nodes.length; ++i) {
+					qnodes.push({data : { id : ''+i }});
+					for (j = 0; j < $scope._q.nodes[i].ways_ids.length; ++j) {
+						qedges.push({data: { id: '' + i + j, weight: 1, source: '' + i, target: '' + $scope._q.nodes[i].ways_ids[j]}});
+					}
+				}
+			}
+			console.log(qnodes);
+			var cy = cytoscape({
+				container: document.getElementById('graph-container'),
+				style: cytoscape.stylesheet()
+					.selector('node')
+						.css({
+							'content': 'data(id)'
+						})
+					.selector('edge')
+						.css({
+							'target-arrow-shape': 'triangle',
+							'width': 4,
+							'line-color': '#ddd',
+							'target-arrow-color': '#ddd'
+						})
+					.selector('.highlighted')
+						.css({
+							'background-color': '#61bffc',
+							'line-color': '#61bffc',
+							'target-arrow-color': '#61bffc',
+							'transition-property': 'background-color, line-color, target-arrow-color',
+							'transition-duration': '0.5s'
+						}),
+				elements: {
+					nodes: qnodes,
+					edges: qedges
+				},
+
+				layout: {
+					name: 'breadthfirst',
+					directed: true,
+					roots: '#a',
+					padding: 10
+				}
+			});
+				
+			var bfs = cy.elements().bfs('#a', function(){}, true);
+		}
 	}])
 //quest viewer controller
 	.controller("viewerController", ["$scope", "$http", "$firebaseArray",  "$firebaseAuth", function($scope, $http, $firebaseArray, $firebaseAuth) {
