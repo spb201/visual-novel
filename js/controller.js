@@ -35,6 +35,18 @@ function check_final_nodes(quest) {
 	return (count == 0);
 }
 
+function is_all_nodes_empty(quest) {
+	count = 0;
+	for (i = 0; i < quest.nodes.length; ++i) {
+		if (quest.nodes[i] && quest.nodes[i].ways_ids) {
+			for (j = 0; j < quest.nodes[i].ways_ids.length; ++j) {
+				count++;
+			}
+		}
+	}
+	return (count == 0);
+}
+
 //quest viewer support function
 function downloadQuest($scope, $http, url) {
 	$http.get(url).
@@ -94,6 +106,10 @@ angular.module("ngApp", ["firebase"])
 				alertify.alert('Title can\'t be empty');
 			} else if (check_final_nodes($scope._q)) {
 				alertify.alert('Adventure must contain at least on final node');
+			} else if (is_all_nodes_empty($scope._q)) {
+				alertify.alert('All nodes can\'t be empty');
+			} else if ($scope._q.title == 'empty') {
+				alertify.alert('Ivan said it\'s bad to save quest with \'empty\' title');
 			} else {
 				$scope.myQuests.$add(angular.toJson($scope._q));
 				alertify.alert('Successfully saved to server');
@@ -106,6 +122,10 @@ angular.module("ngApp", ["firebase"])
 				alertify.alert('Title can\'t be empty');
 			} else if (check_final_nodes($scope._q)) {
 				alertify.alert('Adventure must contain at least on final node');
+			} else if (is_all_nodes_empty($scope._q)) {
+				alertify.alert('All nodes can\'t be empty');
+			} else if ($scope._q.title == 'empty') {
+				alertify.alert('Ivan said it\'s bad to save quest with \'empty\' title');
 			} else {
 				$scope.quests.$add(angular.toJson($scope._q));
 				alertify.alert('Successfully saved to server');
