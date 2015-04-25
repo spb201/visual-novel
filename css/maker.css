@@ -104,3 +104,7 @@
 	-webkit-user-select: none;
 	-moz-user-select: none;
 }
+
+.to-index#show-graph {
+	bottom: 55px;
+}
