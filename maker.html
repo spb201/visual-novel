@@ -11,7 +11,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.0/alertify.min.js"></script>
 		<script src="http://cytoscape.github.io/cytoscape.js/api/cytoscape.js-latest/cytoscape.min.js"></script>
 		<script src="js/controller.js"></script>
-		<script src="js/maker.js"></script>
+		<!--<script src="js/maker.js"></script>-->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/maker.css">
 		<link rel="stylesheet" href="css/alertify.css">
@@ -21,6 +21,7 @@
 	<body ng-app="ngApp">
 		<div ng-controller="makerController" id="maker">
 			<a href="index.html" id="to-index" class="btn btn-default">Return to index</a>
+			<!-- NAVIGATION BAR -->
 			<nav class="navbar navbar-default  navbar-fixed-top">
 				<div class="container-fluid">
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -64,6 +65,66 @@
 					</div>
 				</div>
 			</nav>
+			<!-- NODEBAR -->
+			<div class="nodebar">
+				<div class="node" ng-repeat="node in _q.nodes" ng-click="selectNode(node.id)">
+					<span class="node-id">{{ node.id }}</span>
+				</div>
+			</div>
+			<div class="selected-node" ng-show="selectedNode">
+				<span class="node-id">{{ selectedNode.id }}</span>
+				<div class="row">
+					<span class="col-md-3">Way id</span>
+					<span class="col-md-9">Way text</span>
+				</div>
+				<div class="row" ng-repeat="i in  _.range(selectedNode.ways_ids.length)">
+					<div class="col-md-3">
+						<select class="form-control" ng-model="selectedNode.ways_ids[i]">
+							<option ng-repeat="node in _q.nodes">{{ node.id }}</option>
+						</select>
+					</div>
+					<div class="col-md-9">
+						<input ng-model="node.ways[i]" class="form-control">
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
+<!--			<p ng-hide="_q.nodes" id="warning">Can't take quest neither from session storage nor from input string</p>
+			<div id="nodecontainer">
+				<div class="nodes well well-sm drag-node" draggable ng-repeat="node in _q.nodes">
+					<span class="glyphicon glyphicon-remove xmark" ng-click="remove(node.id)"></span>
+					<h4>Node {{ node.id }}</h4>
+					<div class="input-group">
+						<span class="input-group-addon">Text</span>
+						<input ng-model="node.text" class="form-control">
+					</div>
+					<div class="row" ng-show="node.ways_ids">
+						<span class="col-md-3">Way id</span>
+						<span class="col-md-9">Way text</span>
+					</div>
+					<div class="row" ng-repeat="i in  _.range(node.ways_ids.length)">
+						<div class="col-md-3">
+							<select class="form-control" ng-model="node.ways_ids[i]">
+								<option ng-repeat="node in _q.nodes">{{ node.id }}</option>
+							</select>
+						</div>
+						<div class="col-md-9">
+							<input ng-model="node.ways[i]" class="form-control">
+						</div>
+					</div>
+					<a href="#" class="btn btn-default" ng-click="addWay(node.id)">Add new way</a>
+					<div class="form-inline">
+						<label><input type="checkbox" ng-model="node.image"> Image</label>
+						<input ng-model="node.imagesrc" class="form-control" type="text" ng-show="node.image">
+						<img ng-src="{{ node.imagesrc }}" ng-show="node.image" style="max-width: 100px; max-height: 100px;"></img>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input ng-model="node.final" type="checkbox"> Final
+						</label>
+					</div>
+				</div>
+			</div>
+-->

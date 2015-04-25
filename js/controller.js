@@ -81,6 +81,10 @@ angular.module("ngApp", ["firebase"])
 		var auth = $firebaseAuth(ref);
 		$scope.authData = auth.$getAuth();
 		$scope.isAuthorized = false;
+		$scope.selectNode = function(i) {
+			console.log(i);
+			$scope.selectedNode = $scope._q.nodes[i];
+		}
 		if ($scope.authData) {
 			$scope.isAuthorized = true;
 			var privateRef = ref.child($scope.authData.uid);
