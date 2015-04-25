@@ -10,6 +10,7 @@
 		<script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
 		<script src="https://cdn.firebase.com/libs/angularfire/1.0.0/angularfire.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.0/alertify.min.js"></script>
+		<script src="js/ng-infinite-scroll.min.js"></script>
 		<link rel="stylesheet" href="css/alertify.css">
 		<link rel="stylesheet" href="css/common.css">
 		<script src="js/controller.js"></script>
@@ -26,6 +27,7 @@
 			    <li ng-class="{ active: panels.isSelected(2) }"><a href ng-click="panels.selectTab(2)" ng-show="isAuthorized">My quests</a></li>
 			  </ul>
 		    <div class="panel" ng-show="panels.isSelected(1)">
+				<div infinite-scroll="addMoreItems()">
 					<div ng-repeat="quest in quests" class="quests">
 						<a href="#" ng-click="saved(quest.$value)">
 							<div class="a-container">
@@ -37,6 +39,7 @@
 							</div>
 						</a>
 					</div>
+				</div>
 			  </div>
 			  <div class="panel" ng-show="panels.isSelected(2)">
 			  	<div ng-repeat="quest in myQuests" class="quests">

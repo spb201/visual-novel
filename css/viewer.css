@@ -61,3 +61,7 @@
 .nav-tabs, .nav-pills {
     text-align:center;
 }
+
+.quests:nth-of-type(n+13) {
+	display: none;
+}

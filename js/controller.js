@@ -60,7 +60,7 @@ function downloadQuest($scope, $http, url) {
 		});
 }
 
-angular.module("ngApp", ["firebase"])
+angular.module("ngApp", ["firebase", "infinite-scroll"])
 //add underscorejs support
 	.constant('_', window._)
 	.run(function ($rootScope) {
@@ -184,12 +184,19 @@ angular.module("ngApp", ["firebase"])
 		var auth = $firebaseAuth(ref);
 		$scope.authData = auth.$getAuth();
 		$scope.isAuthorized = false;
+		itemsCount = 13;
 		if ($scope.authData) {
 			$scope.isAuthorized = true;
 			var privateRef = ref.child($scope.authData.uid);
 			$scope.myQuests = $firebaseArray(privateRef);
 		}
 		$scope.quests = $firebaseArray(publicRef);
+		$scope.addMoreItems = function() {
+			itemsCount += 3;
+			$('.quests').css('display', 'inline-block');
+			$('.quests:nth-of-type(n+' + itemsCount + ')').css('display', 'none');
+			console.log($scope.itemsCount);
+		}
 		if ($scope.quests === undefined || $scope.quests === null) {
 			alertify.alert('Can\'t download any adventures');
 		};
