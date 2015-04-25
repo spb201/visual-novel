@@ -11,7 +11,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.0/alertify.min.js"></script>
 		<script src="http://cytoscape.github.io/cytoscape.js/api/cytoscape.js-latest/cytoscape.min.js"></script>
 		<script src="js/controller.js"></script>
-		<!--<script src="js/maker.js"></script>-->
+		<script src="js/maker.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/maker.css">
 		<link rel="stylesheet" href="css/alertify.css">
@@ -58,7 +58,6 @@
 								<span class="input-group-addon">Image</span>
 								<input ng-model="_q.image" type="text" class="form-control" placeholder="URL">
 							</div>
-							<button ng-click="add()" class="btn btn-default">Add new node</button>
 							<button ng-click="saveToServer()" class="btn btn-default">Save</button>
 							<button ng-click="publish()" class="btn btn-default">Publish</button>
 						</div>
@@ -70,9 +69,20 @@
 				<div class="node" ng-repeat="node in _q.nodes" ng-click="selectNode(node.id)">
 					<span class="node-id">{{ node.id }}</span>
 				</div>
+				<div class="node" ng-click="add()" ng-show="_q">
+					<span class="node-id">add new node</span>
+				</div>	
 			</div>
+			<div id="hide-nodebar">
+				<span id="arrow">hide</span>
+			</div>
+			<!-- SELECTED NODE -->
 			<div class="selected-node" ng-show="selectedNode">
 				<span class="node-id">{{ selectedNode.id }}</span>
+				<div class="input-group">
+					<span class="input-group-addon">Text</span>
+					<input ng-model="selectedNode.text" class="form-control">
+				</div>
 				<div class="row">
 					<span class="col-md-3">Way id</span>
 					<span class="col-md-9">Way text</span>
@@ -84,8 +94,19 @@
 						</select>
 					</div>
 					<div class="col-md-9">
-						<input ng-model="node.ways[i]" class="form-control">
+						<input ng-model="selectedNode.ways[i]" class="form-control">
 					</div>
+				</div>
+				<a href="#" class="btn btn-default" ng-click="addWay(selectedNode.id)">Add new way</a>
+				<div class="form-inline">
+					<label><input type="checkbox" ng-model="selectedNode.image"> Image</label>
+					<input ng-model="selectedNode.imagesrc" class="form-control" type="text" ng-show="selectedNode.image">
+					<img ng-src="{{ selectedNode.imagesrc }}" ng-show="selectedNode.image" style="max-width: 100px; max-height: 100px;"></img>
+				</div>
+				<div class="checkbox">
+					<label>
+						<input ng-model="selectedNode.final" type="checkbox"> Final
+					</label>
 				</div>
 			</div>
 		</div>
