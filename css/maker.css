@@ -73,6 +73,7 @@
 	position: absolute;
 	left: 50%;
 	top: 50%;
+	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 	width: 400px;
 	height: auto;
@@ -90,6 +91,7 @@
 	height: 50px;
 	background-color: #F8F8F8;
 	border: 1px solid #E7E7E7;
+	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 	border-radius: 50%;
 	cursor: pointer;
@@ -99,6 +101,7 @@
 	position: absolute;
 	left: 50%;
 	top: 50%;
+	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 	font-size: 20px;
 	-webkit-user-select: none;
@@ -119,6 +122,7 @@
 	top: 50%;
 	width: 500px;
 	height: 500px;
+	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 	background-color: #F8F8F8;
 	border: 1px solid #E7E7E7;
