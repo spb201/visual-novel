@@ -308,7 +308,10 @@ angular.module("ngApp", ["firebase", "infinite-scroll"])
 		$scope.logout = function() {
 			auth.$unauth();
 			window.location.reload();
-		}
+		};
+		$scope.remove = function(quest) {
+			$scope.myQuests.$remove(quest);
+		};
 	}])
 //Magic directive that helps to download quests
 	.directive('onReadFile', function ($parse) {

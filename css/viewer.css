@@ -14,6 +14,7 @@
 	margin: 2px;
 	overflow: hidden;
 	border-radius: 5px;
+	position: relative;
 }
 
 .quests a {
@@ -68,4 +69,15 @@
 
 .to-index#sign-out {
 	bottom: 55px;
+}
+
+.xmark {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	color: black;
+	cursor: pointer;
+	background-color: rgba(238,238,238, .75);
+	border: 5px solid rgba(238,238,238, .1);
+	border-radius: 50%;
 }
