@@ -20,11 +20,12 @@
 		<div ng-app="ngApp" ng-controller="viewerController" class="container text-center">
 			<div ng-hide="hideStart" class="panels">
 				<a href="index.html" class="btn btn-default to-index">Return to index</a>
-				<h1>SUPER QUEST VIEWER</h1>
+				<a href="#" id="sign-out" class="btn btn-default to-index" ng-click="logout()">Sign out</a>
+				<h1>SUPER VISUAL NOVEL VIEWER</h1>
 				<span ng-show="startError">SOMETHING WENT WRONG</span>
 			  <ul class="nav nav-pills">
-			    <li ng-class="{ active: panels.isSelected(1) }"><a href ng-click="panels.selectTab(1)">Public quests</a></li>
-			    <li ng-class="{ active: panels.isSelected(2) }"><a href ng-click="panels.selectTab(2)" ng-show="isAuthorized">My quests</a></li>
+			    <li ng-class="{ active: panels.isSelected(1) }"><a href ng-click="panels.selectTab(1)">Public visual novels</a></li>
+			    <li ng-class="{ active: panels.isSelected(2) }"><a href ng-click="panels.selectTab(2)" ng-show="isAuthorized">My visual novels</a></li>
 			  </ul>
 		    <div class="panel" ng-show="panels.isSelected(1)">
 				<div infinite-scroll="addMoreItems()">
@@ -35,7 +36,7 @@
 									<img class="main-img" ng-src="{{ getValue(quest.$value, 'image') || 'http://upload.wikimedia.org/wikipedia/commons/6/69/Wikipetan_Visual_Novel_Kor.png' }}">
 								</div>
 								<h2 class="title">{{ getValue(quest.$value, 'title') || 'untitled' }}</h2>
-								<p>{{ getValue(quest.$value, 'descr') || 'This quest have no description' }}</p>
+								<p>{{ getValue(quest.$value, 'descr') || 'This visual novel have no description' }}</p>
 							</div>
 						</a>
 					</div>
@@ -49,7 +50,7 @@
 									<img class="main-img" ng-src="{{ getValue(quest.$value, 'image') || 'http://upload.wikimedia.org/wikipedia/commons/6/69/Wikipetan_Visual_Novel_Kor.png' }}">
 								</div>
 								<h2 class="title">{{ getValue(quest.$value, 'title') || 'untitled' }}</h2>
-								<p>{{ getValue(quest.$value, 'descr') || 'This quest have no description' }}</p>
+								<p>{{ getValue(quest.$value, 'descr') || 'This visual novel have no description' }}</p>
 							</div>
 						</a>
 					</div>

@@ -65,3 +65,7 @@
 .quests:nth-of-type(n+13) {
 	display: none;
 }
+
+.to-index#sign-out {
+	bottom: 55px;
+}
