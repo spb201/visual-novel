@@ -44,6 +44,7 @@
 			  </div>
 			  <div class="panel" ng-show="panels.isSelected(2)">
 			  	<div ng-repeat="quest in myQuests" class="quests">
+					<span class="glyphicon glyphicon-remove xmark" ng-click="remove(quest)"></span>
 						<a href="#" ng-click="saved(quest.$value)">
 							<div class="a-container">
 								<div class="main-img-container">
