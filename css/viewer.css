@@ -81,3 +81,8 @@
 	border: 5px solid rgba(238,238,238, .1);
 	border-radius: 50%;
 }
+
+.xmark:hover {
+	background-color: rgba(238,238,238, 2);
+	border: 5px solid rgba(238,238,238, 3);
+}
