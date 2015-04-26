@@ -108,7 +108,9 @@ angular.module("ngApp", ["firebase", "infinite-scroll"])
 		}
 		$scope.quests = $firebaseArray(publicRef);
 		$scope.saveToServer = function() {
-		 	if ($scope._q === undefined || $scope._q === null) {
+			if (!$scope.isAuthorized) {
+				alertify.alert('You are not logged in');
+			} else if ($scope._q === undefined || $scope._q === null) {
 				alertify.alert('You can\'t save empty adventure');
 			} else if ($scope._q.title == '' || $scope._q.title === null || $scope._q.title === undefined) {
 				alertify.alert('Title can\'t be empty');
@@ -124,7 +126,9 @@ angular.module("ngApp", ["firebase", "infinite-scroll"])
 			}
 		}
 		$scope.publish = function() {
-		 	if ($scope._q === undefined || $scope._q === null) {
+			if (!$scope.isAuthorized) {
+				alertify.alert('You are not logged in');
+			} else if ($scope._q === undefined || $scope._q === null) {
 				alertify.alert('You can\'t save empty adventure');
 			} else if ($scope._q.title == '' || $scope._q.title === null || $scope._q.title === undefined) {
 				alertify.alert('Title can\'t be empty');
