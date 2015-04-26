@@ -108,13 +108,18 @@
 	-moz-user-select: none;
 }
 
-.to-index#show-graph {
+.to-index#sign-out {
 	bottom: 55px;
 }
 
-.to-index#update-graph {
+.to-index#show-graph {
 	bottom: 100px;
 }
+
+.to-index#update-graph {
+	bottom: 145px;
+}
+
 
 .graph {
 	position: absolute;

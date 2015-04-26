@@ -71,7 +71,7 @@ angular.module("ngApp", ["firebase", "infinite-scroll"])
 		var auth = $firebaseAuth(ref);
 		$scope.authData = auth.$getAuth();
 		$scope.isAuthorized = false;
-		$scope.welcomeMessage = 'Ultimate text adventure games maker';
+		$scope.welcomeMessage = 'Ultimate visual novel maker';
 		if ($scope.authData) {
 			$scope.isAuthorized = true;
 			$scope.welcomeMessage = 'Hello, ' + $scope.authData.facebook.displayName + '!';
@@ -85,6 +85,10 @@ angular.module("ngApp", ["firebase", "infinite-scroll"])
 					console.log("Login Failed!", error);
 				});
 		};
+		$scope.logout = function() {
+			auth.$unauth();
+			window.location.reload();
+		}
 	}])
 //quest maker controller
 	.controller("makerController", ["$scope", "$firebaseArray", "$firebaseAuth", function($scope, $firebaseArray, $firebaseAuth) {
@@ -175,6 +179,11 @@ angular.module("ngApp", ["firebase", "infinite-scroll"])
 		$scope.graphBtn = function() {
 			console.log('asdf');
 			$scope.showGraph = ! $scope.showGraph;
+		}
+
+		$scope.logout = function() {
+			auth.$unauth();
+			window.location.reload();
 		}
 
 		$scope.renewGraph = function() {
@@ -292,6 +301,10 @@ angular.module("ngApp", ["firebase", "infinite-scroll"])
 			var object = JSON.parse(value);
 			return object[key];
 		};
+		$scope.logout = function() {
+			auth.$unauth();
+			window.location.reload();
+		}
 	}])
 //Magic directive that helps to download quests
 	.directive('onReadFile', function ($parse) {

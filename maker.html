@@ -22,6 +22,7 @@
 	<body ng-app="ngApp">
 		<div ng-controller="makerController" id="maker">
 			<a href="index.html" class="btn btn-default to-index">Return to index</a>
+			<a href="#" id="sign-out" class="btn btn-default to-index" ng-click="logout()">Sign out</a>
 			<a href="#" id="show-graph" class="btn btn-default to-index">Show nodes graph</a>
 			<a href="#" id="update-graph" class="btn btn-default to-index" ng-click="renewGraph()">Update graph</a>
 			<!-- NAVIGATION BAR -->
@@ -31,7 +32,7 @@
 						<div class="navbar-form form-inline">
 							<div class="btn-group" role="group">
 								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-									Public quests <span class="caret"></span>
+									Public visual novels <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu dropdown-size" role="menu">
 									<li ng-repeat="quest in quests">
@@ -41,7 +42,7 @@
 							</div>
 							<div class="btn-group" role="group" ng-show="isAuthorized && myQuests.length > 0">
 								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-									My quests <span class="caret"></span>
+									My visual novels <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu dropdown-size" role="menu">
 									<li ng-repeat="quest in myQuests">

@@ -15,10 +15,11 @@
 		<div class="jumbotron" ng-controller="indexController">
 			<div class="container">
 				<h1>{{welcomeMessage}}</h1>
-				<p>Best place to create and play visual novels (now) and interactive fiction (in the nearest future)</p>
+				<p>Best place to create and play visual novels</p>
 				<a class="btn btn-primary btn-lg btn-jumbo" href="maker.html">Create</a>
 				<a class="btn btn-primary btn-lg btn-jumbo" href="viewer.html">Play</a>
 				<a class="btn btn-facebook btn-lg" href="#" ng-click="login()" ng-hide="isAuthorized">Sign in with Facebook</a>
+				<a href="#" class="btn btn-primary btn-lg btn-jumbo" ng-show="isAuthorized" ng-click="logout()">Sign out</a>
 			</div>
 		</div>
 		<div class="container">
@@ -34,7 +35,7 @@
 						the environment. Works in this form can be understood
 						as literary narratives and as video games. In common usage,
 						the term refers to text adventures, a type
-						of adventure game where the entire interface can be "text-only".
+						of video game where the entire interface can be "text-only".
 					</p>
 				</div>
 				<div class="col-md-3">
