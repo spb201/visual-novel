@@ -364,4 +364,15 @@ angular.module("ngApp", ["firebase", "infinite-scroll"])
       },
       controllerAs: 'panels'
     };
+  })
+  .directive('img', function () {
+    return {
+      restrict: 'E',        
+      link: function (scope, element, attrs) {
+        element.error(function () {
+          var url = 'http://upload.wikimedia.org/wikipedia/commons/6/69/Wikipetan_Visual_Novel_Kor.png';
+          element.prop('src', url);
+        });
+      }
+    }
   });
