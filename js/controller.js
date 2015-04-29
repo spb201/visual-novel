@@ -366,7 +366,7 @@ angular.module("ngApp", ["firebase", "infinite-scroll"])
       restrict: 'E',        
       link: function (scope, element, attrs) {
         element.error(function () {
-          var url = 'http://upload.wikimedia.org/wikipedia/commons/6/69/Wikipetan_Visual_Novel_Kor.png';
+          var url = 'https://upload.wikimedia.org/wikipedia/commons/f/fe/Tvnews_visual_wikipetan.png';
           element.prop('src', url);
         });
       }
