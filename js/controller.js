@@ -98,7 +98,6 @@ angular.module("ngApp", ["firebase", "infinite-scroll"])
 		$scope.authData = auth.$getAuth();
 		$scope.isAuthorized = false;
 		$scope.selectNode = function(i) {
-			console.log(i);
 			$scope.selectedNode = $scope._q.nodes[i];
 		}
 		if ($scope.authData) {
@@ -181,7 +180,6 @@ angular.module("ngApp", ["firebase", "infinite-scroll"])
 			$scope.hideSB = true;
 		}
 		$scope.graphBtn = function() {
-			console.log('asdf');
 			$scope.showGraph = ! $scope.showGraph;
 		}
 
@@ -201,7 +199,6 @@ angular.module("ngApp", ["firebase", "infinite-scroll"])
 					}
 				}
 			}
-			console.log(qnodes);
 			var cy = cytoscape({
 				container: document.getElementById('graph-container'),
 				style: cytoscape.stylesheet()
@@ -258,7 +255,6 @@ angular.module("ngApp", ["firebase", "infinite-scroll"])
 			itemsCount += 3;
 			$('.quests').css('display', 'inline-block');
 			$('.quests:nth-of-type(n+' + itemsCount + ')').css('display', 'none');
-			console.log($scope.itemsCount);
 		}
 		if ($scope.quests === undefined || $scope.quests === null) {
 			alertify.alert('Can\'t download any adventures');
