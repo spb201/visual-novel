@@ -19,8 +19,10 @@
 	<body>
 		<div ng-app="ngApp" ng-controller="viewerController" class="container text-center">
 			<div ng-hide="hideStart" class="panels">
-				<a href="index.html" class="btn btn-default to-index">Return to index</a>
-				<a href="#" id="sign-out" class="btn btn-default to-index" ng-click="logout()">Sign out</a>
+				<div class="control-bar">
+				  <a href="index.html" class="btn btn-default to-index">Return to index</a>
+				  <a href="#" id="sign-out" class="btn btn-default to-index" ng-click="logout()">Sign out</a>
+				</div>
 				<h1>SUPER VISUAL NOVEL VIEWER</h1>
 				<span ng-show="startError">SOMETHING WENT WRONG</span>
 			  <ul class="nav nav-pills">
