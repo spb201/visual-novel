@@ -30,43 +30,41 @@
 			<!-- NAVIGATION BAR -->
 			<nav class="navbar navbar-default  navbar-fixed-top">
 				<div class="container-fluid">
-					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-						<div class="navbar-form form-inline">
-							<div class="btn-group" role="group">
-								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-									Public visual novels <span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu dropdown-size" role="menu">
-									<li ng-repeat="quest in quests">
-										<a href="#" ng-click="saved(quest.$value)">{{ getValue(quest.$value, 'title') || 'untitled' }}</a>
-									</li>
-								</ul>
-							</div>
-							<div class="btn-group" role="group" ng-show="isAuthorized && myQuests.length > 0">
-								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-									My visual novels <span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu dropdown-size" role="menu">
-									<li ng-repeat="quest in myQuests">
-										<a href="#" ng-click="saved(quest.$value)">{{ getValue(quest.$value, 'title') || 'untitled' }}</a>
-									</li>
-								</ul>
-							</div>
-							<div class="input-group">
-								<span class="input-group-addon">Title</span>
-								<input ng-model="_q.title" type="text" class="form-control">
-							</div>
-							<div class="input-group">
-								<span class="input-group-addon">Description</span>
-								<input ng-model="_q.descr" type="text" class="form-control">
-							</div>
-							<div class="input-group">
-								<span class="input-group-addon">Image</span>
-								<input ng-model="_q.image" type="text" class="form-control" placeholder="URL">
-							</div>
-							<button ng-click="saveToServer()" class="btn btn-default">Save</button>
-							<button ng-click="publish()" class="btn btn-default">Publish</button>
+					<div class="navbar-form form-inline">
+						<div class="btn-group" role="group">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+								Public visual novels <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu dropdown-size" role="menu">
+								<li ng-repeat="quest in quests">
+									<a href="#" ng-click="saved(quest.$value)">{{ getValue(quest.$value, 'title') || 'untitled' }}</a>
+								</li>
+							</ul>
 						</div>
+						<div class="btn-group" role="group" ng-show="isAuthorized && myQuests.length > 0">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+								My visual novels <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu dropdown-size" role="menu">
+								<li ng-repeat="quest in myQuests">
+									<a href="#" ng-click="saved(quest.$value)">{{ getValue(quest.$value, 'title') || 'untitled' }}</a>
+								</li>
+							</ul>
+						</div>
+						<div class="input-group">
+							<span class="input-group-addon">Title</span>
+							<input ng-model="_q.title" type="text" class="form-control">
+						</div>
+						<div class="input-group">
+							<span class="input-group-addon">Description</span>
+							<input ng-model="_q.descr" type="text" class="form-control">
+						</div>
+						<div class="input-group">
+							<span class="input-group-addon">Image</span>
+							<input ng-model="_q.image" type="text" class="form-control" placeholder="URL">
+						</div>
+						<button ng-click="saveToServer()" class="btn btn-default">Save</button>
+						<button ng-click="publish()" class="btn btn-default">Publish</button>
 					</div>
 				</div>
 			</nav>
