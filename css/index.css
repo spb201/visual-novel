@@ -23,6 +23,10 @@ menu {
     margin-top: 5px;
     width: 100%;
   }
+  
+  .col-def {
+    width: 100%;
+  }
 }
 
 .btn-facebook {
