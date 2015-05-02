@@ -142,7 +142,10 @@ angular.module("ngApp", ["firebase", "infinite-scroll"])
 				alertify.alert('Successfully saved to server');
 			}
 		}
-		$scope.add = function() {
+    $scope.add = function() {
+		  if (!$scope._q) {
+		    $scope._q = {nodes :[]};
+		  };
 			if ($scope._q && $scope._q.nodes) {
 				$scope._q.nodes.push({"id":$scope._q.nodes.length});
 			}
