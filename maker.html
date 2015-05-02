@@ -82,6 +82,7 @@
 			</div>
 			<!-- SELECTED NODE -->
 			<div class="selected-node" ng-show="selectedNode">
+			  <span class="xmark" ng-click="remove(selectedNode.id)">X</span>
 				<span class="node-id">{{ selectedNode.id }}</span>
 				<div class="input-group">
 					<span class="input-group-addon">Text</span>

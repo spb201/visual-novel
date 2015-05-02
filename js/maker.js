@@ -7,6 +7,4 @@ $(function(){
 	$('#show-graph').click(function() {
 		$('.graph').fadeToggle();
 	});
-	
-
 });
