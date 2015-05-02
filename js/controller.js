@@ -165,6 +165,7 @@ angular.module("ngApp", ["firebase", "infinite-scroll"])
 			for (j = i; j < $scope._q.nodes.length; ++j) {
 				$scope._q.nodes[j].id--;	
 			};
+			$scope.selectedNode--;
 		}
 		$scope.saved = function(savedQuest) {
 			$scope._q = JSON.parse(savedQuest);
