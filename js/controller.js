@@ -60,12 +60,30 @@ function downloadQuest($scope, $http, url) {
 		});
 }
 
-angular.module("ngApp", ["firebase", "infinite-scroll"])
-//add underscorejs support
+
+var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
+	.config(function($routeProvider) {
+    $routeProvider
+        .when('/', { // => '/about'
+            templateUrl : 'landing.html',
+            controller  : 'indexController'
+        })
+
+        .when('/maker', {
+            templateUrl : 'maker.html',
+            controller  : 'makerController'
+        })
+
+        .when('/viewer', {
+            templateUrl : 'viewer.html',
+            controller  : 'viewerController'
+        });
+	})
 	.constant('_', window._)
 	.run(function ($rootScope) {
 		$rootScope._ = window._;
 	})
+	.controller("mainController", [function() {}])
 	.controller("indexController", ["$scope", "$firebaseAuth", function($scope, $firebaseAuth) {
 		var ref = new Firebase(FIREBASE_URL);
 		var auth = $firebaseAuth(ref);
