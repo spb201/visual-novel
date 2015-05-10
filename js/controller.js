@@ -289,6 +289,9 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 	.controller("viewerController", ["$scope", "$http", "$firebaseArray",  "$firebaseAuth", "$location", function($scope, $http, $firebaseArray, $firebaseAuth, $location) {
 		var ref = new Firebase(FIREBASE_URL);
 		var publicRef = ref.child('public');
+		var questsRef = ref.child('quests');
+		$scope.allQuests = $firebaseArray(questsRef);
+		console.log($scope.allQuests);
 		var auth = $firebaseAuth(ref);
 		$scope.authData = auth.$getAuth();
 		$scope.isAuthorized = false;
@@ -315,7 +318,7 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		};
 		$scope.buttonClick = function(i) {
 			if (i != null) {
-				$scope.node = quest.nodes[$scope.node.ways_ids[i]];
+				$scope.node = $scope.quest.nodes[$scope.node.ways_ids[i]];
 				$scope.chooseButtons();
 				if ($scope.node.final) {
 					$scope.showControlButtons = false;
@@ -330,13 +333,13 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			$scope.node.image = false;
 		};
 		$scope.restart = function() {
-			$scope.node = quest.nodes[0];
+			$scope.node = $scope.quest.nodes[0];
 			$scope.showControlButtons = true;
 			$scope.showRestartButton = false;
 		}
 		$scope.saved = function(savedQuest) {
-			quest = JSON.parse(savedQuest);
-			$scope.node = quest.nodes[0];
+			$scope.quest = savedQuest;
+			$scope.node = savedQuest.nodes[0];
 			$scope.hideStart = true;
 			$scope.showControlButtons = true;
 			$scope.showText = true;
@@ -346,8 +349,8 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			$scope.str_quest = $fileContent;
 		};
 		$scope.getValue = function(value, key){
-			var object = JSON.parse(value);
-			return object[key];
+			console.log($scope.allQuests);
+			return value[key];
 		};
 		$scope.logout = function() {
 			auth.$unauth();
