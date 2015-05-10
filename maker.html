@@ -1,4 +1,5 @@
 <div id="maker">
+	<script src="js/maker.js"></script>
 	<!--div class="control-bar">
 	  <a href="#" class="btn btn-default">Return to index</a>
 	  <a href="#" id="sign-out" class="btn btn-default" ng-click="logout()">Sign out</a>
@@ -6,7 +7,7 @@
 	  <a href="#" id="update-graph" class="btn btn-default" ng-click="renewGraph()">Update graph</a>
 	</div-->
 	<!-- NAVIGATION BAR -->
-	<nav class="navbar navbar-default  navbar-fixed-top">
+	<!--nav class="navbar navbar-default  navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-form form-inline">
 				<div class="input-group">
@@ -25,11 +26,26 @@
 				<button ng-click="publish()" class="btn btn-default">Publish</button>
 			</div>
 		</div>
-	</nav>
+	</nav-->
 	<!-- NODEBAR -->
 	<div class="nodebar">
+		<div class="node">
+			Title: <input ng-model="_q.title" type="text" class="form-control">
+		</div>
+		<div class="node">
+			Description: <input ng-model="_q.descr" type="text" class="form-control">
+		</div>
+		<div class="node">
+			Image: <input ng-model="_q.image" type="text" class="form-control">
+		</div>
+		<div class="node" ng-click="publish()">Publish</div>
+		<div class="node" ng-click="saveToServer()">Save</div>
+		<div class="node" id="show-graph">Show nodes graph</div>
+		<div class="node" id="update-graph" class="btn btn-default" ng-click="renewGraph()">Update graph</div>
+
 		<div class="node" ng-repeat="node in _q.nodes" ng-click="selectNode(node.id)">
 			<span class="node-id">{{ node.id }}</span>
+			<span class="node-xmark" ng-click="remove(selectedNode.id)">X</span>
 		</div>
 		<div class="node" ng-click="add()">
 			<span class="node-id">add new node</span>

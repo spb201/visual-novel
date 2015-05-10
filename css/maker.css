@@ -46,13 +46,16 @@
 }
 
 .nodebar {
+	margin-top: -20px;
 	position: relative;
-	padding-top: 100px;
 	width: 150px;
-	height: 100vh;
 	background-color: #F8F8F8;
 	border: 1px solid #E7E7E7;
 	overflow: auto;
+	height: calc(100vh - 52px);
+	height: -o-calc(100vh - 52px);
+	height: -webkit-calc(100vh - 52px);
+	height: -moz-calc(100vh - 52px);
 }
 
 .node {
@@ -131,4 +134,9 @@
 	transform: translate(-50%, -50%);
 	background-color: #F8F8F8;
 	border: 1px solid #E7E7E7;
+}
+
+.node-xmark {
+	top: 5px;
+	right: 5px;
 }
