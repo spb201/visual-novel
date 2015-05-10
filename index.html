@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/viewer.css">
+    <link rel="stylesheet" href="css/alertify.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/maker.css">
+    <link rel="stylesheet" href="css/common.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-route.js"></script>
@@ -15,8 +19,7 @@
     <script src="https://cdn.firebase.com/libs/angularfire/1.0.0/angularfire.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.0/alertify.min.js"></script>
     <script src="js/ng-infinite-scroll.min.js"></script>
-    <link rel="stylesheet" href="css/alertify.css">
-    <link rel="stylesheet" href="css/common.css">
+    <script src="js/maker.js"></script>
     <script src="js/controller.js"></script>
     <title>VISUAL NOVELS</title>
   </head>
@@ -30,7 +33,7 @@
         <ul class="nav navbar-nav navbar-right no-margin">
             <li ng-class="{ active: isActive('/about') }"><a href="#about"><i class="fa fa-home"></i> Home</a></li>
             <li ng-class="{ active: isActive('/') }"><a href="#"><i class="fa fa-shield"></i> Public novels</a></li>
-            <li ng-class="{ active: isActive('/mynovels') }"><a href="#mynovels"><i class="fa fa-comment"></i> My novels</a></li>
+            <li ng-class="{ active: isActive('/mynovels') }" ng-show="isAuthorized"><a href="#mynovels"><i class="fa fa-comment"></i> My novels</a></li>
             <li ng-hide="isAuthorized"><a ng-click="login()" href=""><i class="fa fa-sign-in"></i> Sign in</a></li>
             <li ng-show="isAuthorized"><a ng-click="logout()" href=""><i class="fa fa-sign-out"></i> Sign out</a></li>
         </ul>
