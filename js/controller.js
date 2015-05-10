@@ -154,7 +154,6 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 				$scope._q = $firebaseObject($scope.thisQuest);
 				$scope._q.$loaded()
 					.then(function() {
-						console.log($scope._q);
 						if(!$scope.$$phase) {
 							$scope.$apply();
 						}
@@ -291,7 +290,6 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		var publicRef = ref.child('public');
 		var questsRef = ref.child('quests');
 		$scope.allQuests = $firebaseArray(questsRef);
-		console.log($scope.allQuests);
 		var auth = $firebaseAuth(ref);
 		$scope.authData = auth.$getAuth();
 		$scope.isAuthorized = false;
@@ -362,7 +360,6 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			$scope.str_quest = $fileContent;
 		};
 		$scope.getValue = function(value, key){
-			console.log($scope.allQuests);
 			return value[key];
 		};
 		$scope.logout = function() {
@@ -370,7 +367,7 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			window.location.reload();
 		};
 		$scope.remove = function(quest) {
-			$scope.myQuests.$remove(quest);
+			$scope.allQuests.$remove(quest);
 		};
 		$scope.isActive = function(route) {
 		 	return route === $location.path();
