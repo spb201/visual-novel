@@ -64,7 +64,7 @@ function downloadQuest($scope, $http, url) {
 var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 	.config(function($routeProvider) {
     $routeProvider
-        .when('/', { // => '/about'
+        .when('/about', { 
             templateUrl : 'landing.html',
             controller  : 'indexController'
         })
@@ -74,7 +74,7 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
             controller  : 'makerController'
         })
 
-        .when('/viewer', {
+        .when('/', {
             templateUrl : 'viewer.html',
             controller  : 'viewerController'
         });
@@ -83,7 +83,33 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 	.run(function ($rootScope) {
 		$rootScope._ = window._;
 	})
-	.controller("mainController", [function() {}])
+	.controller("mainController", ["$scope", "$firebaseAuth", "$location", function($scope, $firebaseAuth, $location) {
+		var ref = new Firebase(FIREBASE_URL);
+		var auth = $firebaseAuth(ref);
+		$scope.authData = auth.$getAuth();
+		$scope.isAuthorized = false;
+		$scope.welcomeMessage = 'Ultimate visual novel maker';
+		if ($scope.authData) {
+			$scope.isAuthorized = true;
+			$scope.welcomeMessage = 'Hello, ' + $scope.authData.facebook.displayName + '!';
+		}
+		$scope.login = function() {
+			auth.$authWithOAuthPopup("facebook")
+				.then(function(authData) {
+					console.log("Authenticated successfully with payload:", authData);
+					document.location = "index.html";
+				}, function(err) {
+					console.log("Login Failed!", error);
+				});
+		};
+		$scope.logout = function() {
+			auth.$unauth();
+			window.location.reload();
+		};
+		 $scope.isActive = function(route) {
+		 	return route === $location.path();
+		};
+	}])
 	.controller("indexController", ["$scope", "$firebaseAuth", function($scope, $firebaseAuth) {
 		var ref = new Firebase(FIREBASE_URL);
 		var auth = $firebaseAuth(ref);
