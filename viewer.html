@@ -16,6 +16,14 @@
 			</div>
 	  </div>
 	  <div class="panel" ng-show="isActive('/mynovels')">
+		<div ng-click="newQuest()" class="cursor-pointer">
+			<div class="a-container">
+				<div class="main-img-container">
+					<img class="main-img" src='http://iconizer.net/files/Bright/thumb/128/blue_plus.png'>
+				</div>
+				<h2 class="title">CREATE NEW QUEST</h2>
+			</div>
+		</div>
 	  	<div ng-repeat="quest in myQuests" class="quests">
 			<span class="glyphicon glyphicon-remove delete xmark" ng-click="remove(quest)"></span>
 			<span class="xmark edit"><a ng-href='#/edit/{{quest.$id}}'><span class="glyphicon glyphicon-edit"></span></a></span>
