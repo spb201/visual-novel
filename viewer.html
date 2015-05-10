@@ -44,6 +44,10 @@
 		<div ng-repeat="i in _.range(node.ways_ids.length)" ng-show="node.ways_ids[i]" class="btn btn-default btn-move cursor-pointer" ng-click="buttonClick(i)" onClick="this.blur();" ng-bind="node.ways[i]"></div>
 	</div>
 	<img ng-src="{{ node.imagesrc }}" ng-show="node.image">
+	<div ng-show="grats">
+		<h1>CONGRATULATIONS</h1>
+		<div class="btn btn-default cursor-pointer" ng-click="toRestart()">continue</div>
+	</div>
 	<div>
 		<div class="btn btn-default cursor-pointer" ng-click="exit()" ng-show="showRestartButton">exit</div>
 		<div class="btn btn-default cursor-pointer" ng-click="restart()" ng-show="showRestartButton">restart</div>
