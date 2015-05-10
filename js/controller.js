@@ -303,7 +303,17 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		}
 		$scope.quests = $firebaseArray(publicRef);
 		$scope.newQuest = function() {
-			$location.path('edit/newquest');
+			$scope.allQuests.$add({
+				descr: '',
+				is_public: false,
+				nodes: [],
+				title: 'Untitled',
+				uid: $scope.authData.uid,
+				views: 0
+			}).then(function(ref) {
+				var id = ref.key();
+				$location.path('edit/' + id);
+			});
 		}
 		$scope.addMoreItems = function() {
 			itemsCount += 3;
