@@ -203,12 +203,12 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		$scope.pop = function() {
 			$scope._q.nodes.pop();
 		}
+		$scope.notRemoved = function(item) {
+		    return !item.hide;
+		};
 		$scope.remove = function(i) {
-			$scope._q.nodes.splice(i, 1);
-			for (j = i; j < $scope._q.nodes.length; ++j) {
-				$scope._q.nodes[j].id--;	
-			};
-			$scope.selectedNode--;
+			$scope._q.nodes[i].hide = true;
+			$scope.selectedNode = null;
 		}
 		$scope.saved = function(savedQuest) {
 			$scope._q = JSON.parse(savedQuest);
