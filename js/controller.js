@@ -333,18 +333,20 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 				$scope.chooseButtons();
 				if ($scope.node.final) {
 					$scope.showControlButtons = false;
-					$scope.showRestartButton = true;
+					$scope.grats = true;
 				}
 			}
 		};
 		$scope.exit = function() {
 			$scope.showRestartButton = false;
+			$scope.grats = false;
 			$scope.hideStart = false;
 			$scope.showText = false;
 			$scope.node.image = false;
 		};
 		$scope.restart = function() {
-			$scope.node = $scope.quest.nodes[0];
+			$scope.node = quest.nodes[0];
+			$scope.grats = false;
 			$scope.showControlButtons = true;
 			$scope.showRestartButton = false;
 		}
@@ -372,6 +374,11 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		$scope.isActive = function(route) {
 		 	return route === $location.path();
 		};
+		$scope.toRestart = function() {
+			$scope.grats = false;
+			$scope.hideStart = true;
+			$scope.showRestartButton = true;
+		}
 	}])
 //Magic directive that helps to download quests
 	.directive('onReadFile', function ($parse) {
