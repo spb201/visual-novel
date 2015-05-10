@@ -1,31 +1,21 @@
 <div class="container text-center">
 	<div ng-hide="hideStart" class="panels">
-		<!--div class="control-bar">
-		  <a href="#" class="btn btn-default to-index">Return to index</a>
-		  <a href="#" id="sign-out" class="btn btn-default to-index" ng-click="logout()">Sign out</a>
-		</div-->
-		<h1>SUPER VISUAL NOVEL VIEWER</h1>
-		<span ng-show="startError">SOMETHING WENT WRONG</span>
-	  <ul class="nav nav-pills">
-	    <li ng-class="{ active: panels.isSelected(1) }"><a href ng-click="panels.selectTab(1)">Public visual novels</a></li>
-	    <li ng-class="{ active: panels.isSelected(2) }"><a href ng-click="panels.selectTab(2)" ng-show="isAuthorized">My visual novels</a></li>
-	  </ul>
-    <div class="panel" ng-show="panels.isSelected(1)">
-		<div infinite-scroll="addMoreItems()">
-			<div ng-repeat="quest in quests" class="quests">
-				<a href="#" ng-click="saved(quest.$value)">
-					<div class="a-container">
-						<div class="main-img-container">
-							<img class="main-img" ng-src="{{ getValue(quest.$value, 'image') || 'http://upload.wikimedia.org/wikipedia/commons/6/69/Wikipetan_Visual_Novel_Kor.png' }}">
+	  <div class="panel" ng-show="isActive('/')">
+			<div infinite-scroll="addMoreItems()">
+				<div ng-repeat="quest in quests" class="quests">
+					<a href="#" ng-click="saved(quest.$value)">
+						<div class="a-container">
+							<div class="main-img-container">
+								<img class="main-img" ng-src="{{ getValue(quest.$value, 'image') || 'http://upload.wikimedia.org/wikipedia/commons/6/69/Wikipetan_Visual_Novel_Kor.png' }}">
+							</div>
+							<h2 class="title">{{ getValue(quest.$value, 'title') || 'untitled' }}</h2>
+							<p>{{ getValue(quest.$value, 'descr') || 'This visual novel have no description' }}</p>
 						</div>
-						<h2 class="title">{{ getValue(quest.$value, 'title') || 'untitled' }}</h2>
-						<p>{{ getValue(quest.$value, 'descr') || 'This visual novel have no description' }}</p>
-					</div>
-				</a>
+					</a>
+				</div>
 			</div>
-		</div>
 	  </div>
-	  <div class="panel" ng-show="panels.isSelected(2)">
+	  <div class="panel" ng-show="isActive('/mynovels')">
 	  	<div ng-repeat="quest in myQuests" class="quests">
 			<span class="glyphicon glyphicon-remove xmark" ng-click="remove(quest)"></span>
 				<a href="#" ng-click="saved(quest.$value)">
