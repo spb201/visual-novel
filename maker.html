@@ -1,52 +1,24 @@
 <div id="maker">
 	<script src="js/maker.js"></script>
-	<!--div class="control-bar">
-	  <a href="#" class="btn btn-default">Return to index</a>
-	  <a href="#" id="sign-out" class="btn btn-default" ng-click="logout()">Sign out</a>
-	  <a href="#" id="show-graph" class="btn btn-default">Show nodes graph</a>
-	  <a href="#" id="update-graph" class="btn btn-default" ng-click="renewGraph()">Update graph</a>
-	</div-->
-	<!-- NAVIGATION BAR -->
-	<!--nav class="navbar navbar-default  navbar-fixed-top">
-		<div class="container-fluid">
-			<div class="navbar-form form-inline">
-				<div class="input-group">
-					<span class="input-group-addon">Title</span>
-					<input ng-model="_q.title" type="text" class="form-control">
-				</div>
-				<div class="input-group">
-					<span class="input-group-addon">Description</span>
-					<input ng-model="_q.descr" type="text" class="form-control">
-				</div>
-				<div class="input-group">
-					<span class="input-group-addon">Image</span>
-					<input ng-model="_q.image" type="text" class="form-control" placeholder="URL">
-				</div>
-				<button ng-click="saveToServer()" class="btn btn-default">Save</button>
-				<button ng-click="publish()" class="btn btn-default">Publish</button>
-			</div>
-		</div>
-	</nav-->
-	<!-- NODEBAR -->
 	<div class="nodebar">
-		<div class="node">
+		<div class="sidebar-controls">
 			Title: <input ng-model="_q.title" type="text" class="form-control">
 		</div>
-		<div class="node">
+		<div class="sidebar-controls">
 			Description: <input ng-model="_q.descr" type="text" class="form-control">
 		</div>
-		<div class="node">
+		<div class="sidebar-controls">
 			Image: <input ng-model="_q.image" type="text" class="form-control">
 		</div>
-		<div class="node" ng-click="saveToServer()">Save</div>
-		<div class="node" id="show-graph">Show nodes graph</div>
-		<div class="node" id="update-graph" class="btn btn-default" ng-click="renewGraph()">Update graph</div>
+		<div class="sidebar-controls" ng-click="saveToServer()">Save</div>
+		<div class="sidebar-controls" id="show-graph">Show nodes graph</div>
+		<div class="sidebar-controls" id="update-graph" class="btn btn-default" ng-click="renewGraph()">Update graph</div>
 
 		<div class="node" ng-repeat="node in _q.nodes" ng-click="selectNode(node.id)">
-			<span class="node-id">{{ node.id }}</span>
-			<span class="node-xmark" ng-click="remove(selectedNode.id)">X</span>
+			<span class="glyphicon glyphicon-remove nodebar-xmark" ng-click="remove(node.id)"></span>
+			<span class="node-id" ng-bind="node.id"></span>
 		</div>
-		<div class="node" ng-click="add()">
+		<div class="sidebar-controls" ng-click="add()">
 			<span class="node-id">add new node</span>
 		</div>	
 	</div>
@@ -55,7 +27,7 @@
 	</div>
 	<!-- SELECTED NODE -->
 	<div class="selected-node" ng-show="selectedNode">
-	  <span class="xmark" ng-click="remove(selectedNode.id)">X</span>
+	  <span class="glyphicon glyphicon-remove" ng-click="remove(selectedNode.id)"></span>
 		<span class="node-id">{{ selectedNode.id }}</span>
 		<div class="input-group">
 			<span class="input-group-addon">Text</span>
@@ -75,7 +47,7 @@
 				<input ng-model="selectedNode.ways[i]" class="form-control">
 			</div>
 		</div>
-		<a href="#" class="btn btn-default" ng-click="addWay(selectedNode.id)">Add new way</a>
+		<div class="btn btn-default" ng-click="addWay(selectedNode.id)">Add new way</div>
 		<div class="form-inline">
 			<label><input type="checkbox" ng-model="selectedNode.image"> Image</label>
 			<input ng-model="selectedNode.imagesrc" class="form-control" type="text" ng-show="selectedNode.image">
