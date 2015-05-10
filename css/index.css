@@ -40,3 +40,7 @@ menu {
   background-color:#2d4373;
   border-color:rgba(0,0,0,0.2);
 }
+
+.no-margin {
+  margin-bottom: 0;
+}

@@ -5,6 +5,7 @@
   <head>
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/viewer.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
@@ -21,26 +22,22 @@
   </head>
 
 <body ng-controller="mainController">
-  <header>
-      <nav class="navbar navbar-default">
-      <div class="container">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="/">VISUAL NOVELS</a>
-          </div>
-
-          <ul class="nav navbar-nav navbar-right">
-              <!--li><a href="#"><i class="fa fa-home"></i>Home</a></li>
-              <li><a href="#viewer"><i class="fa fa-shield"></i>Public novels</a></li>
-              <li><a href="#maker"><i class="fa fa-comment"></i>My novels</a></li-->
-          </ul>
-      </div>
-      </nav>
-  </header>
+    <nav class="navbar navbar-default navbar-custom">
+    <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">VISUAL NOVELS</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right no-margin">
+            <li ng-class="{ active: isActive('/about') }"><a href="#about"><i class="fa fa-home"></i> Home</a></li>
+            <li ng-class="{ active: isActive('/') }"><a href="#"><i class="fa fa-shield"></i> Public novels</a></li>
+            <li ng-class="{ active: isActive('/maker') }"><a href="#maker"><i class="fa fa-comment"></i> My novels</a></li>
+            <li ng-hide="isAuthorized"><a ng-click="login()" href=""><i class="fa fa-sign-in"></i> Sign in</a></li>
+            <li ng-show="isAuthorized"><a ng-click="logout()" href=""><i class="fa fa-sign-out"></i> Sign out</a></li>
+        </ul>
+    </div>
+    </nav>
   <div id="main">
     <div ng-view></div>
-
   </div>
-
   </body>
-
 </html>
