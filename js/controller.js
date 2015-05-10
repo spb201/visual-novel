@@ -332,6 +332,8 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 				$scope.node = $scope.quest.nodes[$scope.node.ways_ids[i]];
 				$scope.chooseButtons();
 				if ($scope.node.final) {
+					$scope.quest.views = '' + (parseInt($scope.quest.views, 10) + 1);
+					$scope.allQuests.$save($scope.quest);
 					$scope.showControlButtons = false;
 					$scope.grats = true;
 				}
