@@ -68,12 +68,14 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
             templateUrl : 'landing.html',
             controller  : 'indexController'
         })
-
         .when('/maker', {
             templateUrl : 'maker.html',
             controller  : 'makerController'
         })
-
+        .when('/edit/:id', {
+        	templateUrl: 'maker.html',
+        	controller: 'makerController'
+        })
         .when('/viewer', {
             templateUrl : 'viewer.html',
             controller  : 'viewerController'
@@ -109,7 +111,7 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		}
 	}])
 //quest maker controller
-	.controller("makerController", ["$scope", "$firebaseArray", "$firebaseAuth", function($scope, $firebaseArray, $firebaseAuth) {
+	.controller("makerController", ["$scope", "$firebaseArray", "$firebaseAuth", "$routeParams", function($scope, $firebaseArray, $firebaseAuth, $routeParams) {
 		var ref = new Firebase(FIREBASE_URL);
 		var publicRef = ref.child('public');
 		var auth = $firebaseAuth(ref);
@@ -122,8 +124,17 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			$scope.isAuthorized = true;
 			var privateRef = ref.child($scope.authData.uid);
 			$scope.myQuests = $firebaseArray(privateRef);
+			if ($routeParams.id) {
+				var thisQuest = privateRef.child($routeParams.id);
+
+				thisQuest.once('value', function(data) {
+					$scope._q = JSON.parse(data.val());
+					$scope.$apply();
+				})
+			}
 		}
-		$scope.quests = $firebaseArray(publicRef);
+
+		//$scope.quests = $firebaseArray(publicRef);
 		$scope.saveToServer = function() {
 			if (!$scope.isAuthorized) {
 				alertify.alert('You are not logged in');
