@@ -9,26 +9,6 @@
 	<nav class="navbar navbar-default  navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-form form-inline">
-				<div class="btn-group" role="group">
-					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-						Public visual novels <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu dropdown-size" role="menu">
-						<li ng-repeat="quest in quests">
-							<a href="#" ng-click="saved(quest.$value)">{{ getValue(quest.$value, 'title') || 'untitled' }}</a>
-						</li>
-					</ul>
-				</div>
-				<div class="btn-group" role="group" ng-show="isAuthorized && myQuests.length > 0">
-					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-						My visual novels <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu dropdown-size" role="menu">
-						<li ng-repeat="quest in myQuests">
-							<a href="#" ng-click="saved(quest.$value)">{{ getValue(quest.$value, 'title') || 'untitled' }}</a>
-						</li>
-					</ul>
-				</div>
 				<div class="input-group">
 					<span class="input-group-addon">Title</span>
 					<input ng-model="_q.title" type="text" class="form-control">
