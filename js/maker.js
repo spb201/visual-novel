@@ -1,4 +1,5 @@
 $(function(){
+  $('.graph').fadeToggle();
 	$('#hide-nodebar').click(function() {
 		state = $('#arrow').text() == 'show' ? 'hide' : 'show';
 		$('#arrow').text(state);
