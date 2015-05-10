@@ -14,7 +14,7 @@
 		<div class="sidebar-controls" id="show-graph">Show nodes graph</div>
 		<div class="sidebar-controls" id="update-graph" class="btn btn-default" ng-click="renewGraph()">Update graph</div>
 
-		<div class="node" ng-repeat="node in _q.nodes" ng-click="selectNode(node.id)">
+		<div class="node" ng-repeat="node in _q.nodes  | filter: notRemoved" ng-click="selectNode(node.id)">
 			<span class="glyphicon glyphicon-remove nodebar-xmark" ng-click="remove(node.id)"></span>
 			<span class="node-id" ng-bind="node.id"></span>
 		</div>
@@ -40,7 +40,7 @@
 		<div class="row" ng-repeat="i in  _.range(selectedNode.ways_ids.length)">
 			<div class="col-md-3">
 				<select class="form-control" ng-model="selectedNode.ways_ids[i]">
-					<option ng-repeat="node in _q.nodes">{{ node.id }}</option>
+					<option ng-repeat="node in _q.nodes | filter: notRemoved">{{ node.id }}</option>
 				</select>
 			</div>
 			<div class="col-md-9">
