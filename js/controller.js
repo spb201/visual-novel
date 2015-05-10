@@ -68,9 +68,9 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
             templateUrl : 'landing.html',
             controller  : 'indexController'
         })
-        .when('/maker', {
-            templateUrl : 'maker.html',
-            controller  : 'makerController'
+        .when('/mynovels', {
+            templateUrl : 'viewer.html',
+            controller  : 'viewerController'
         })
         .when('/edit/:id', {
         	templateUrl: 'maker.html',
@@ -297,7 +297,7 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		}
 	}])
 //quest viewer controller
-	.controller("viewerController", ["$scope", "$http", "$firebaseArray",  "$firebaseAuth", function($scope, $http, $firebaseArray, $firebaseAuth) {
+	.controller("viewerController", ["$scope", "$http", "$firebaseArray",  "$firebaseAuth", "$location", function($scope, $http, $firebaseArray, $firebaseAuth, $location) {
 		var ref = new Firebase(FIREBASE_URL);
 		var publicRef = ref.child('public');
 		var auth = $firebaseAuth(ref);
@@ -366,6 +366,9 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		};
 		$scope.remove = function(quest) {
 			$scope.myQuests.$remove(quest);
+		};
+		$scope.isActive = function(route) {
+		 	return route === $location.path();
 		};
 	}])
 //Magic directive that helps to download quests
