@@ -95,6 +95,10 @@
 	line-height: 1!important;
 }
 
+.publish{
+	right: 65px!important;
+}
+
 .cursor-pointer {
 	cursor: pointer;
 }
