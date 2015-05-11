@@ -60,58 +60,12 @@ function downloadQuest($scope, $http, url) {
 		});
 }
 
-
-var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
-	.config(function($routeProvider) {
-    $routeProvider
-        .when('/about', { 
-            templateUrl : 'landing.html',
-            controller  : 'indexController'
-        })
-        .when('/mynovels', {
-            templateUrl : 'viewer.html',
-            controller  : 'viewerController'
-        })
-        .when('/edit/:id', {
-        	templateUrl: 'maker.html',
-        	controller: 'makerController'
-        })
-        .when('/', {
-            templateUrl : 'viewer.html',
-            controller  : 'viewerController'
-        });
-	})
+angular.module("ngApp", ["firebase", "infinite-scroll"])
+//add underscorejs support
 	.constant('_', window._)
 	.run(function ($rootScope) {
 		$rootScope._ = window._;
 	})
-	.controller("mainController", ["$scope", "$firebaseAuth", "$location", function($scope, $firebaseAuth, $location) {
-		var ref = new Firebase(FIREBASE_URL);
-		var auth = $firebaseAuth(ref);
-		$scope.authData = auth.$getAuth();
-		$scope.isAuthorized = false;
-		$scope.welcomeMessage = 'Ultimate visual novel maker';
-		if ($scope.authData) {
-			$scope.isAuthorized = true;
-			$scope.welcomeMessage = 'Hello, ' + $scope.authData.facebook.displayName + '!';
-		}
-		$scope.login = function() {
-			auth.$authWithOAuthPopup("facebook")
-				.then(function(authData) {
-					console.log("Authenticated successfully with payload:", authData);
-					document.location = "index.html";
-				}, function(err) {
-					console.log("Login Failed!", error);
-				});
-		};
-		$scope.logout = function() {
-			auth.$unauth();
-			window.location.reload();
-		};
-		 $scope.isActive = function(route) {
-		 	return route === $location.path();
-		};
-	}])
 	.controller("indexController", ["$scope", "$firebaseAuth", function($scope, $firebaseAuth) {
 		var ref = new Firebase(FIREBASE_URL);
 		var auth = $firebaseAuth(ref);
@@ -137,36 +91,21 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		}
 	}])
 //quest maker controller
-	.controller("makerController", ["$scope", "$firebaseObject", "$firebaseAuth", "$routeParams", function($scope, $firebaseObject, $firebaseAuth, $routeParams) {
+	.controller("makerController", ["$scope", "$firebaseArray", "$firebaseAuth", function($scope, $firebaseArray, $firebaseAuth) {
 		var ref = new Firebase(FIREBASE_URL);
-		var questsRef = ref.child('quests');
+		var publicRef = ref.child('public');
 		var auth = $firebaseAuth(ref);
 		$scope.authData = auth.$getAuth();
 		$scope.isAuthorized = false;
 		$scope.selectNode = function(i) {
 			$scope.selectedNode = $scope._q.nodes[i];
 		}
-
 		if ($scope.authData) {
 			$scope.isAuthorized = true;
-			if ($routeParams.id) {
-				$scope.thisQuest = questsRef.child($routeParams.id);
-				$scope._q = $firebaseObject($scope.thisQuest);
-				$scope._q.$loaded()
-					.then(function() {
-						if(!$scope.$$phase) {
-							$scope.$apply();
-						}
-					})
-
-
-			} else {
-				alertify.alert('Quest not found');
-			}
-		} else {
-			alertify.alert('You\'re not logged in');
+			var privateRef = ref.child($scope.authData.uid);
+			$scope.myQuests = $firebaseArray(privateRef);
 		}
-
+		$scope.quests = $firebaseArray(publicRef);
 		$scope.saveToServer = function() {
 			if (!$scope.isAuthorized) {
 				alertify.alert('You are not logged in');
@@ -181,7 +120,25 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			} else if ($scope._q.title == 'empty') {
 				alertify.alert('Ivan said it\'s bad to save quest with \'empty\' title');
 			} else {
-				$scope._q.$save();
+				$scope.myQuests.$add(angular.toJson($scope._q));
+				alertify.alert('Successfully saved to server');
+			}
+		}
+		$scope.publish = function() {
+			if (!$scope.isAuthorized) {
+				alertify.alert('You are not logged in');
+			} else if ($scope._q === undefined || $scope._q === null) {
+				alertify.alert('You can\'t save empty adventure');
+			} else if ($scope._q.title == '' || $scope._q.title === null || $scope._q.title === undefined) {
+				alertify.alert('Title can\'t be empty');
+			} else if (check_final_nodes($scope._q)) {
+				alertify.alert('Adventure must contain at least on final node');
+			} else if (is_all_nodes_empty($scope._q)) {
+				alertify.alert('All nodes can\'t be empty');
+			} else if ($scope._q.title == 'empty') {
+				alertify.alert('Ivan said it\'s bad to save quest with \'empty\' title');
+			} else {
+				$scope.quests.$add(angular.toJson($scope._q));
 				alertify.alert('Successfully saved to server');
 			}
 		}
@@ -203,12 +160,12 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		$scope.pop = function() {
 			$scope._q.nodes.pop();
 		}
-		$scope.notRemoved = function(item) {
-		    return !item.hide;
-		};
 		$scope.remove = function(i) {
-			$scope._q.nodes[i].hide = true;
-			$scope.selectedNode = null;
+			$scope._q.nodes.splice(i, 1);
+			for (j = i; j < $scope._q.nodes.length; ++j) {
+				$scope._q.nodes[j].id--;	
+			};
+			$scope.selectedNode--;
 		}
 		$scope.saved = function(savedQuest) {
 			$scope._q = JSON.parse(savedQuest);
@@ -285,11 +242,9 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		}
 	}])
 //quest viewer controller
-	.controller("viewerController", ["$scope", "$http", "$firebaseArray",  "$firebaseAuth", "$location", function($scope, $http, $firebaseArray, $firebaseAuth, $location) {
+	.controller("viewerController", ["$scope", "$http", "$firebaseArray",  "$firebaseAuth", function($scope, $http, $firebaseArray, $firebaseAuth) {
 		var ref = new Firebase(FIREBASE_URL);
 		var publicRef = ref.child('public');
-		var questsRef = ref.child('quests');
-		$scope.allQuests = $firebaseArray(questsRef);
 		var auth = $firebaseAuth(ref);
 		$scope.authData = auth.$getAuth();
 		$scope.isAuthorized = false;
@@ -300,19 +255,6 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			$scope.myQuests = $firebaseArray(privateRef);
 		}
 		$scope.quests = $firebaseArray(publicRef);
-		$scope.newQuest = function() {
-			$scope.allQuests.$add({
-				descr: '',
-				is_public: false,
-				nodes: [],
-				title: 'Untitled',
-				uid: $scope.authData.uid,
-				views: 0
-			}).then(function(ref) {
-				var id = ref.key();
-				$location.path('edit/' + id);
-			});
-		}
 		$scope.addMoreItems = function() {
 			itemsCount += 3;
 			$('.quests').css('display', 'inline-block');
@@ -329,32 +271,28 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		};
 		$scope.buttonClick = function(i) {
 			if (i != null) {
-				$scope.node = $scope.quest.nodes[$scope.node.ways_ids[i]];
+				$scope.node = quest.nodes[$scope.node.ways_ids[i]];
 				$scope.chooseButtons();
 				if ($scope.node.final) {
-					$scope.quest.views = '' + (parseInt($scope.quest.views, 10) + 1);
-					$scope.allQuests.$save($scope.quest);
 					$scope.showControlButtons = false;
-					$scope.grats = true;
+					$scope.showRestartButton = true;
 				}
 			}
 		};
 		$scope.exit = function() {
 			$scope.showRestartButton = false;
-			$scope.grats = false;
 			$scope.hideStart = false;
 			$scope.showText = false;
 			$scope.node.image = false;
 		};
 		$scope.restart = function() {
 			$scope.node = quest.nodes[0];
-			$scope.grats = false;
 			$scope.showControlButtons = true;
 			$scope.showRestartButton = false;
 		}
 		$scope.saved = function(savedQuest) {
-			$scope.quest = savedQuest;
-			$scope.node = savedQuest.nodes[0];
+			quest = JSON.parse(savedQuest);
+			$scope.node = quest.nodes[0];
 			$scope.hideStart = true;
 			$scope.showControlButtons = true;
 			$scope.showText = true;
@@ -364,31 +302,16 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			$scope.str_quest = $fileContent;
 		};
 		$scope.getValue = function(value, key){
-			return value[key];
+			var object = JSON.parse(value);
+			return object[key];
 		};
 		$scope.logout = function() {
 			auth.$unauth();
 			window.location.reload();
 		};
 		$scope.remove = function(quest) {
-			$scope.allQuests.$remove(quest);
+			$scope.myQuests.$remove(quest);
 		};
-		$scope.publish = function(quest) {
-			quest.is_public = true;
-			$scope.allQuests.$save(quest);
-		};
-		$scope.unpublish = function(quest) {
-			quest.is_public = false;
-			$scope.allQuests.$save(quest);
-		};
-		$scope.isActive = function(route) {
-		 	return route === $location.path();
-		};
-		$scope.toRestart = function() {
-			$scope.grats = false;
-			$scope.hideStart = true;
-			$scope.showRestartButton = true;
-		}
 	}])
 //Magic directive that helps to download quests
 	.directive('onReadFile', function ($parse) {

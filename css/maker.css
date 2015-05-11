@@ -18,15 +18,6 @@
 	width: 300px;
 }
 
-.sidebar-controls {
-	width: 110px;
-	height: 50px;
-	margin: 10px;
-	background-color: #E7E7E7;
-	border: 1px solid #D6D6D6;
-	cursor: pointer;
-}
-
 .xmark {
 	position: absolute;
 	top: 5px;
@@ -55,22 +46,18 @@
 }
 
 .nodebar {
-	padding-right: 10px;
-	margin-top: -20px;
 	position: relative;
+	padding-top: 100px;
 	width: 150px;
+	height: 100vh;
 	background-color: #F8F8F8;
 	border: 1px solid #E7E7E7;
 	overflow: auto;
-	height: calc(100vh - 52px);
-	height: -o-calc(100vh - 52px);
-	height: -webkit-calc(100vh - 52px);
-	height: -moz-calc(100vh - 52px);
 }
 
 .node {
-	width: 110px;
-	height: 100px;
+	width: 130px;
+	height: 50px;
 	margin: 10px;
 	background-color: #E7E7E7;
 	border: 1px solid #D6D6D6;
@@ -78,8 +65,8 @@
 }
 
 .node .node-id {
-	position: relative;
-	left: 10px;
+	line-height: 50px;
+	margin-left: 5px;
 }
 
 .selected-node {
@@ -144,13 +131,4 @@
 	transform: translate(-50%, -50%);
 	background-color: #F8F8F8;
 	border: 1px solid #E7E7E7;
-}
-
-.nodebar-xmark {
-	left: 97px;
-	top: -10px;
-	background-color: #E7E7E7;
-	border: 1px solid #D6D6D6;
-	border-radius: 50%;
-	padding: 3px;
 }
