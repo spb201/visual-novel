@@ -373,6 +373,14 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		$scope.remove = function(quest) {
 			$scope.allQuests.$remove(quest);
 		};
+		$scope.publish = function(quest) {
+			quest.is_public = true;
+			$scope.allQuests.$save(quest);
+		};
+		$scope.unpublish = function(quest) {
+			quest.is_public = false;
+			$scope.allQuests.$save(quest);
+		};
 		$scope.isActive = function(route) {
 		 	return route === $location.path();
 		};

@@ -26,6 +26,8 @@
 			</div>
 		</div>
   	<div ng-repeat="quest in allQuests | filter:{uid:authData.uid}" class="quests">
+  		<span class="glyphicon glyphicon-cloud-upload xmark publish" ng-hide="quest.is_public" ng-click="publish(quest)"></span>
+  		<span class="glyphicon glyphicon-cloud-download xmark publish" ng-show="quest.is_public" ng-click="unpublish(quest)"></span>
 			<span class="glyphicon glyphicon-remove delete xmark" ng-click="remove(quest)"></span>
 			<span class="xmark edit"><a ng-href='#/edit/{{quest.$id}}'><span class="glyphicon glyphicon-edit"></span></a></span>
 				<div ng-click="saved(quest)" class="cursor-pointer">
