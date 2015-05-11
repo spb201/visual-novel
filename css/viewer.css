@@ -41,6 +41,12 @@
 	max-width: 100%;
 }
 
+.add-img {
+	margin: 0;
+	padding: 0;
+	max-width: 150px;
+}
+
 .title {
 	margin: 0px;
 	padding: 0px;
