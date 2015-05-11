@@ -50,7 +50,8 @@
 	<img ng-src="{{ node.imagesrc }}" ng-show="node.image">
 	<div ng-show="grats">
 		<h1>CONGRATULATIONS</h1>
-		<div class="btn btn-default cursor-pointer" ng-click="toRestart()">continue</div>
+		<div class="btn btn-default cursor-pointer" ng-click="exit()" >exit</div>
+		<div class="btn btn-default cursor-pointer" ng-click="restart()">restart</div>
 	</div>
 	<div>
 		<div class="btn btn-default cursor-pointer" ng-click="exit()" ng-show="showRestartButton">exit</div>
