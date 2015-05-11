@@ -1,122 +1,65 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
-		<script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
-		<script src="https://cdn.firebase.com/libs/angularfire/1.0.0/angularfire.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.0/alertify.min.js"></script>
-		<script src="http://cytoscape.github.io/cytoscape.js/api/cytoscape.js-latest/cytoscape.min.js"></script>
-		<script src="js/controller.js"></script>
-		<script src="js/maker.js"></script>
-		<script src="js/ng-infinite-scroll.min.js"></script>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-		<link rel="stylesheet" href="css/maker.css">
-		<link rel="stylesheet" href="css/alertify.css">
-		<link rel="stylesheet" href="css/common.css">
-		<title>v0.0.0.0.0.0.4</title>
-	</head>
-	<body ng-app="ngApp">
-		<div ng-controller="makerController" id="maker">
-			<div class="control-bar">
-			  <a href="index.html" class="btn btn-default">Return to index</a>
-			  <a href="#" id="sign-out" class="btn btn-default" ng-click="logout()">Sign out</a>
-			  <a href="#" id="show-graph" class="btn btn-default">Show nodes graph</a>
-			  <a href="#" id="update-graph" class="btn btn-default" ng-click="renewGraph()">Update graph</a>
+<div id="maker">
+	<script src="js/maker.js"></script>
+	<div class="nodebar">
+		<div class="sidebar-controls">
+			Title: <input ng-model="_q.title" type="text" class="form-control">
+		</div>
+		<div class="sidebar-controls">
+			Description: <input ng-model="_q.descr" type="text" class="form-control">
+		</div>
+		<div class="sidebar-controls">
+			Image: <input ng-model="_q.image" type="text" class="form-control">
+		</div>
+		<div class="sidebar-controls" ng-click="saveToServer()">Save</div>
+		<div class="sidebar-controls" id="show-graph">Show nodes graph</div>
+		<div class="sidebar-controls" id="update-graph" class="btn btn-default" ng-click="renewGraph()">Update graph</div>
+
+		<div class="node" ng-repeat="node in _q.nodes  | filter: notRemoved" ng-click="selectNode(node.id)">
+			<span class="glyphicon glyphicon-remove nodebar-xmark" ng-click="remove(node.id)"></span>
+			<span class="node-id" ng-bind="node.id"></span>
+		</div>
+		<div class="sidebar-controls" ng-click="add()">
+			<span class="node-id">add new node</span>
+		</div>	
+	</div>
+	<div id="hide-nodebar">
+		<span id="arrow">hide</span>
+	</div>
+	<!-- SELECTED NODE -->
+	<div class="selected-node" ng-show="selectedNode">
+	  <span class="glyphicon glyphicon-remove" ng-click="remove(selectedNode.id)"></span>
+		<span class="node-id">{{ selectedNode.id }}</span>
+		<div class="input-group">
+			<span class="input-group-addon">Text</span>
+			<input ng-model="selectedNode.text" class="form-control">
+		</div>
+		<div class="row">
+			<span class="col-md-3">Way id</span>
+			<span class="col-md-9">Way text</span>
+		</div>
+		<div class="row" ng-repeat="i in  _.range(selectedNode.ways_ids.length)">
+			<div class="col-md-3">
+				<select class="form-control" ng-model="selectedNode.ways_ids[i]">
+					<option ng-repeat="node in _q.nodes | filter: notRemoved">{{ node.id }}</option>
+				</select>
 			</div>
-			<!-- NAVIGATION BAR -->
-			<nav class="navbar navbar-default  navbar-fixed-top">
-				<div class="container-fluid">
-					<div class="navbar-form form-inline">
-						<div class="btn-group" role="group">
-							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-								Public visual novels <span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu dropdown-size" role="menu">
-								<li ng-repeat="quest in quests">
-									<a href="#" ng-click="saved(quest.$value)">{{ getValue(quest.$value, 'title') || 'untitled' }}</a>
-								</li>
-							</ul>
-						</div>
-						<div class="btn-group" role="group" ng-show="isAuthorized && myQuests.length > 0">
-							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-								My visual novels <span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu dropdown-size" role="menu">
-								<li ng-repeat="quest in myQuests">
-									<a href="#" ng-click="saved(quest.$value)">{{ getValue(quest.$value, 'title') || 'untitled' }}</a>
-								</li>
-							</ul>
-						</div>
-						<div class="input-group">
-							<span class="input-group-addon">Title</span>
-							<input ng-model="_q.title" type="text" class="form-control">
-						</div>
-						<div class="input-group">
-							<span class="input-group-addon">Description</span>
-							<input ng-model="_q.descr" type="text" class="form-control">
-						</div>
-						<div class="input-group">
-							<span class="input-group-addon">Image</span>
-							<input ng-model="_q.image" type="text" class="form-control" placeholder="URL">
-						</div>
-						<button ng-click="saveToServer()" class="btn btn-default">Save</button>
-						<button ng-click="publish()" class="btn btn-default">Publish</button>
-					</div>
-				</div>
-			</nav>
-			<!-- NODEBAR -->
-			<div class="nodebar">
-				<div class="node" ng-repeat="node in _q.nodes" ng-click="selectNode(node.id)">
-					<span class="node-id">{{ node.id }}</span>
-				</div>
-				<div class="node" ng-click="add()">
-					<span class="node-id">add new node</span>
-				</div>	
-			</div>
-			<div id="hide-nodebar">
-				<span id="arrow">hide</span>
-			</div>
-			<!-- SELECTED NODE -->
-			<div class="selected-node" ng-show="selectedNode">
-			  <span class="xmark" ng-click="remove(selectedNode.id)">X</span>
-				<span class="node-id">{{ selectedNode.id }}</span>
-				<div class="input-group">
-					<span class="input-group-addon">Text</span>
-					<input ng-model="selectedNode.text" class="form-control">
-				</div>
-				<div class="row">
-					<span class="col-md-3">Way id</span>
-					<span class="col-md-9">Way text</span>
-				</div>
-				<div class="row" ng-repeat="i in  _.range(selectedNode.ways_ids.length)">
-					<div class="col-md-3">
-						<select class="form-control" ng-model="selectedNode.ways_ids[i]">
-							<option ng-repeat="node in _q.nodes">{{ node.id }}</option>
-						</select>
-					</div>
-					<div class="col-md-9">
-						<input ng-model="selectedNode.ways[i]" class="form-control">
-					</div>
-				</div>
-				<a href="#" class="btn btn-default" ng-click="addWay(selectedNode.id)">Add new way</a>
-				<div class="form-inline">
-					<label><input type="checkbox" ng-model="selectedNode.image"> Image</label>
-					<input ng-model="selectedNode.imagesrc" class="form-control" type="text" ng-show="selectedNode.image">
-					<img ng-src="{{ selectedNode.imagesrc }}" ng-show="selectedNode.image" style="max-width: 100px; max-height: 100px;"></img>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input ng-model="selectedNode.final" type="checkbox"> Final
-					</label>
-				</div>
-			</div>
-			<!-- GRAPH -->
-			<div class="graph" id="graph-container">
+			<div class="col-md-9">
+				<input ng-model="selectedNode.ways[i]" class="form-control">
 			</div>
 		</div>
-	</body>
-</html>
+		<div class="btn btn-default" ng-click="addWay(selectedNode.id)">Add new way</div>
+		<div class="form-inline">
+			<label><input type="checkbox" ng-model="selectedNode.image"> Image</label>
+			<input ng-model="selectedNode.imagesrc" class="form-control" type="text" ng-show="selectedNode.image">
+			<img ng-src="{{ selectedNode.imagesrc }}" ng-show="selectedNode.image" style="max-width: 100px; max-height: 100px;"></img>
+		</div>
+		<div class="checkbox">
+			<label>
+				<input ng-model="selectedNode.final" type="checkbox"> Final
+			</label>
+		</div>
+	</div>
+	<!-- GRAPH -->
+	<div class="graph" id="graph-container">
+	</div>
+</div>

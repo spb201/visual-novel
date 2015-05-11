@@ -41,6 +41,12 @@
 	max-width: 100%;
 }
 
+.add-img {
+	margin: 0;
+	padding: 0;
+	max-width: 150px;
+}
+
 .title {
 	margin: 0px;
 	padding: 0px;
@@ -74,7 +80,6 @@
 .xmark {
 	position: absolute;
 	top: 5px;
-	right: 5px;
 	color: black;
 	cursor: pointer;
 	background-color: rgba(238,238,238, .75);
@@ -85,4 +90,21 @@
 .xmark:hover {
 	background-color: rgba(238,238,238, 2);
 	border: 5px solid rgba(238,238,238, 3);
+}
+
+.delete{
+	right: 5px;
+}
+
+.edit{
+	right: 35px!important;
+	line-height: 1!important;
+}
+
+.publish{
+	right: 65px!important;
+}
+
+.cursor-pointer {
+	cursor: pointer;
 }
