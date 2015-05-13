@@ -347,7 +347,7 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			$scope.node.image = false;
 		};
 		$scope.restart = function() {
-			$scope.node = quest.nodes[0];
+			$scope.node = $scope.quest.nodes[0];
 			$scope.grats = false;
 			$scope.showControlButtons = true;
 			$scope.showRestartButton = false;
