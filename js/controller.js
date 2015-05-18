@@ -226,9 +226,9 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		$scope.hideSidebar = function() {
 			$scope.hideSB = true;
 		}
+		
 		$scope.graphBtn = function() {
 			$scope.renewGraph();
-			$scope.showGraph = ! $scope.showGraph;
 		}
 
 		$scope.logout = function() {
