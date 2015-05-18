@@ -99,14 +99,14 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			auth.$authWithOAuthPopup("facebook")
 				.then(function(authData) {
 					console.log("Authenticated successfully with payload:", authData);
-					document.location = "index.html";
+					$scope.isAuthorized = true;
 				}, function(err) {
 					console.log("Login Failed!", error);
 				});
 		};
 		$scope.logout = function() {
 			auth.$unauth();
-			window.location.reload();
+			document.location = 'index.html';
 		};
 		 $scope.isActive = function(route) {
 		 	return route === $location.path();
