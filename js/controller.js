@@ -227,6 +227,7 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			$scope.hideSB = true;
 		}
 		$scope.graphBtn = function() {
+			$scope.renewGraph();
 			$scope.showGraph = ! $scope.showGraph;
 		}
 
@@ -238,7 +239,7 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		$scope.renewGraph = function() {
 			var qnodes = [];
 			var qedges = [];
-			if ($scope._q) {
+			if ($scope._q && $scope._q.nodes) {
 				for (i = 0; i < $scope._q.nodes.length; ++i) {
 					qnodes.push({data : { id : ''+i }});
 					if ($scope._q.nodes[i].ways_ids) {
@@ -284,7 +285,13 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			});
 				
 			var bfs = cy.elements().bfs('#a', function(){}, true);
-		}
+		};
+		
+		$scope.$watch(
+			function($scope){return $scope._q;},
+			function(){if(typeof(cytoscape) !== 'undefined') $scope.renewGraph();},
+			true
+		);
 	}])
 //quest viewer controller
 	.controller("viewerController", ["$scope", "$http", "$firebaseArray",  "$firebaseAuth", "$location", function($scope, $http, $firebaseArray, $firebaseAuth, $location) {
