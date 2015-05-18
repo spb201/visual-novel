@@ -62,24 +62,24 @@ function downloadQuest($scope, $http, url) {
 
 
 var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
-	.config(function($routeProvider) {
-    $routeProvider
-        .when('/about', { 
-            templateUrl : 'landing.html',
-            controller  : 'indexController'
-        })
-        .when('/mynovels', {
-            templateUrl : 'viewer.html',
-            controller  : 'viewerController'
-        })
-        .when('/edit/:id', {
-        	templateUrl: 'maker.html',
-        	controller: 'makerController'
-        })
-        .when('/', {
-            templateUrl : 'viewer.html',
-            controller  : 'viewerController'
-        });
+	.config(function($routeProvider) {		
+		$routeProvider
+			.when('/about', { 
+				templateUrl : 'landing.html',
+				controller  : 'indexController'
+			})
+			.when('/mynovels', {
+				templateUrl : 'viewer.html',
+				controller  : 'viewerController'
+			})
+			.when('/edit/:id', {
+				templateUrl : 'maker.html',
+				controller  : 'makerController'
+			})
+			.when('/', {
+				templateUrl : 'viewer.html',
+				controller  : 'viewerController'
+			});
 	})
 	.constant('_', window._)
 	.run(function ($rootScope) {
@@ -99,14 +99,14 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			auth.$authWithOAuthPopup("facebook")
 				.then(function(authData) {
 					console.log("Authenticated successfully with payload:", authData);
-					document.location = "index.html";
+					$scope.isAuthorized = true;
 				}, function(err) {
 					console.log("Login Failed!", error);
 				});
 		};
 		$scope.logout = function() {
 			auth.$unauth();
-			window.location.reload();
+			document.location = 'index.html';
 		};
 		 $scope.isActive = function(route) {
 		 	return route === $location.path();
@@ -286,6 +286,7 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 	}])
 //quest viewer controller
 	.controller("viewerController", ["$scope", "$http", "$firebaseArray",  "$firebaseAuth", "$location", function($scope, $http, $firebaseArray, $firebaseAuth, $location) {
+		if ($location.$$path === '/mynovels' && !$scope.isAuthorized) document.location = 'index.html';
 		var ref = new Firebase(FIREBASE_URL);
 		var publicRef = ref.child('public');
 		var questsRef = ref.child('quests');
