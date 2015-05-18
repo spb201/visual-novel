@@ -241,8 +241,10 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			if ($scope._q) {
 				for (i = 0; i < $scope._q.nodes.length; ++i) {
 					qnodes.push({data : { id : ''+i }});
-					for (j = 0; j < $scope._q.nodes[i].ways_ids.length; ++j) {
-						qedges.push({data: { id: '' + i + j, weight: 1, source: '' + i, target: '' + $scope._q.nodes[i].ways_ids[j]}});
+					if ($scope._q.nodes[i].ways_ids) {
+						for (j = 0; j < $scope._q.nodes[i].ways_ids.length; ++j) {
+							qedges.push({data: { id: '' + i + j, weight: 1, source: '' + i, target: '' + $scope._q.nodes[i].ways_ids[j]}});
+						}
 					}
 				}
 			}
