@@ -17,10 +17,10 @@
 	position: relative;
 }
 
-.quests a {
+/*.quests a {
 	color: black;
 	text-decoration: none;
-}
+}*/
 
 .a-container {
 	width: 100%;
@@ -158,6 +158,15 @@ ul.rating {
 .rating .rated {
   color: black;
 }
+
+.author-link {
+  color: #aaa;
+}
+
+.author-link:hover {
+  color: #555;
+}
+
 
 .quest-footer {
   position: absolute;
