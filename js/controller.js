@@ -388,8 +388,20 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			window.location.reload();
 		};
 		$scope.remove = function(quest) {
-			$scope.allQuests.$remove(quest);
+			$('.container.text-center').css({'-webkit-filter': 'blur(5px)'});
+			$('#modal-remove').fadeIn();
+			$scope.deletePretender = quest;
 		};
+		$scope.commit = function() {
+		  $('.container.text-center').css({'-webkit-filter': 'none'});
+			$('#modal-remove').fadeOut();
+			$scope.allQuests.$remove($scope.deletePretender);
+		};
+		$scope.cancel = function() {
+      $('.container.text-center').css({'-webkit-filter': 'none'});
+			$('#modal-remove').fadeOut();
+			$scope.deletePretender = null;
+		}
 		$scope.publish = function(quest) {
 			quest.is_public = true;
 			$scope.allQuests.$save(quest);

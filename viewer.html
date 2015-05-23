@@ -1,3 +1,12 @@
+<div id="modal-remove">
+  <div id="modal-content">
+    <span>Are you sure?</span>
+    <div class="btn-group" style="margin-top: 20px;">
+      <div class="btn btn-default" ng-click="commit()">Delete</div>
+      <div class="btn btn-default" ng-click="cancel()">Cancel</div>
+    </div>
+  </div>
+</div>
 <div class="container text-center">
 	<div ng-hide="hideStart" class="panels">
 	  <div class="panel" ng-show="isActive('/')">
@@ -25,6 +34,7 @@
 				<h2 class="title">Create new visual novel</h2>
 			</div>
 		</div>
+
   	<div ng-repeat="quest in allQuests | orderBy: '-views' | filter:{uid:authData.uid}" class="quests">
   		<div class="quest-controls">
   		  <span class="glyphicon glyphicon-cloud-upload xmark-viewer publish" ng-hide="quest.is_public" ng-click="publish(quest)"></span>

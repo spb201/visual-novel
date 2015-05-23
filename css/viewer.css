@@ -106,3 +106,18 @@
 .cursor-pointer {
 	cursor: pointer;
 }
+
+#modal-remove {
+  position: absolute;
+  z-index: 9999;
+  background-color: #E7E7E7;
+  width: 200px;
+  height: 100px;
+  left: 50%;
+  top: 50%;
+  display: none;
+  text-align: center;
+  padding-top: 10px;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
