@@ -344,7 +344,6 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			$scope.hideStart = true;
 			$scope.showControlButtons = true;
 			$scope.showText = true;
-			$scope.node.image = true;
 			$scope.chooseButtons();
 		};
 		$scope.showContent = function($fileContent){
