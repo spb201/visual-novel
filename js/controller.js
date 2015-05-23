@@ -64,6 +64,10 @@ function downloadQuest($scope, $http, url) {
 var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 	.config(function($routeProvider) {		
 		$routeProvider
+			.when('/play/:id', {
+				templateUrl : 'player.html',
+				controller  : 'playerController'
+			})
 			.when('/about', { 
 				templateUrl : 'landing.html',
 			})
@@ -117,6 +121,10 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			}
 
 		 	return path.indexOf(route) === 0;
+		};
+
+		$scope.go = function(path) {
+		  $location.path(path);
 		};
 	}])
 //quest maker controller
@@ -321,54 +329,14 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			$('.quests').css('display', 'inline-block');
 			$('.quests:nth-of-type(n+' + itemsCount + ')').css('display', 'none');
 		}
-		$scope.hideButtons = [false, false, false, false];
-		$scope.chooseButtons = function() {
-			if (!$scope.node.final)
-				for (i = 0; i < 4; ++i)
-					$scope.hideButtons[i] = ($scope.node.ways_ids[i] === undefined || $scope.node.ways_ids[i] === null);
-		};
-		$scope.buttonClick = function(i) {
-			if (i != null) {
-				$scope.node = $scope.quest.nodes[$scope.node.ways_ids[i]];
-				$scope.chooseButtons();
-				if ($scope.node.final) {
-					$scope.incrementViews($scope.quest);
-					$scope.showControlButtons = false;
-					$scope.grats = true;
-				}
-			}
-		};
-		$scope.exit = function() {
-			$scope.showRestartButton = false;
-			$scope.grats = false;
-			$scope.hideStart = false;
-			$scope.showText = false;
-			$scope.node.image = false;
-		};
-		$scope.restart = function() {
-			$scope.node = $scope.quest.nodes[0];
-			$scope.grats = false;
-			$scope.showControlButtons = true;
-			$scope.showRestartButton = false;
-		}
-		$scope.saved = function(savedQuest) {
-			$scope.quest = savedQuest;
-			$scope.node = savedQuest.nodes[0];
-			$scope.hideStart = true;
-			$scope.showControlButtons = true;
-			$scope.showText = true;
-			$scope.chooseButtons();
-		};
+
 		$scope.showContent = function($fileContent){
 			$scope.str_quest = $fileContent;
 		};
 		$scope.getValue = function(value, key){
 			return value[key];
 		};
-		$scope.logout = function() {
-			auth.$unauth();
-			window.location.reload();
-		};
+
 		$scope.remove = function(quest) {
 			$('.container.text-center').css({'-webkit-filter': 'blur(5px)', 'filter': 'blur(5px)'});
 			$('#modal-remove').fadeIn();
@@ -403,11 +371,6 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 
 		$scope.getViews = function(quest) {
 			return $scope.viewsObject[quest.$id] || 0;
-		};
-
-		$scope.incrementViews = function(quest) {
-			$scope.viewsObject[quest.$id] += 1;
-			$scope.viewsObject.$save();
 		};
 
 		$scope.getRating = function(quest) {
@@ -461,6 +424,117 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			return quest.uid == $scope.authData.uid;
 		}
 
+	}])
+	.controller('playerController', ['$scope', '$routeParams', '$firebaseAuth', '$firebaseObject', '$location',
+	function($scope, $routeParams, $firebaseAuth, $firebaseObject, $location) {
+		var ref = new Firebase(FIREBASE_URL);
+		var questsRef = ref.child('quests');
+		var auth = $firebaseAuth(ref);
+		$scope.authData = auth.$getAuth();
+		$scope.isAuthorized = false;
+		$scope.loaded = false;
+		var savesRef = ref.child('saves');
+		var viewsRef = ref.child('views');
+		var ratingsRef = ref.child('ratings');
+
+		if ($scope.authData) {
+			$scope.isAuthorized = true;
+		}
+
+		if ($routeParams.id) {
+			if ($scope.isAuthorized) {
+				var savedNodeRef = savesRef.child($routeParams.id).child($scope.authData.uid);
+				$scope.savedNode = $firebaseObject(savedNodeRef);
+				var rateRef = ratingsRef.child($routeParams.id).child($scope.authData.uid);
+				$scope.rate = $firebaseObject(rateRef);
+			}
+			var questViewsRef = viewsRef.child($routeParams.id);
+			$scope.questViews = $firebaseObject(questViewsRef);
+			var thisQuestRef = questsRef.child($routeParams.id);
+			$scope.quest = $firebaseObject(thisQuestRef);
+			$scope.quest.$loaded()
+				.then(function() {
+					$scope.loaded = true;
+					$scope.nodeNumber = $scope.load();
+					$scope.moveTo($scope.nodeNumber);
+					/*if(!$scope.$$phase) {
+						$scope.$apply();
+					}*/
+				})
+		} else {
+			alertify.alert('Quest not found');
+		}
+
+		$scope.load = function() {
+			return $scope.isAuthorized ? $scope.savedNode.$value || 0 : 0;
+		};
+
+		$scope.moveTo = function(nodeNumber, errorNumber) {
+			// If for some reason there is no node by this number,
+			// viewer tries to repair quest by shifting to next node
+			// maximum 10 times
+			errorNumber = errorNumber || 10;
+			if ($scope.savedNode) {
+				$scope.savedNode.$value = nodeNumber;
+				$scope.savedNode.$save();
+			}
+
+			$scope.node = $scope.quest.nodes[nodeNumber];
+			if (!$scope.node || $scope.node.hide) {
+				if (errorNumber > 0) {
+					$scope.moveTo(nodeNumber + 1, errorNumber - 1);
+				}
+				return;
+			}
+
+			$scope.update();
+		};
+
+		$scope.hasImage = function(node) {
+			return !!node && !!node.imagesrc;
+		};
+
+		$scope.update = function() {
+			if(!$scope.$$phase) {
+				$scope.$apply();
+			}
+		};
+
+		$scope.restart = function() {
+			$scope.moveTo(0);
+		};
+
+		$scope.saveAndQuit = function() {
+			$location.path('/');
+		};
+
+		$scope.quit = function() {
+			if ($scope.savedNode) {
+				$scope.savedNode.$value = 0;
+				$scope.savedNode.$save();
+			}
+			$location.path('/');
+		};
+
+		$scope.incrementViews = function() {
+			if ($scope.questViews.$value) {
+				$scope.questViews.$value += 1;
+			} else {
+				$scope.questViews.$value = 1;
+			};
+			$scope.questViews.$save();
+		};
+
+		$scope.finish = function() {
+			$scope.loaded = false;
+			$scope.isCongrats = true;
+			$scope.incrementViews();
+		};
+
+		$scope.toggleRate = function(value) {
+			$scope.rate.$value = value;
+			$scope.rate.$save();
+		};
 	}])
 //Magic directive that helps to download quests
 	.directive('onReadFile', function ($parse) {
@@ -525,7 +599,7 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
       }
     }
   })
-  .directive('starRating', function() {
+  .directive('starRater', function() {
 		return {
 			restrict : 'A',
 
@@ -533,6 +607,48 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 				'<ul class="rating" >',
 			    '<li ng-repeat="star in stars" ng-class="star" ',
 			    		'ng-click="toggle($index)" >',
+			      '<i class="fa fa-star fa-lg"></i>',
+			    '</li>',
+			  '</ul>'
+			].join(''),
+
+			scope : {
+			  rating : '=',
+			  rate : '=',
+			},
+
+			link: function(scope, elem, attrs) {
+				var updateStars = function() {
+				  scope.stars = [];
+				  for (var i = 0; i < 5; i++) {
+				    scope.stars.push({
+				      filled : i < scope.rating
+				    });
+				  }
+				};
+
+				updateStars();
+				
+				scope.toggle = function(index) {
+				  scope.rate(index + 1);
+				  updateStars();
+				};
+
+				scope.$watch(function() {
+					return scope.rating;
+				}, function() {
+		    	updateStars();
+			  });
+			}
+		};
+	})
+  .directive('starRating', function() {
+		return {
+			restrict : 'A',
+
+			template : [
+				'<ul class="rating" >',
+			    '<li ng-repeat="star in stars" ng-class="star">',
 			      '<i class="fa fa-star"></i>',
 			    '</li>',
 			  '</ul>'
@@ -566,25 +682,6 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 				};
 
 				updateStars();
-				
-				scope.toggle = function(index) {
-					console.log(scope.rating);
-				  //scope.rate(scope.quest, index + 1);
-				  updateStars();
-				};
-
-				scope.unhover = function() {
-					updateStars();
-				};
-
-				scope.hover = function(index) {
-				  scope.stars = [];
-				  for (var i = 0; i < 5; i++) {
-				    scope.stars.push({
-				      mouseover : i < index + 1
-				    });
-				  }
-				};
 
 				scope.$watch(function() {
 					return scope.ratingsObject[scope.quest.$id];

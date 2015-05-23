@@ -28,7 +28,7 @@
 				<span class="glyphicon glyphicon-edit edit xmark-viewer" ng-click="editQuest(quest.$id)"></span>
 				<span class="glyphicon glyphicon-remove delete xmark-viewer" ng-click="remove(quest)"></span>
 			</div>
-			<div ng-click="saved(quest)" class="cursor-pointer">
+			<div ng-click="go('play/' + quest.$id)" class="cursor-pointer">
 				<div class="a-container">
 					<div class="main-img-container">
 						<img class="main-img" ng-src="{{ quest.image|| 'http://upload.wikimedia.org/wikipedia/commons/6/69/Wikipetan_Visual_Novel_Kor.png' }}">
@@ -44,19 +44,4 @@
 			</div>
 		</div>
   </div>
-</div>
-	<h2 ng-show="showText" class="pagination-centered" ng-bind="node.text"></h2>
-	<div ng-show="showControlButtons">
-		<div ng-repeat="i in _.range(node.ways_ids.length)" ng-show="node.ways_ids[i]" class="btn btn-default btn-move cursor-pointer" ng-click="buttonClick(i)" onClick="this.blur();" ng-bind="node.ways[i]"></div>
-	</div>
-	<img ng-src="{{ node.imagesrc }}" ng-show="node.image">
-	<div ng-show="grats">
-		<h1>Congratulations! You have passed "{{quest.title}}"!</h1>
-		<div class="btn btn-default cursor-pointer" ng-click="exit()" >exit</div>
-		<div class="btn btn-default cursor-pointer" ng-click="restart()">restart</div>
-	</div>
-	<div>
-		<div class="btn btn-default cursor-pointer" ng-click="exit()" ng-show="showRestartButton">exit</div>
-		<div class="btn btn-default cursor-pointer" ng-click="restart()" ng-show="showRestartButton">restart</div>
-	</div>
 </div>

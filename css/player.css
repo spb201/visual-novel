@@ -1,0 +1,45 @@
+
+.rating{
+  color: #aaa;
+  margin: 0;
+  padding: 0;
+}
+
+ul.rating {
+  display: inline-block;
+}
+
+.rating li {
+  list-style-type: none;
+  display: inline-block;
+  padding: 1px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.rating .filled {
+  color: #555;
+}
+
+.rating .mouseover {
+  color: black;
+}
+
+.rating li:hover {
+  color: #555;
+}
+
+.btn-move {
+  max-width: 100%;
+  white-space: normal;
+  word-wrap: break-word;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 1px;
+  margin-right: 1px;
+}
+
+.player-image {
+  margin: 5px;
+}
