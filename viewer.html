@@ -11,7 +11,7 @@
 	<div ng-hide="hideStart" class="panels">
 	  <div class="panel" ng-show="isActive('/')">
 			<div infinite-scroll="addMoreItems()">
-				<div ng-repeat="quest in allQuests | orderBy: mainOrder | filter: {is_public: true}" class="quests">
+				<div ng-repeat="quest in allQuests | orderBy: newOrder | filter: {is_public: true}" class="quests">
 					<div ng-click="saved(quest)" class="cursor-pointer">
 						<div class="a-container">
 							<div class="main-img-container">
@@ -29,6 +29,30 @@
 				</div>
 			</div>
 	  </div>
+
+
+	  <div class="panel" ng-show="isActive('/top')">
+			<div infinite-scroll="addMoreItems()">
+				<div ng-repeat="quest in allQuests | orderBy: topOrder | filter: {is_public: true}" class="quests">
+					<div ng-click="saved(quest)" class="cursor-pointer">
+						<div class="a-container">
+							<div class="main-img-container">
+								<img class="main-img" ng-src="{{ quest.image|| 'http://upload.wikimedia.org/wikipedia/commons/6/69/Wikipetan_Visual_Novel_Kor.png' }}">
+							</div>
+							<h2 class="title">{{ quest.title || 'untitled' }}</h2>
+							<p>{{ quest.descr || 'This visual novel have no description' }}</p>
+							<div class="quest-footer">
+								<div class="quest-footer-author">{{'by ' + getAuthor(quest)}}</div>
+								<div class="quest-footer-views">{{ 'Views: ' + getViews(quest) }}</div>
+								<div class="star-rating" star-rating quest="quest" get-rating="getRating" ratings-object="ratingsObject"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	  </div>
+
+
 	  <div class="panel" ng-show="isActive('/mynovels')">
 			<div ng-click="newQuest()" class="cursor-pointer">
 				<div class="a-container">

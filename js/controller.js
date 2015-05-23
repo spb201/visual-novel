@@ -67,6 +67,10 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			.when('/about', { 
 				templateUrl : 'landing.html',
 			})
+			.when('/top', {
+				templateUrl : 'viewer.html',
+				controller  : 'viewerController'
+			})
 			.when('/mynovels', {
 				templateUrl : 'viewer.html',
 				controller  : 'viewerController'
@@ -152,6 +156,7 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			} else if ($scope._q.title == 'empty') {
 				alertify.alert('Ivan said it\'s bad to save quest with \'empty\' title');
 			} else {
+				$scope._q.last_change = Date.now();
 				$scope._q.$save();
 				alertify.alert('Successfully saved to server');
 			}
@@ -422,10 +427,14 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			console.log('rating', rating);
 		};
 
-		$scope.mainOrder = function(quest) {
+		$scope.topOrder = function(quest) {
 			var views = $scope.getViews(quest);
 			var rating = $scope.getRating(quest) + 1;
 			return -views*rating;
+		};
+
+		$scope.newOrder = function(quest) {
+			return -quest.lastChange || 0;
 		};
 	}])
 //Magic directive that helps to download quests
