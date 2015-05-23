@@ -107,6 +107,10 @@
 	cursor: pointer;
 }
 
+#main {
+  text-align: center;
+}
+
 #modal-remove {
   position: absolute;
   z-index: 9999;
