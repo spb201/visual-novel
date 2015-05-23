@@ -29,7 +29,7 @@
   		<span class="glyphicon glyphicon-cloud-upload xmark publish" ng-hide="quest.is_public" ng-click="publish(quest)"></span>
   		<span class="glyphicon glyphicon-cloud-download xmark publish" ng-show="quest.is_public" ng-click="unpublish(quest)"></span>
 			<span class="glyphicon glyphicon-remove delete xmark" ng-click="remove(quest)"></span>
-			<span class="xmark edit"><a ng-href='#/edit/{{quest.$id}}'><span class="glyphicon glyphicon-edit"></span></a></span>
+			<span class="glyphicon glyphicon-edit edit xmark" ng-click="editQuest(quest.$id)"></span>
 				<div ng-click="saved(quest)" class="cursor-pointer">
 					<div class="a-container">
 						<div class="main-img-container">

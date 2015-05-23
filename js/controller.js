@@ -304,6 +304,9 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		$scope.authData = auth.$getAuth();
 		$scope.isAuthorized = false;
 		itemsCount = 13;
+		$scope.editQuest = function(id) {
+		  $location.path('edit/' + id);
+		};
 		if ($scope.authData) {
 			$scope.isAuthorized = true;
 			var privateRef = ref.child($scope.authData.uid);
