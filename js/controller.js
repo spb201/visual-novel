@@ -451,7 +451,10 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 
 		$scope.questFilter = function(quest) {
 			var uid = $scope.uid;
-			return uid ? !!(quest.uid == uid && quest.last_change) : !!(quest.is_public && quest.last_change);
+			var isOwner = $scope.authData.uid == uid;
+			return isOwner ? !!(quest.uid == uid && quest.last_change) :
+							   uid ? !!(quest.is_public && quest.uid == uid && quest.last_change) :
+							   			 !!(quest.is_public && quest.last_change);
 		};
 
 		$scope.isMyQuest = function(quest) {
