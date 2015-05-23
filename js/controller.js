@@ -292,6 +292,10 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			function(){if(typeof(cytoscape) !== 'undefined') $scope.renewGraph();},
 			true
 		);
+		$scope.removeWay = function(nodeid, wayid) {
+		  $scope._q.nodes[nodeid].ways.splice(wayid, 1);
+		  $scope._q.nodes[nodeid].ways_ids.splice(wayid, 1);
+		};
 	}])
 //quest viewer controller
 	.controller("viewerController", ["$scope", "$http", "$firebaseArray",  "$firebaseAuth", "$location", function($scope, $http, $firebaseArray, $firebaseAuth, $location) {
