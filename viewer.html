@@ -11,7 +11,7 @@
 	<div ng-hide="hideStart" class="panels">
 	  <div class="panel" ng-show="isActive('/')">
 			<div infinite-scroll="addMoreItems()">
-				<div ng-repeat="quest in allQuests | orderBy: newOrder | filter: {is_public: true}" class="quests">
+				<div ng-repeat="quest in allQuests | orderBy: newOrder | filter: publicFilter" class="quests">
 					<div ng-click="saved(quest)" class="cursor-pointer">
 						<div class="a-container">
 							<div class="main-img-container">
@@ -33,7 +33,7 @@
 
 	  <div class="panel" ng-show="isActive('/top')">
 			<div infinite-scroll="addMoreItems()">
-				<div ng-repeat="quest in allQuests | orderBy: topOrder | filter: {is_public: true}" class="quests">
+				<div ng-repeat="quest in allQuests | orderBy: topOrder | filter: publicFilter" class="quests">
 					<div ng-click="saved(quest)" class="cursor-pointer">
 						<div class="a-container">
 							<div class="main-img-container">
@@ -64,7 +64,7 @@
 			</div>
 		</div>
 
-  	<div ng-repeat="quest in allQuests | orderBy: mainOrder | filter:{uid:authData.uid}" class="quests" ng-show="isActive('/mynovels')">
+  	<div ng-repeat="quest in allQuests | orderBy: mainOrder | filter: privateFilter" class="quests" ng-show="isActive('/mynovels')">
 		<div class="quest-controls">
 			<span class="glyphicon glyphicon-cloud-upload xmark-viewer publish" ng-hide="quest.is_public" ng-click="publish(quest)"></span>
 			<span class="glyphicon glyphicon-cloud-download xmark-viewer unpublish" ng-show="quest.is_public" ng-click="unpublish(quest)"></span>

@@ -434,8 +434,16 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		};
 
 		$scope.newOrder = function(quest) {
-			return -quest.lastChange || 0;
+			return -quest.last_change || 0;
 		};
+
+		$scope.publicFilter = function(quest) {
+  		return !!(quest.is_public && quest.last_change);
+		}
+
+		$scope.privateFilter = function(quest) {
+			return !!(quest.uid == $scope.authData.uid && quest.last_change);
+		}
 	}])
 //Magic directive that helps to download quests
 	.directive('onReadFile', function ($parse) {
