@@ -1,3 +1,3 @@
-grdesu.github.io
+Ultimate visual novel maker
 ================
-PREAVET
+Best place to create and play visual novels
