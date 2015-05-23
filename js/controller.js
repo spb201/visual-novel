@@ -358,17 +358,17 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			window.location.reload();
 		};
 		$scope.remove = function(quest) {
-			$('.container.text-center').css({'-webkit-filter': 'blur(5px)'});
+			$('.container.text-center').css({'-webkit-filter': 'blur(5px)', 'filter': 'blur(5px)'});
 			$('#modal-remove').fadeIn();
 			$scope.deletePretender = quest;
 		};
 		$scope.commit = function() {
-		  $('.container.text-center').css({'-webkit-filter': 'none'});
+		  $('.container.text-center').css({'-webkit-filter': 'none', 'filter': 'none'});
 			$('#modal-remove').fadeOut();
 			$scope.allQuests.$remove($scope.deletePretender);
 		};
 		$scope.cancel = function() {
-      $('.container.text-center').css({'-webkit-filter': 'none'});
+      $('.container.text-center').css({'-webkit-filter': 'none', 'filter': 'none'});
 			$('#modal-remove').fadeOut();
 			$scope.deletePretender = null;
 		}

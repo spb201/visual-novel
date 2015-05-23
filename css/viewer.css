@@ -118,6 +118,7 @@
   display: none;
   text-align: center;
   padding-top: 10px;
+  border-radius: 5px;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
