@@ -5,10 +5,10 @@
 }
 
 .quests {
-  max-width: 20vw;
+	max-width: 20vw;
 	min-width: 200px;
 	max-height: 75vh;
-	min-height: 250px;
+	min-height: 300px;
 	background-color: #eee;
 	display: inline-block;
 	margin: 2px;
