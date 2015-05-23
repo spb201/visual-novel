@@ -19,7 +19,11 @@
 							</div>
 							<h2 class="title">{{ quest.title || 'untitled' }}</h2>
 							<p>{{ quest.descr || 'This visual novel have no description' }}</p>
-							<p>{{ 'Views: ' + getViews(quest) }}</p>
+							<div class="quest-footer">
+								<div class="quest-footer-author">{{'by ' + getAuthor(quest)}}</div>
+								<div class="quest-footer-views">{{ 'Views: ' + getViews(quest) }}</div>
+								<div class="star-rating" star-rating quest="quest" get-rating="getRating" ratings-object="ratingsObject"></div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -50,7 +54,11 @@
 				</div>
 				<h2 class="title">{{ quest.title || 'untitled' }}</h2>
 				<p>{{ quest.descr || 'This visual novel have no description' }}</p>
-				<p>{{ 'Views: ' + getViews(quest) }}</p>
+				<div class="quest-footer">
+					<div class="quest-footer-author">{{'by ' + getAuthor(quest)}}</div>
+					<div class="quest-footer-views">{{ 'Views: ' + getViews(quest) }}</div>
+					<div class="star-rating" star-rating quest="quest" get-rating="getRating" ratings-object="ratingsObject"></div>
+				</div>
 				</div>
 			</div>
 		</div>

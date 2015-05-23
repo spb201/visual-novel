@@ -397,6 +397,35 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			$scope.viewsObject.$save();
 		};
 
+		$scope.getRating = function(quest) {
+			var rateObject = $scope.ratingsObject[quest.$id];
+			console.log($scope.ratingsObject);
+			console.log(quest.$id);
+			console.log($scope.viewsObject[quest.$id]);
+
+			if (rateObject) {
+				var users = Object.keys(rateObject);
+				var i;
+				var sum;
+				for (i = 0; i < users.length; i++) {
+				  sum += rateObject[users[i]];
+				}
+				return sum / i;
+			} else {
+				return 0;
+			}
+
+		};
+
+		$scope.getAuthor = function(quest) {
+			return parseInt(quest.uid.replace('facebook:', ''), 10).toString(36);
+		} 
+
+		$scope.rate = function(quest, rating) {
+			console.log('quest', quest);
+			console.log('rating', rating);
+		};
+
 		$scope.mainOrder = function(quest) {
 			return -$scope.getViews(quest);
 		};
@@ -463,4 +492,74 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
         });
       }
     }
-  });
+  })
+  .directive('starRating', function() {
+		return {
+			restrict : 'A',
+
+			template : [
+				'<ul class="rating" >',
+			    '<li ng-repeat="star in stars" ng-class="star" ',
+			    		'ng-click="toggle($index)" >',
+			      '<i class="fa fa-star"></i>',
+			    '</li>',
+			  '</ul>'
+			].join(''),
+
+			scope : {
+			  //rate : '=',
+			  ratingsObject : '=',
+			  quest: '='
+			},
+
+			link: function(scope, elem, attrs) {
+				var updateStars = function() {
+					var rating = 0;
+					var ratingObject = scope.ratingsObject[scope.quest.$id];
+					if (ratingObject) {
+						var users = Object.keys(ratingObject);
+						var i;
+						var sum = 0;
+						for (i = 0; i < users.length; i++) {
+						  sum += ratingObject[users[i]];
+						}
+						rating = sum / i;
+					}
+				  scope.stars = [];
+				  for (var i = 0; i < 5; i++) {
+				    scope.stars.push({
+				      filled : i < rating
+				    });
+				  }
+				};
+
+				updateStars();
+				
+				scope.toggle = function(index) {
+					console.log(scope.rating);
+				  //scope.rate(scope.quest, index + 1);
+				  updateStars();
+				};
+
+				scope.unhover = function() {
+					updateStars();
+				};
+
+				scope.hover = function(index) {
+				  scope.stars = [];
+				  for (var i = 0; i < 5; i++) {
+				    scope.stars.push({
+				      mouseover : i < index + 1
+				    });
+				  }
+				};
+
+				scope.$watch(function() {
+					return scope.ratingsObject[scope.quest.$id];
+				}, function() {
+		    	updateStars();
+			  });
+			}
+		};
+	});
+
