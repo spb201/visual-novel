@@ -36,7 +36,7 @@
 			</div>
 		</div>
 
-  	<div ng-repeat="quest in allQuests | orderBy: mainOrder | filter:{uid:authData.uid}" class="quests">
+  	<div ng-repeat="quest in allQuests | orderBy: mainOrder | filter:{uid:authData.uid}" class="quests" ng-show="isActive('/mynovels')">
 		<div class="quest-controls">
 			<span class="glyphicon glyphicon-cloud-upload xmark-viewer publish" ng-hide="quest.is_public" ng-click="publish(quest)"></span>
 			<span class="glyphicon glyphicon-cloud-download xmark-viewer unpublish" ng-show="quest.is_public" ng-click="unpublish(quest)"></span>
