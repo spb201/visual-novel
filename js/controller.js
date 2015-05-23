@@ -71,7 +71,7 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 				templateUrl : 'viewer.html',
 				controller  : 'viewerController'
 			})
-			.when('/mynovels', {
+			.when('/user/:uid', {
 				templateUrl : 'viewer.html',
 				controller  : 'viewerController'
 			})
@@ -109,8 +109,14 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			auth.$unauth();
 			document.location = 'index.html';
 		};
-		 $scope.isActive = function(route) {
-		 	return route === $location.path();
+
+		$scope.isActive = function(route) {
+			var path = $location.path();
+			if (route === '/') {
+				return path === '/';
+			}
+
+		 	return path.indexOf(route) === 0;
 		};
 	}])
 //quest maker controller
@@ -274,7 +280,9 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		};
 	}])
 //quest viewer controller
-	.controller("viewerController", ["$scope", "$http", "$firebaseArray", "$firebaseObject",  "$firebaseAuth", "$location", function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth, $location) {
+	.controller("viewerController", ["$scope", "$http", "$firebaseArray", "$firebaseObject", "$firebaseAuth", "$location", "$routeParams",
+	function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth, $location, $routeParams) {
+		$scope.uid = $routeParams.uid;
 		if ($location.$$path === '/mynovels' && !$scope.isAuthorized) document.location = 'index.html';
 		var ref = new Firebase(FIREBASE_URL);
 
@@ -437,13 +445,19 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			return -quest.last_change || 0;
 		};
 
-		$scope.publicFilter = function(quest) {
-  		return !!(quest.is_public && quest.last_change);
+		$scope.questOrder = function(quest) {
+			return $scope.isActive('/top') ? $scope.topOrder(quest) : $scope.newOrder(quest);
+		};
+
+		$scope.questFilter = function(quest) {
+			var uid = $scope.uid;
+			return uid ? !!(quest.uid == uid && quest.last_change) : !!(quest.is_public && quest.last_change);
+		};
+
+		$scope.isMyQuest = function(quest) {
+			return quest.uid == $scope.authData.uid;
 		}
 
-		$scope.privateFilter = function(quest) {
-			return !!(quest.uid == $scope.authData.uid && quest.last_change);
-		}
 	}])
 //Magic directive that helps to download quests
 	.directive('onReadFile', function ($parse) {
