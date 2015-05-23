@@ -112,7 +112,7 @@
 }
 
 #modal-remove {
-  position: absolute;
+  position: fixed;
   z-index: 9999;
   background-color: #E7E7E7;
   width: 200px;
