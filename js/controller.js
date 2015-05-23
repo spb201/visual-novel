@@ -1,5 +1,5 @@
 var FIREBASE_URL = "https://spb201.firebaseio.com/";
-
+var _cy;
 //magic function that helps to download quest as file
 function download(filename, text) {
     var pom = document.createElement('a');
@@ -231,10 +231,12 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			var qedges = [];
 			if ($scope._q && $scope._q.nodes) {
 				for (i = 0; i < $scope._q.nodes.length; ++i) {
-					qnodes.push({data : { id : ''+i }});
-					if ($scope._q.nodes[i].ways_ids) {
-						for (j = 0; j < $scope._q.nodes[i].ways_ids.length; ++j) {
-							qedges.push({data: { id: '' + i + j, weight: 1, source: '' + i, target: '' + $scope._q.nodes[i].ways_ids[j]}});
+					if (!$scope._q.nodes[i].hide) {
+					  qnodes.push({data : { id : ''+i }});
+				  	if ($scope._q.nodes[i].ways_ids) {
+				  		for (j = 0; j < $scope._q.nodes[i].ways_ids.length; ++j) {
+				  			qedges.push({data: { id: '' + i + j, weight: j, source: '' + i, target: '' + $scope._q.nodes[i].ways_ids[j]}});
+						  }
 						}
 					}
 				}
@@ -265,16 +267,9 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 					nodes: qnodes,
 					edges: qedges
 				},
-
-				layout: {
-					name: 'breadthfirst',
-					directed: true,
-					roots: '#a',
-					padding: 10
-				}
+				layout: {name: 'cose'}
 			});
-				
-			var bfs = cy.elements().bfs('#a', function(){}, true);
+			_cy = cy;
 		};
 		
 		$scope.$watch(
