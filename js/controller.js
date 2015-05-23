@@ -263,6 +263,10 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			function(){if(typeof(cytoscape) !== 'undefined') $scope.renewGraph();},
 			true
 		);
+		$scope.removeWay = function(nodeid, wayid) {
+		  $scope._q.nodes[nodeid].ways.splice(wayid, 1);
+		  $scope._q.nodes[nodeid].ways_ids.splice(wayid, 1);
+		};
 	}])
 //quest viewer controller
 	.controller("viewerController", ["$scope", "$http", "$firebaseArray", "$firebaseObject",  "$firebaseAuth", "$location", function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth, $location) {
@@ -280,6 +284,9 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		$scope.authData = auth.$getAuth();
 		$scope.isAuthorized = false;
 		itemsCount = 13;
+		$scope.editQuest = function(id) {
+		  $location.path('edit/' + id);
+		};
 		if ($scope.authData) {
 			$scope.isAuthorized = true;
 		}
@@ -351,8 +358,20 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			window.location.reload();
 		};
 		$scope.remove = function(quest) {
-			$scope.allQuests.$remove(quest);
+			$('.container.text-center').css({'-webkit-filter': 'blur(5px)'});
+			$('#modal-remove').fadeIn();
+			$scope.deletePretender = quest;
 		};
+		$scope.commit = function() {
+		  $('.container.text-center').css({'-webkit-filter': 'none'});
+			$('#modal-remove').fadeOut();
+			$scope.allQuests.$remove($scope.deletePretender);
+		};
+		$scope.cancel = function() {
+      $('.container.text-center').css({'-webkit-filter': 'none'});
+			$('#modal-remove').fadeOut();
+			$scope.deletePretender = null;
+		}
 		$scope.publish = function(quest) {
 			quest.is_public = true;
 			$scope.allQuests.$save(quest);

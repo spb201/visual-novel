@@ -37,13 +37,16 @@
 			<span class="col-md-9">Way text</span>
 		</div>
 		<div class="row" ng-repeat="i in  _.range(selectedNode.ways_ids.length)">
-			<div class="col-md-3">
+			<div class="col-xs-3">
 				<select class="form-control" ng-model="selectedNode.ways_ids[i]">
 					<option ng-repeat="node in _q.nodes | filter: notRemoved">{{ node.id }}</option>
 				</select>
 			</div>
-			<div class="col-md-9">
+			<div class="col-xs-7">
 				<input ng-model="selectedNode.ways[i]" class="form-control">
+			</div>
+			<div class="col-xs-2 cursor-pointer">
+			  <span class="glyphicon glyphicon-remove" ng-click="removeWay(selectedNode.id, i)"></span>
 			</div>
 		</div>
 		<div class="btn btn-default" ng-click="addWay(selectedNode.id)">Add new way</div>
