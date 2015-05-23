@@ -35,7 +35,9 @@
             <li ng-class="{ active: isActive('/about') }"><a href="#about"><i class="fa fa-home"></i> About</a></li>
             <li ng-class="{ active: isActive('/') }"><a href="#"><i class="fa fa-comment"></i> New novels</a></li>
             <li ng-class="{ active: isActive('/top') }"><a href="#top"><i class="fa fa-star"></i> Top novels</a></li>
-            <li ng-class="{ active: isActive('/mynovels') }" ng-show="isAuthorized"><a href="#mynovels"><i class="fa fa-user"></i> My novels</a></li>
+            <li ng-class="{ active: isActive('/user/' + authData.uid) }" ng-show="isAuthorized">
+                <a ng-href="{{'#user/' + authData.uid}}"><i class="fa fa-user"></i> My novels</a>
+            </li>
             <li ng-hide="isAuthorized"><a ng-click="login()" href=""><i class="fa fa-sign-in"></i> Sign in</a></li>
             <li ng-show="isAuthorized"><a ng-click="logout()" href=""><i class="fa fa-sign-out"></i> Sign out</a></li>
         </ul>
