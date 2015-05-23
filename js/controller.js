@@ -399,14 +399,10 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 
 		$scope.getRating = function(quest) {
 			var rateObject = $scope.ratingsObject[quest.$id];
-			console.log($scope.ratingsObject);
-			console.log(quest.$id);
-			console.log($scope.viewsObject[quest.$id]);
-
 			if (rateObject) {
 				var users = Object.keys(rateObject);
 				var i;
-				var sum;
+				var sum = 0;
 				for (i = 0; i < users.length; i++) {
 				  sum += rateObject[users[i]];
 				}
@@ -427,7 +423,9 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		};
 
 		$scope.mainOrder = function(quest) {
-			return -$scope.getViews(quest);
+			var views = $scope.getViews(quest);
+			var rating = $scope.getRating(quest) + 1;
+			return -views*rating;
 		};
 	}])
 //Magic directive that helps to download quests
