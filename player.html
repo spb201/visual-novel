@@ -19,6 +19,7 @@
     <h1>Thank you for playing “{{quest.title || 'Untitled'}}”!</h1>
     <img class="player-image" ng-src="{{quest.image}}" ng-show="hasImage(quest)">
     <div ng-show="isAuthorized">Please rate: <div class="star-rating" star-rater rating="rate.$value" rate="toggleRate"></div></div>
+    <div>Author: <a ng-href="#/user/{{quest.uid}}" class="author-link">{{getAuthor(quest)}}</a></div>
 
     <div class="controls">
       <div class="btn btn-default btn-move cursor-pointer" ng-click="restart()">Restart</div>

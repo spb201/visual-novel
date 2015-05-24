@@ -562,6 +562,10 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		$scope.hasImage = function(quest) {
 			return !!quest.image;
 		};
+
+		$scope.getAuthor = function(quest) {
+			return parseInt(quest.uid.replace('facebook:', ''), 10).toString(36);
+		};
 	}])
 //Magic directive that helps to download quests
 	.directive('onReadFile', function ($parse) {

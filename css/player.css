@@ -43,3 +43,11 @@ ul.rating {
 .player-image {
   margin: 5px;
 }
+
+.author-link {
+  color: #555;
+}
+
+.author-link:hover {
+  color: #222;
+}
