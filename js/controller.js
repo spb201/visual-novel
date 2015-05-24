@@ -310,7 +310,6 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		if ($scope.authData) {
 			$scope.isAuthorized = true;
 		}
-		console.log($location.$$path);
 		if ($location.$$path === '/user' && $scope.authData) {
 			$location.path('/user/' + $scope.authData.uid);
 		};
