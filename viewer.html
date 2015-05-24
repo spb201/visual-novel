@@ -37,8 +37,8 @@
 					<p>{{ quest.descr || 'This visual novel have no description' }}</p>
 					<div class="quest-footer">
 						<div class="quest-footer-author">by  <a ng-href="#/user/{{quest.uid}}" class="author-link">{{getAuthor(quest)}}</a></div>
-						<div class="quest-footer-views">{{ 'Views: ' + getViews(quest) }}</div>
-						<div class="star-rating" star-rating quest="quest" get-rating="getRating" ratings-object="ratingsObject"></div>
+						<div class="quest-footer-views pull-left">{{ 'Views: ' + getViews(quest) }}</div>
+						<div class="star-rating pull-right" star-rating quest="quest" get-rating="getRating" ratings-object="ratingsObject"></div>
 					</div>
 				</div>
 			</div>

@@ -170,32 +170,24 @@ ul.rating {
 
 
 .quest-footer {
-  position: absolute;
   width: 100%;
   height: 45px;
-  bottom: 10px;
+  margin-top: 40px;
 }
 
 .quest-footer-author {
+  margin-bottom: 10px;
   width: 100%;
-  position: absolute;
   text-align:center;
-  top: 0;
   font-style: italic; 
 }
 
 .quest-footer-views {
-  position: absolute;
   padding-left: 10px;
-  bottom: 0;
-  left: 0;
 }
 
 .star-rating {
-  position: absolute;
   padding-right: 10px;
-  bottom: 0;
-  right: 0;
 }
 
 
