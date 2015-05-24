@@ -4,7 +4,7 @@
     <img class="player-image" ng-src="{{node.imagesrc}}" ng-show="node.image">
     <h3 class="pagination-centered" ng-bind="node.text"></h2>
     <div class="ways">
-      <div ng-repeat="i in _.range(node.ways_ids.length)" ng-show="node.ways_ids[i]" class="btn btn-default btn-move cursor-pointer" ng-click="moveTo(node.ways_ids[i])" ng-bind="wayText(i)"></div>
+      <div ng-repeat="i in _.range(node.ways_ids.length)" ng-show="node.ways_ids[i] !== undefined" class="btn btn-default btn-move cursor-pointer" ng-click="moveTo(node.ways_ids[i])" ng-bind="wayText(i)"></div>
       <div ng-click="finish()" ng-show="node.final" class="btn btn-default btn-move cursor-pointer">Continue</div>
     </div>
 
