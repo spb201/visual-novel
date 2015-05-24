@@ -178,6 +178,7 @@ ul.rating {
   position: absolute;
   top: 30%;
   transform: translateY(-30%);
+  -webkit-transform: translateY(-30%);
   padding-left:10px;
   padding-right:10px;
 }
