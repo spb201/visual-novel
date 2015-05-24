@@ -79,6 +79,10 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 				templateUrl : 'viewer.html',
 				controller  : 'viewerController'
 			})
+			.when('/user', {
+				templateUrl : 'viewer.html',
+				controller  : 'viewerController'
+			})
 			.when('/edit/:id', {
 				templateUrl : 'maker.html',
 				controller  : 'makerController'
@@ -105,13 +109,14 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 				.then(function(authData) {
 					console.log("Authenticated successfully with payload:", authData);
 					$scope.isAuthorized = true;
+					document.location.reload();
 				}, function(err) {
 					console.log("Login Failed!", error);
 				});
 		};
 		$scope.logout = function() {
 			auth.$unauth();
-			document.location = 'index.html';
+			document.location = '/';
 		};
 
 		$scope.isActive = function(route) {
@@ -286,7 +291,6 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 	.controller("viewerController", ["$scope", "$http", "$firebaseArray", "$firebaseObject", "$firebaseAuth", "$location", "$routeParams",
 	function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth, $location, $routeParams) {
 		$scope.uid = $routeParams.uid;
-		if ($location.$$path === '/mynovels' && !$scope.isAuthorized) document.location = 'index.html';
 		var ref = new Firebase(FIREBASE_URL);
 
 		var questsRef = ref.child('quests');
@@ -306,6 +310,10 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		if ($scope.authData) {
 			$scope.isAuthorized = true;
 		}
+		console.log($location.$$path);
+		if ($location.$$path === '/user' && $scope.authData) {
+			$location.path('/user/' + $scope.authData.uid);
+		};
 		$scope.newQuest = function() {
 			$scope.allQuests.$add({
 				descr: '',
@@ -409,14 +417,14 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 
 		$scope.questFilter = function(quest) {
 			var uid = $scope.uid;
-			var isOwner = $scope.authData.uid == uid;
+			var isOwner = $scope.authData ? $scope.authData.uid == uid : false;
 			return isOwner ? !!(quest.uid == uid && quest.last_change) :
 							   uid ? !!(quest.is_public && quest.uid == uid && quest.last_change) :
 							   			 !!(quest.is_public && quest.last_change);
 		};
 
 		$scope.isMyQuest = function(quest) {
-			return quest.uid == $scope.authData.uid;
+			return $scope.authData ? quest.uid == $scope.authData.uid : false;
 		}
 
 	}])
