@@ -506,6 +506,8 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		};
 
 		$scope.restart = function() {
+			$scope.loaded = true;
+			$scope.isCongrats = false;
 			$scope.moveTo(0);
 		};
 
