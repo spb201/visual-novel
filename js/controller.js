@@ -543,6 +543,14 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 			$scope.rate.$value = value;
 			$scope.rate.$save();
 		};
+
+		$scope.wayText = function(i) {
+			return $scope.node.ways[i] || 'Continue';
+		};
+
+		$scope.hasImage = function(quest) {
+			return !!quest.image;
+		};
 	}])
 //Magic directive that helps to download quests
 	.directive('onReadFile', function ($parse) {
