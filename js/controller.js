@@ -1,5 +1,8 @@
 var FIREBASE_URL = "https://spb201.firebaseio.com/";
 var _cy;
+
+var graphLayout = function(_name){setInterval(function(){_cy.makeLayout({name:_name}).run()},1000);};
+
 //magic function that helps to download quest as file
 function download(filename, text) {
     var pom = document.createElement('a');
