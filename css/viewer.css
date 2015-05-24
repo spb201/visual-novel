@@ -24,6 +24,8 @@
 	background-color: rgba(238,238,238, .75);
 	border: 5px solid rgba(238,238,238, .1);
 	border-radius: 14px;
+  padding-left: 1px;
+  padding-right: 1px;
 }
 
 .xmark-viewer:hover {
@@ -32,10 +34,10 @@
 	border: 5px solid rgba(238,238,238, 1);
 }
 
-.xmark-viewer:hover.edit:after{content:'edit';}
-.xmark-viewer:hover.delete:after{content:'delete';}
-.xmark-viewer:hover.publish:after{content:'publish';}
-.xmark-viewer:hover.unpublish:after{content:'unpublish';}
+.xmark-viewer:hover.edit:after{content:' edit';}
+.xmark-viewer:hover.delete:after{content:' delete';}
+.xmark-viewer:hover.publish:after{content:' publish';}
+.xmark-viewer:hover.unpublish:after{content:' unpublish';}
 
 
 .cursor-pointer {

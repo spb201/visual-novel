@@ -183,7 +183,18 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 				$scope._q.$save();
 				alertify.alert('Successfully saved to server');
 			}
-		}
+		};
+
+		$scope.publish = function() {
+			$scope._q.is_public = true;
+			$scope.saveToServer();
+		};
+
+		$scope.unpublish = function() {
+			$scope._q.is_public = false;
+			$scope.saveToServer();
+		};
+
     $scope.add = function() {
 		  if (!$scope._q) {
 		    $scope._q = {nodes :[]};

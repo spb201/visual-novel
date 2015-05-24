@@ -20,10 +20,10 @@
 
   	<div ng-repeat="quest in allQuests | orderBy: questOrder | filter: questFilter" class="quest">
 			<div class="quest-controls" ng-show="isMyQuest(quest)">
-				<span class="glyphicon glyphicon-cloud-upload xmark-viewer publish" ng-hide="quest.is_public" ng-click="publish(quest)"></span>
-				<span class="glyphicon glyphicon-cloud-download xmark-viewer unpublish" ng-show="quest.is_public" ng-click="unpublish(quest)"></span>
-				<span class="glyphicon glyphicon-edit edit xmark-viewer" ng-click="editQuest(quest.$id)"></span>
-				<span class="glyphicon glyphicon-remove delete xmark-viewer" ng-click="remove(quest)"></span>
+				<i class="fa fa-cloud-upload xmark-viewer publish" ng-hide="quest.is_public" ng-click="publish(quest)"></i>
+				<i class="fa fa-cloud-download xmark-viewer unpublish" ng-show="quest.is_public" ng-click="unpublish(quest)"></i>
+				<i class="fa fa-edit edit xmark-viewer" ng-click="editQuest(quest.$id)"></i>
+        <i class="fa fa-times delete xmark-viewer" ng-click="remove(quest)"></i>
 			</div>
 			<div class="quest-container cursor-pointer" ng-click="go('play/' + quest.$id)">
         <div class="quest-features"> 
