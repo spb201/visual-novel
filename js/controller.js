@@ -132,6 +132,7 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		};
 
 		$scope.go = function(path) {
+			window.sessionStorage.setItem('gofrom', $location.path());
 		  $location.path(path);
 		};
 	}])
@@ -512,7 +513,7 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		};
 
 		$scope.saveAndQuit = function() {
-			$location.path('/');
+			$location.path(window.sessionStorage.getItem('gofrom') || '/');
 		};
 
 		$scope.quit = function() {
@@ -520,7 +521,7 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 				$scope.savedNode.$value = 0;
 				$scope.savedNode.$save();
 			}
-			$location.path('/');
+			$location.path(window.sessionStorage.getItem('gofrom') || '/');
 		};
 
 		$scope.incrementViews = function() {
