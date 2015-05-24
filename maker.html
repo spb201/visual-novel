@@ -4,22 +4,25 @@
 <div id="maker">
 	<div class="nodebar">
 		<div class="sidebar-controls">
-			Title: <input ng-model="_q.title" type="text" class="form-control">
+			<i class="fa fa-tag"></i> Title: <input ng-model="_q.title" type="text" class="form-control">
 		</div>
 		<div class="sidebar-controls">
-			Description: <input ng-model="_q.descr" type="text" class="form-control">
+			<i class="fa fa-file-o"></i> Description: <input ng-model="_q.descr" type="text" class="form-control">
 		</div>
 		<div class="sidebar-controls">
-			Image: <input ng-model="_q.image" type="text" class="form-control">
+			<i class="fa fa-image"></i> Image: <input ng-model="_q.image" type="text" class="form-control">
 		</div>
-		<div class="sidebar-controls" ng-click="saveToServer()">Save</div>
-		<div class="sidebar-controls" id="show-graph" ng-click="graphBtn()">Show nodes graph</div>
+		<div class="sidebar-controls" ng-click="saveToServer()"><span class="side-bar-text"><i class="fa fa-floppy-o"></i> Save</span></div>
+		<div class="sidebar-controls" id="show-graph" ng-click="graphBtn()"><span class="side-bar-text">Show nodes graph</span></div>
 		<div class="node" ng-repeat="node in _q.nodes  | filter: notRemoved" ng-click="selectNode(node.id)">
 			<span class="glyphicon glyphicon-remove nodebar-xmark" ng-click="remove(node.id)"></span>
-			<span class="node-id" ng-bind="node.id"></span>
+			<div class="side-bar-id-container"><span class="side-bar-id" ng-bind="node.id"></span></div>
+			<div class="side-bar-thumbnail-container">
+				<img class="side-bar-thumbnail" ng-src="{{ node.imagesrc }}" ng-show="node.image" ng-show>
+			</div>
 		</div>
 		<div class="sidebar-controls" ng-click="add()">
-			<span class="node-id">add new node</span>
+			<span class="side-bar-text"><i class="fa fa-plus"></i> New node</span>
 		</div>	
 	</div>
 	<div id="hide-nodebar">

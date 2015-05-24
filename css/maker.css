@@ -25,6 +25,9 @@
 	background-color: #E7E7E7;
 	border: 1px solid #D6D6D6;
 	cursor: pointer;
+	position: relative;
+	text-align: center;
+	border-radius: 5px;
 }
 
 .xmark {
@@ -75,11 +78,74 @@
 	background-color: #E7E7E7;
 	border: 1px solid #D6D6D6;
 	cursor: pointer;
+	position: relative;
+  border-radius: 5px;
 }
 
 .node .node-id {
-	position: relative;
+	position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 	left: 10px;
+}
+
+.side-bar-text {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.side-bar-id-container {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  width: 100%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+	font-size: 2em;
+	z-index: 3;
+}
+
+.side-bar-id {
+	background-color: rgba(238,238,238, .75);
+  border: 5px solid rgba(238,238,238, .1);
+  border-radius: 5px;
+  position: relative;
+  z-index: 3;
+}
+
+.side-bar-thumbnail-container {
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	position:absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	border-radius: 5px;
+}
+
+.side-bar-thumbnail {
+	max-width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+  border-radius: 5px;
+  filter: blur(1px);
+  -webkit-filter: blur(1px)
 }
 
 .selected-node {
@@ -153,4 +219,5 @@
 	border: 1px solid #D6D6D6;
 	border-radius: 50%;
 	padding: 3px;
+	z-index: 5;
 }
