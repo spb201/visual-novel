@@ -24,7 +24,7 @@
 			<span class="glyphicon glyphicon-remove nodebar-xmark" ng-click="remove(node.id)"></span>
 			<div class="side-bar-id-container"><span class="side-bar-id" ng-bind="node.id"></span></div>
 			<div class="side-bar-thumbnail-container">
-				<img class="side-bar-thumbnail" ng-src="{{ node.imagesrc }}" ng-show="node.image" ng-show>
+				<img class="side-bar-thumbnail" ng-src="{{ node.imagesrc }}" ng-show="node.image">
 			</div>
 		</div>
 		<div class="sidebar-controls" ng-click="add()">
@@ -41,34 +41,42 @@
 			<span class="input-group-addon">Text</span>
 			<input ng-model="selectedNode.text" class="form-control">
 		</div>
-		<div class="row margin-top">
-			<span class="col-md-3">Way id</span>
-			<span class="col-md-7">Way text</span>
+		<div class="row margin-top margin-bottom" ng-show="selectedNode.ways && selectedNode.ways.length > 0">
+			<span class="col-md-3">Path ID</span>
+			<span class="col-md-7">Path label</span>
 		</div>
 		<div class="row" ng-repeat="i in  _.range(selectedNode.ways_ids.length)">
-			<div class="col-xs-3">
+			<div class="col-xs-3 col-left">
 				<select class="form-control" ng-model="selectedNode.ways_ids[i]">
 					<option ng-repeat="node in _q.nodes | filter: notRemoved">{{ node.id }}</option>
 				</select>
 			</div>
-			<div class="col-xs-7">
+			<div class="col-xs-6 col-middle">
 				<input ng-model="selectedNode.ways[i]" class="form-control">
 			</div>
-			<div class="col-xs-2 cursor-pointer">
-			  <span class="glyphicon glyphicon-remove remove-button" ng-click="removeWay(selectedNode.id, i)"></span>
+			<div class="col-xs-3 col-right">
+			  <div class="btn btn-default remove-way " ng-click="removeWay(selectedNode.id, i)"><i class="fa fa-times"></i> Remove path</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-3 col-left"></div>
+			<div class="col-xs-6 col-middle"></div>
+			<div class="col-xs-3 col-right">
+				<div class="btn btn-default remove-way " ng-click="addWay(selectedNode.id)"><i class="fa fa-plus"> Add path</i></div>
 			</div>
 		</div>
 		<div class="form-inline">
-			<div class="btn btn-default margin-top" ng-click="addWay(selectedNode.id)">Add new way</div>
-			<div class="btn btn-default margin-top" ng-click="remove(selectedNode.id)">Delete node</div>
-			<div class="margin-top"><input type="checkbox" ng-model="selectedNode.image"> Image</div>
+			<div class="margin-top"><input type="checkbox" ng-model="selectedNode.image"> Image </div>
 			<input ng-model="selectedNode.imagesrc" class="form-control" type="text" ng-show="selectedNode.image">
-			<img ng-src="{{ selectedNode.imagesrc }}" ng-show="selectedNode.image" style="max-width: 100px; max-height: 100px;"></img>
-		<div class="checkbox">
-			<label>
-				<input ng-model="selectedNode.final" type="checkbox"> Final
-			</label>
-		</div>
+			<img ng-src="{{ selectedNode.imagesrc }}" ng-show="selectedNode.image" class="selected-thumbnail">
+			<br/>
+			<div class="checkbox">
+				<label>
+					<input ng-model="selectedNode.final" type="checkbox"> Final
+				</label>
+			</div>
+			<br/>
+			<div class="btn btn-default margin-top" ng-click="remove(selectedNode.id)"><i class="fa fa-times"></i> Delete node</div>
 		</div>
 	</div>
 	<!-- GRAPH -->

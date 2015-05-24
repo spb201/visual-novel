@@ -293,7 +293,7 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		};
 		
 		$scope.$watch(
-			function($scope){return $scope._q;},
+			function($scope){return $scope._q.nodes ? $scope._q.nodes.map(function(node) {return node.ways_ids;}) : null;},
 			function(){if(typeof(cytoscape) !== 'undefined') $scope.renewGraph();},
 			true
 		);
