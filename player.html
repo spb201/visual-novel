@@ -10,7 +10,7 @@
 
     <div class="controls">
       <div class="btn btn-default btn-move btn-xs cursor-pointer" ng-click="restart()">Reset</div>
-      <div class="btn btn-default btn-move btn-xs cursor-pointer" ng-click="saveAndQuit()">Save and quit</div>
+      <div class="btn btn-default btn-move btn-xs cursor-pointer" ng-click="saveAndQuit()">{{isAuthorized ? 'Save and quit' : 'Quit'}}</div>
     </div>
   </div>
 
