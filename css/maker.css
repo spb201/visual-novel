@@ -158,7 +158,7 @@
 	overflow-y: auto;
 	overflow-x: hidden;
 	background-color: #FAFAFA;
-	border: 1px solid #D6D6D6;
+	border-top: 1px solid #D6D6D6;
 	text-align: center;
 	padding: 10px;
 }
