@@ -407,7 +407,7 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		};
 
 		$scope.getAuthor = function(quest) {
-			return parseInt(quest.uid.replace('facebook:', ''), 10).toString(36);
+			return quest.uid ? parseInt(quest.uid.replace('facebook:', ''), 10).toString(36) : '';
 		} 
 
 		$scope.rate = function(quest, rating) {
@@ -564,7 +564,7 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		};
 
 		$scope.getAuthor = function(quest) {
-			return parseInt(quest.uid.replace('facebook:', ''), 10).toString(36);
+			return quest.uid ? parseInt(quest.uid.replace('facebook:', ''), 10).toString(36) : '';
 		};
 	}])
 //Magic directive that helps to download quests
