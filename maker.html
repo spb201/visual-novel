@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="css/maker.css">
-<script src="js/maker.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/2.4.0/cytoscape.min.js"></script>
 <div id="maker">
 	<div class="nodebar">
@@ -21,7 +20,6 @@
 		<div class="sidebar-controls" ng-click="unpublish()" ng-show="_q.is_public">
 			<span class="side-bar-text"><i class="fa fa-cloud-download"></i> Unpublish</span>
 		</div>
-		<div class="sidebar-controls" id="show-graph" ng-click="graphBtn()"><span class="side-bar-text">Show nodes graph</span></div>
 		<div class="node" ng-repeat="node in _q.nodes  | filter: notRemoved" ng-click="selectNode(node.id)">
 			<span class="glyphicon glyphicon-remove nodebar-xmark" ng-click="remove(node.id)"></span>
 			<div class="side-bar-id-container"><span class="side-bar-id" ng-bind="node.id"></span></div>
@@ -33,20 +31,19 @@
 			<span class="side-bar-text"><i class="fa fa-plus"></i> New node</span>
 		</div>	
 	</div>
-	<div id="hide-nodebar">
-		<span id="arrow">hide</span>
-	</div>
 	<!-- SELECTED NODE -->
 	<div class="selected-node" ng-show="selectedNode">
-	  <span class="glyphicon glyphicon-remove" ng-click="remove(selectedNode.id)"></span>
-		<span class="node-id">{{ selectedNode.id }}</span>
+		<h1>
+			<span class="node-id">{{ selectedNode.id }}</span>
+			<!--span class="glyphicon glyphicon-remove remove-button" ng-click="remove(selectedNode.id)"></span-->
+		</h1>
 		<div class="input-group">
 			<span class="input-group-addon">Text</span>
 			<input ng-model="selectedNode.text" class="form-control">
 		</div>
-		<div class="row">
+		<div class="row margin-top">
 			<span class="col-md-3">Way id</span>
-			<span class="col-md-9">Way text</span>
+			<span class="col-md-7">Way text</span>
 		</div>
 		<div class="row" ng-repeat="i in  _.range(selectedNode.ways_ids.length)">
 			<div class="col-xs-3">
@@ -58,19 +55,20 @@
 				<input ng-model="selectedNode.ways[i]" class="form-control">
 			</div>
 			<div class="col-xs-2 cursor-pointer">
-			  <span class="glyphicon glyphicon-remove" ng-click="removeWay(selectedNode.id, i)"></span>
+			  <span class="glyphicon glyphicon-remove remove-button" ng-click="removeWay(selectedNode.id, i)"></span>
 			</div>
 		</div>
-		<div class="btn btn-default" ng-click="addWay(selectedNode.id)">Add new way</div>
 		<div class="form-inline">
-			<label><input type="checkbox" ng-model="selectedNode.image"> Image</label>
+			<div class="btn btn-default margin-top" ng-click="addWay(selectedNode.id)">Add new way</div>
+			<div class="btn btn-default margin-top" ng-click="remove(selectedNode.id)">Delete node</div>
+			<div class="margin-top"><input type="checkbox" ng-model="selectedNode.image"> Image</div>
 			<input ng-model="selectedNode.imagesrc" class="form-control" type="text" ng-show="selectedNode.image">
 			<img ng-src="{{ selectedNode.imagesrc }}" ng-show="selectedNode.image" style="max-width: 100px; max-height: 100px;"></img>
-		</div>
 		<div class="checkbox">
 			<label>
 				<input ng-model="selectedNode.final" type="checkbox"> Final
 			</label>
+		</div>
 		</div>
 	</div>
 	<!-- GRAPH -->
