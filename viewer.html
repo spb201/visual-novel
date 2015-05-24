@@ -10,37 +10,32 @@
 </div>
 <div class="container text-center">
 	<div ng-hide="hideStart" class="panels">
-	  <div class="panel" ng-show="isActive('/user/' + authData.uid)">
-			<div ng-click="newQuest()" class="cursor-pointer">
-				<div class="a-container">
-					<div class="main-img-container">
-						<img class="add-img" src='/i/add.png'>
-					</div>
-					<h2 class="title">Create new visual novel</h2>
-				</div>
-			</div>
-		</div>
+		<div ng-click="newQuest()" class="cursor-pointer quest" ng-show="isActive('/user/' + authData.uid)">
+      <div class="quest-container cursor-pointer">
+        <h2 class="invisible-title">New novel</h2>
+        <i class="fa fa-plus big-plus"></i>
+      </div>
+    </div>
 
-  	<div ng-repeat="quest in allQuests | orderBy: questOrder | filter: questFilter" class="quests">
+
+  	<div ng-repeat="quest in allQuests | orderBy: questOrder | filter: questFilter" class="quest">
 			<div class="quest-controls" ng-show="isMyQuest(quest)">
 				<span class="glyphicon glyphicon-cloud-upload xmark-viewer publish" ng-hide="quest.is_public" ng-click="publish(quest)"></span>
 				<span class="glyphicon glyphicon-cloud-download xmark-viewer unpublish" ng-show="quest.is_public" ng-click="unpublish(quest)"></span>
 				<span class="glyphicon glyphicon-edit edit xmark-viewer" ng-click="editQuest(quest.$id)"></span>
 				<span class="glyphicon glyphicon-remove delete xmark-viewer" ng-click="remove(quest)"></span>
 			</div>
-			<div ng-click="go('play/' + quest.$id)" class="cursor-pointer">
-				<div class="a-container">
-					<div class="main-img-container">
-						<img class="main-img" ng-src="{{ quest.image|| 'http://upload.wikimedia.org/wikipedia/commons/6/69/Wikipetan_Visual_Novel_Kor.png' }}">
-					</div>
-					<h2 class="title">{{ quest.title || 'untitled' }}</h2>
-					<p>{{ quest.descr || 'This visual novel have no description' }}</p>
-					<div class="quest-footer">
-						<div class="quest-footer-author">by  <a ng-href="#/user/{{quest.uid}}" class="author-link">{{getAuthor(quest)}}</a></div>
-						<div class="quest-footer-views pull-left">{{ 'Views: ' + getViews(quest) }}</div>
-						<div class="star-rating pull-right" star-rating quest="quest" get-rating="getRating" ratings-object="ratingsObject"></div>
-					</div>
-				</div>
+			<div class="quest-container cursor-pointer" ng-click="go('play/' + quest.$id)">
+        <div class="quest-features"> 
+  				<div class="quest-descr">{{ quest.descr || 'This visual novel have no description' }}</div>
+  				<div class="quest-footer">
+  					<div class="quest-footer-author">by  <a ng-href="#/user/{{quest.uid}}" class="author-link">{{getAuthor(quest)}}</a></div>
+  					<div class="quest-footer-views pull-left">{{ 'Views: ' + getViews(quest) }}</div>
+  					<div class="star-rating pull-right" star-rating quest="quest" get-rating="getRating" ratings-object="ratingsObject"></div>
+  				</div>
+        </div>
+        <img class="quest-img" ng-src="{{ quest.image|| 'http://upload.wikimedia.org/wikipedia/commons/6/69/Wikipetan_Visual_Novel_Kor.png' }}">
+        <h2 class="quest-title">{{ quest.title || 'untitled' }}</h2>
 			</div>
 		</div>
   </div>
