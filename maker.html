@@ -20,7 +20,7 @@
 			<span class="side-bar-text"><i class="fa fa-cloud-download"></i> Unpublish</span>
 		</div>
 		<div class="node" ng-repeat="node in _q.nodes  | filter: notRemoved" ng-click="selectNode(node.id)">
-			<span class="glyphicon glyphicon-remove nodebar-xmark" ng-click="remove(node.id)"></span>
+			<span class="glyphicon glyphicon-remove nodebar-xmark" ng-click="remove(node.id)" ng-show="node.id > 0"></span>
 			<div class="side-bar-id-container"><span class="side-bar-id" ng-bind="node.id"></span></div>
 			<div class="side-bar-thumbnail-container">
 				<img class="side-bar-thumbnail" ng-src="{{ node.imagesrc }}" ng-show="node.image">
@@ -44,7 +44,7 @@
 			<span class="col-md-3">Path ID</span>
 			<span class="col-md-7">Path label</span>
 		</div>
-		<div class="row" ng-repeat="i in  _.range(selectedNode.ways_ids.length)">
+		<div class="row" ng-repeat="i in  _.range(selectedNode.ways_ids.length)" ng_hide="selectedNode.final">
 			<div class="col-xs-3 col-left">
 				<select class="form-control" ng-model="selectedNode.ways_ids[i]">
 					<option ng-repeat="node in _q.nodes | filter: notRemoved">{{ node.id }}</option>
@@ -57,7 +57,7 @@
 			  <div class="btn btn-default remove-way " ng-click="removeWay(selectedNode.id, i)"><i class="fa fa-times"></i> Remove path</div>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row" ng_hide="selectedNode.final">
 			<div class="col-xs-3 col-left"></div>
 			<div class="col-xs-6 col-middle"></div>
 			<div class="col-xs-3 col-right">
@@ -75,7 +75,7 @@
 				</label>
 			</div>
 			<br/>
-			<div class="btn btn-default margin-top" ng-click="remove(selectedNode.id)"><i class="fa fa-times"></i> Delete node</div>
+			<div class="btn btn-default margin-top" ng-click="remove(selectedNode.id)" ng-show="selectedNode.id > 0"><i class="fa fa-times"></i> Delete node</div>
 		</div>
 	</div>
 	<!-- GRAPH -->
