@@ -219,6 +219,7 @@ var ngApp = angular.module("ngApp", ['ngRoute', "firebase", "infinite-scroll"])
 		$scope.remove = function(i) {
 			$scope._q.nodes[i].hide = true;
 			$scope.selectedNode = null;
+			$scope.renewGraph();
 		}
 		$scope.saved = function(savedQuest) {
 			$scope._q = JSON.parse(savedQuest);
