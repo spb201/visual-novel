@@ -21,8 +21,8 @@
   position: relative;
 	color: #555;
 	cursor: pointer;
-	background-color: rgba(238,238,238, .75);
-	border: 5px solid rgba(238,238,238, .1);
+	background-color: rgba(248,248,248, .75);
+	border: 5px solid rgba(248,248,248, .1);
 	border-radius: 14px;
   padding-left: 1px;
   padding-right: 1px;
@@ -162,8 +162,8 @@ ul.rating {
   top: 50%;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
-  background-color: rgba(238,238,238, .75);
-  border: 5px solid rgba(238,238,238, .1);
+  background-color: rgba(248,248,248, .75);
+  border: 5px solid rgba(248,248,248, .1);
   margin: 0;
   padding: 0;
   display: inline-block;
