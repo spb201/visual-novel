@@ -3,7 +3,7 @@ body {
 }
 
 menu {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 @media screen and (min-width: 639px) {
@@ -23,20 +23,20 @@ menu {
     margin-top: 5px;
     width: 100%;
   }
-  
+
   .col-def {
     width: 100%;
   }
 }
 
 .btn-facebook {
-  color:#fff;
-  background-color:#3b5998;
-  border-color:rgba(0,0,0,0.2);
+  color: #fff;
+  background-color: #3b5998;
+  border-color: rgba(0, 0, 0, 0.2);
 }
 
-.btn-facebook:hover,.btn-facebook:focus,.btn-facebook:active,.btn-facebook.active,.open>.dropdown-toggle.btn-facebook {
-  color:#fff;
-  background-color:#2d4373;
-  border-color:rgba(0,0,0,0.2);
+.btn-facebook:hover, .btn-facebook:focus, .btn-facebook:active, .btn-facebook.active, .open > .dropdown-toggle.btn-facebook {
+  color: #fff;
+  background-color: #2d4373;
+  border-color: rgba(0, 0, 0, 0.2);
 }
